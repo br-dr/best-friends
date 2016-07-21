@@ -19,5 +19,8 @@
   "homepage": "https://github.com/br-dr/best-friends#readme",
   "dependencies": {
     "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
   }
 }
