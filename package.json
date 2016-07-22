@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
+    "prestart": "npm install",
     "build": "gulp copy"
   },
   "repository": {
@@ -19,9 +20,7 @@
   },
   "homepage": "https://github.com/br-dr/best-friends#readme",
   "dependencies": {
-    "express": "^4.14.0"
-  },
-  "devDependencies": {
+    "express": "^4.14.0",
     "gulp": "^3.9.1"
   }
 }
