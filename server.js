@@ -3,7 +3,7 @@ var app = express();
 // process.env.PORT lets the port be set by Heroku
 var port = process.env.PORT || 3000;
 var mongoose = require('mongoose');
-mongoose.connect('process.env.MONGO_DB');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/best_friends_db');
 
 app.use(express.static(__dirname + '/client'));
 
