@@ -5,3 +5,18 @@
 .jumbotron {
 	margin: 0px;
 }
+
+.login-form-background,
+.registration-form-background {
+    background-color: #f5f5ef;
+    border: 5px solid;
+    border-radius: 15px;
+    border-color: #f5f5ef;
+    margin-top: 80px;
+    
+}
+
+.btn-google {
+	background-color: #DD4B39;
+	color: #fff;
+}
