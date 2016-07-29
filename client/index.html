@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
+<body ng-app="app">
 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -28,18 +28,20 @@
         <li><a href="#">Page 3</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="components/login/login.html"><span class="glyphicon glyphicon-user"></span> Login</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Registration</a></li>
+        <li><a ui-sref="profile"> Profile</a></li>
+        <li><a ui-sref="login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+        <li><a ui-sref="registration"><span class="glyphicon glyphicon-log-in"></span> Registration</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
-<section>
-  <div>
-    <h1>Welcome to Best friends social network!!!!</h1>
-  </div>
-</section>
+<div ui-view></div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+    <script src="/index.js"></script>
+    <script src="/configs/states.js"></script>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
