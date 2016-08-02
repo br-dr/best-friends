@@ -21,7 +21,7 @@
                 })
                 .state('profile', {
                     url: "/profile",
-                    templateUrl: "components/profile/profile.html"   
+                    templateUrl: "components/profile/profile.html",                   
                 })
                                             
                

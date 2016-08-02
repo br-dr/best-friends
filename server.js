@@ -23,11 +23,10 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 var session = require('express-session');
+app.use(session({secret:'mysecret'}))
 app.use(passport.initialize())
 app.use(passport.session()); 
 
-
-// var config = require('./client/configs/oauth.js');
 var GoogleStrategy = require('passport-google-oauth2').Strategy;
 var dotenv = require('dotenv');
 dotenv.config();
@@ -46,16 +45,24 @@ var userSchema = new Schema({
 
 var User = mongoose.model('User', userSchema);
 
+// serialize and deserialize
+    // used to serialize the user for the session
+    passport.serializeUser(function(user, done) {
+        done(null, user.id);
+    });
 
+    // used to deserialize the user
+    passport.deserializeUser(function(id, done) {
+        User.findById(id, function(err, user) {
+            done(err, user);
+        });
+    });
 
 // config
 
 var GoogleStrategy = require('passport-google-oauth2').Strategy;
 
 passport.use(new GoogleStrategy({
-  // clientID: config.google.clientID,
-  // clientSecret: config.google.clientSecret,
-  // callbackURL: config.google.callbackURL
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: "http://localhost:3000/auth/google/callback"
@@ -75,25 +82,17 @@ passport.use(new GoogleStrategy({
         });
         user.save(function (err) {
           if (err) {
-            console.log(err);  // handle errors!
+            console.log(err);
           } else {
             console.log("saving user ...");
             done(null, user);
+            console.log(user);
           }
         });
       }
     });
   }
 ));
-
-// serialize and deserialize
-passport.serializeUser(function (user, done) {
-  done(null, user);
-});
-passport.deserializeUser(function (obj, done) {
-  done(null, obj);
-});
-
 
 //routes
 
@@ -102,7 +101,8 @@ app.get('/profile', ensureAuthenticated, function(req, res){
     if(err) {
       console.log(err);  // handle errors
     } else {
-      res.render('profile', { user: user});
+      // res.render('profile', { user: user});
+      res.send(req.user);            
     }
   });
 });
@@ -122,13 +122,17 @@ app.get('/auth/google/callback',
 
   app.get('/logout', function(req, res){
   req.logout();
+  consol.log('logged out');
   res.redirect('/');
 });
 
 
 // test authentication
 function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
+  if (req.isAuthenticated()) { 
+    console.log ('auth done!!');
+    return next();
+   }
   res.redirect('/');
 }
 
