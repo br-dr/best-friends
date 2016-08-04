@@ -1,4 +1,6 @@
 var express = require('express');
+var dotenv = require('dotenv');
+dotenv.config();
 var app = express();
 // process.env.PORT lets the port be set by Heroku
 var port = process.env.PORT || 3000;
@@ -10,9 +12,7 @@ app.use(express.static(__dirname + '/client'));
 /*app.get('/', function (req, res) {
   res.send('Hello World!');
 });*/
-app.listen(port, function () {
-  console.log('Example app listening ' + port);
-});
+
 // var config = require('./oauth.js');
 
 var passport = require('passport');
@@ -28,8 +28,7 @@ app.use(passport.initialize())
 app.use(passport.session()); 
 
 var GoogleStrategy = require('passport-google-oauth2').Strategy;
-var dotenv = require('dotenv');
-dotenv.config();
+
 
 // create a user model
 
@@ -96,13 +95,16 @@ passport.use(new GoogleStrategy({
 
 //routes
 
+  
+
 app.get('/profile', ensureAuthenticated, function(req, res){
   User.findById(req.session.passport.user, function(err, user) {
     if(err) {
       console.log(err);  // handle errors
     } else {
       // res.render('profile', { user: user});
-      res.send(req.user);            
+      // res.send(req.user);
+      res.json(user)            
     }
   });
 });
@@ -117,12 +119,12 @@ app.get('/auth/google',
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('/profile');
+    res.redirect('/#/profile');
   });
 
   app.get('/logout', function(req, res){
   req.logout();
-  consol.log('logged out');
+  console.log('logged out');
   res.redirect('/');
 });
 
@@ -130,10 +132,18 @@ app.get('/auth/google/callback',
 // test authentication
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { 
-    console.log ('auth done!!');
+    console.log ('user is authenticated!!');
     return next();
    }
   res.redirect('/');
 }
+
+app.all('*', function(req, res){
+  res.sendfile(___dirname + '/client/index.html')
+});
+
+app.listen(port, function () {
+  console.log('Example app listening ' + port);
+});
 
 
