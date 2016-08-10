@@ -24,6 +24,11 @@
                     templateUrl: "components/profile/profile.html",
                     controller: "ProfileController as profileCtrl",                   
                 })
+                .state('search-users', {
+                    url: "/search-users",
+                    templateUrl: "components/search-users/search-users.html",
+                    controller: "SearchUsersController as searchUsersCtrl",                   
+                })
                                             
                
         });
