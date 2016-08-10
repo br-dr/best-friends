@@ -121,7 +121,7 @@ app.get('/auth/google/callback',
 });
 
 //search using regex
-app.post('/searchUsers', function (req, res) {
+app.post('/searchUsers', ensureAuthenticated, function (req, res) {
 
   var searchData = req.body.searchText;
 
@@ -142,8 +142,9 @@ function ensureAuthenticated(req, res, next) {
     console.log ('user is authenticated!!');
     return next();
    }
-  res.redirect('/');
+  res.status(401).send();
 }
+
 
 app.all('*', function(req, res){
   res.sendfile(__dirname + '/client/index.html')
