@@ -120,24 +120,6 @@ app.get('/auth/google/callback',
   res.redirect('/');
 });
 
-// search users using text indexes
-
-// add a text index 
-// userSchema.index({ name: 'text' });
-
-// app.post('/searchUsers', function(req,res) {
-  
-//   User.find({ $text: { $search: req.body.searchText } }, function(err, data) {
-//     if(err) {
-//       console.log("SOMETHING IS WRONG");
-//     } else {
-//       console.log("found!");         
-//       res.json(data);
-//     }    
-//   });    
-// });
-
-
 //search using regex
 app.post('/searchUsers', function (req, res) {
 
