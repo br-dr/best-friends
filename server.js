@@ -9,12 +9,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/best_friends_db
 
 app.use(express.static(__dirname + '/client'));
 
-/*app.get('/', function (req, res) {
-  res.send('Hello World!');
-});*/
-
-// var config = require('./oauth.js');
-
 var passport = require('passport');
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
@@ -93,9 +87,7 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-//routes
-
-  
+//routes  
 
 app.get('/profile', ensureAuthenticated, function(req, res){
   User.findById(req.session.passport.user, function(err, user) {
@@ -128,6 +120,39 @@ app.get('/auth/google/callback',
   res.redirect('/');
 });
 
+// search users using text indexes
+
+// add a text index 
+// userSchema.index({ name: 'text' });
+
+// app.post('/searchUsers', function(req,res) {
+  
+//   User.find({ $text: { $search: req.body.searchText } }, function(err, data) {
+//     if(err) {
+//       console.log("SOMETHING IS WRONG");
+//     } else {
+//       console.log("found!");         
+//       res.json(data);
+//     }    
+//   });    
+// });
+
+
+//search using regex
+app.post('/searchUsers', function (req, res) {
+
+  var searchData = req.body.searchText;
+
+    User.find({ name: new RegExp(searchData, 'i') }, function (err, data) {
+      if (err) {
+        console.log("SOMETHING IS WRONG");
+      } else {
+        console.log("found!");
+        res.json(data);
+      }
+    });
+  });
+
 
 // test authentication
 function ensureAuthenticated(req, res, next) {
@@ -139,7 +164,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 app.all('*', function(req, res){
-  res.sendfile(___dirname + '/client/index.html')
+  res.sendfile(__dirname + '/client/index.html')
 });
 
 app.listen(port, function () {
