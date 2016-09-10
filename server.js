@@ -5,9 +5,19 @@ var app = express();
 // process.env.PORT lets the port be set by Heroku
 var port = process.env.PORT || 3000;
 var mongoose = require('mongoose');
+// var multiparty = require('connect-multiparty');
+// var multipartyMiddleware = multiparty();
+// app.use(multipartyMiddleware);
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
+
+var fs = require('fs-extra');
+var path = require('path');
+
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/best_friends_db');
 
 app.use(express.static(__dirname + '/client'));
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 var passport = require('passport');
 var cookieParser = require('cookie-parser');
@@ -32,8 +42,10 @@ var userSchema = new Schema({
     oauthID: String,
     name: String,
     created: Date,
+    avatar: String,
     firstName: String,
     lastName: String
+
 });
 
 var User = mongoose.model('User', userSchema);
@@ -135,6 +147,39 @@ app.post('/searchUsers', ensureAuthenticated, function (req, res) {
     });
   });
 
+//upload avatar
+
+// app.post('/api/user/uploads', multipartyMiddleware, function(req, res){
+//      // We are able to access req.files.file thanks to 
+//     // the multiparty middleware
+//     var file = req.files.file;
+//     console.log(file.name);
+//     console.log(file.type);
+// })
+// app.post('/api/profile/editAvatar', multipartyMiddleware, function (req, res){
+  
+//     var file = req.files.file;
+
+//     console.log(file.name);
+//     console.log(file.type);
+// })
+
+app.post('/api/profile/editAvatar', ensureAuthenticated, upload.single('file'), function (req, res, next) {
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+  if (req.file) {
+    console.log(req.file);
+    
+    req.user.avatar = req.file.destination + req.file.filename;
+    req.user.save();
+    return res.sendStatus(200);  
+    
+  }
+  console.log('Missing file');
+  res.sendStatus(500);
+})
+
+
 
 // test authentication
 function ensureAuthenticated(req, res, next) {
@@ -145,9 +190,15 @@ function ensureAuthenticated(req, res, next) {
   res.status(401).send();
 }
 
+// app.all('api/*', function(req, res){
+//   res.status(404).send();
+// });
 
 app.all('*', function(req, res){
-  res.sendfile(__dirname + '/client/index.html')
+  if(req.path.indexOf('api') !== -1){ 
+   return res.status(404).send()
+  }    
+    res.sendfile(__dirname + '/client/index.html')  
 });
 
 app.listen(port, function () {

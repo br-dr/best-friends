@@ -21,12 +21,15 @@
   "homepage": "https://github.com/br-dr/best-friends#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "connect-multiparty": "^2.0.0",
     "cookie-parser": "^1.4.3",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "express-session": "^1.14.0",
+    "fs-extra": "^0.30.0",
     "gulp": "^3.9.1",
-    "mongoose": "^4.5.7",    
+    "mongoose": "^4.5.7",
+    "multer": "^1.2.0",
     "passport": "^0.3.2",
     "passport-google-oauth2": "^0.1.6"
   }
