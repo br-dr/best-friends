@@ -4,16 +4,25 @@
         <form ng-submit="searchUsersCtrl.searchUsers()">
             <div class="form-group">
                 <div>
-                    </span>
-                    <input type="text" placeholder="name" class="form-control" ng-model="searchUsersCtrl.input.searchText">
+                    <input type="text" 
+                           placeholder="name" 
+                           class="form-control" 
+                           ng-model="searchUsersCtrl.input.searchText" 
+                    />
                 </div>
             </div>
 
             <div class="text-center form-group">
-                <button type="submit" class="btn btn-success btn-lg btn-block"><span class="glyphicon glyphicon-search"></span></i>Search</button>
+                <button type="submit" class="btn btn-success btn-lg btn-block">
+                    <span class="glyphicon glyphicon-search"></span>
+                    Search
+                </button>
+            </div>
+
+            <div class="text-center form-group" ng-show="searchUsersCtrl.errorMessage">
+                <div class="alert alert-danger" role="alert">Error has occurred</div>
             </div>
         </form>      
-           
     </div>
 
     <table class="table table-striped">
@@ -21,7 +30,22 @@
             <tr ng-repeat="foundUser in searchUsersCtrl.foundUsers">
                 <td>{{foundUser._id}}</td>
                 <td>{{foundUser.name}}</td>
-
+                <td>
+                    <button class="btn btn-info" 
+                            ng-show="searchUsersCtrl.canFollow(foundUser)" 
+                            ng-click="searchUsersCtrl.follow(foundUser)"
+                    >
+                        Follow this user
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" 
+                            ng-show="searchUsersCtrl.canUnFollow(foundUser)" 
+                            ng-click="searchUsersCtrl.unfollow(foundUser)"
+                    >
+                        Unfollow
+                    </button>
+                </td>               
             </tr>
 
     </table>

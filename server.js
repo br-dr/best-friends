@@ -1,122 +1,115 @@
-var express = require('express');
 var dotenv = require('dotenv');
 dotenv.config();
-var app = express();
-// process.env.PORT lets the port be set by Heroku
-var port = process.env.PORT || 3000;
-var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/best_friends_db');
 
-app.use(express.static(__dirname + '/client'));
-
+var express = require('express');
 var passport = require('passport');
-var cookieParser = require('cookie-parser');
-app.use(cookieParser());
-// app.use(express.cookieParser());
-var bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+var mongoose = require('mongoose');
 var session = require('express-session');
-app.use(session({secret:'mysecret'}))
-app.use(passport.initialize())
-app.use(passport.session()); 
-
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var GoogleStrategy = require('passport-google-oauth2').Strategy;
+var MongoStore = require('connect-mongo')(session);
 
+var port = process.env.PORT || 3000;
 
-// create a user model
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/best_friends_db');
 
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-    oauthID: String,
-    name: String,
-    created: Date,
-    firstName: String,
-    lastName: String
+  oauthID: String,
+  name: String,
+  created: Date,
+  firstName: String,
+  lastName: String,
+  follows: Array
 });
 
 var User = mongoose.model('User', userSchema);
 
-// serialize and deserialize
-    // used to serialize the user for the session
-    passport.serializeUser(function(user, done) {
-        done(null, user.id);
-    });
-
-    // used to deserialize the user
-    passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-            done(err, user);
-        });
-    });
-
-// config
-
-var GoogleStrategy = require('passport-google-oauth2').Strategy;
-
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET, 
-  callbackURL: process.env.GOOGLE_AUTH_CALLBACK_URL || "http://localhost:" + port + "/auth/google/callback" 
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: process.env.GOOGLE_AUTH_CALLBACK_URL || "http://localhost:" + port + "/auth/google/callback"
 },
   function (accessToken, refreshToken, profile, done) {
-    User.findOne({ oauthID: profile.id }, function (err, user) {
-      if (err) {
-        console.log(err);
-      }
-      if (!err && user !== null) {
-        done(null, user);
-      } else {
-        user = new User({
+    User.findOne({ oauthID: profile.id })
+      .exec()
+      .then((user) => {
+        return user || User.create({
           oauthID: profile.id,
           name: profile.displayName,
-          created: Date.now()
+          created: Date.now(),
+          follows: []
         });
-        user.save(function (err) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log("saving user ...");
-            done(null, user);
-            console.log(user);
-          }
-        });
-      }
-    });
+      })
+      .then((user) => {
+        done(null, user);
+      })
+      .catch((err) => {
+        console.log(err);
+        done(err);
+      });
   }
 ));
 
-//routes  
+passport.serializeUser(function (user, done) {
+  done(null, user._id);
+});
 
-app.get('/profile', ensureAuthenticated, function(req, res){
-  User.findById(req.session.passport.user, function(err, user) {
-    if(err) {
-      console.log(err);  // handle errors
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user);
+  });
+});
+
+var app = express();
+
+app.use(express.static(__dirname + '/client'));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({
+  secret: 'secret',
+  maxAge: new Date(Date.now() + 3600000),
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection
+  })
+}));
+
+app.use(passport.initialize())
+app.use(passport.session());
+
+//routes
+
+app.get('/profile', ensureAuthenticated, function (req, res) {
+  User.findById(req.session.passport.user, function (err, user) {
+    if (err) {
+      res.sendStatus(400);
     } else {
-      // res.render('profile', { user: user});
-      // res.send(req.user);
-      res.json(user)            
+      res.json(user);
     }
   });
 });
 
 app.get('/auth/google',
-  passport.authenticate('google', { scope: [
-    'https://www.googleapis.com/auth/plus.login',
-    'https://www.googleapis.com/auth/plus.profile.emails.read'
-  ] }
-));
+  passport.authenticate('google', {
+    scope: [
+      'https://www.googleapis.com/auth/plus.login',
+      'https://www.googleapis.com/auth/plus.profile.emails.read'
+    ]
+  }
+  ));
 
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
-  function(req, res) {
+  function (req, res) {
     res.redirect('/#/profile');
   });
 
-  app.get('/logout', function(req, res){
+app.get('/logout', function (req, res) {
   req.logout();
-  console.log('logged out');
   res.redirect('/');
 });
 
@@ -125,33 +118,60 @@ app.post('/searchUsers', ensureAuthenticated, function (req, res) {
 
   var searchData = req.body.searchText;
 
-    User.find({ name: new RegExp(searchData, 'i') }, function (err, data) {
-      if (err) {
-        console.log("SOMETHING IS WRONG");
-      } else {
-        console.log("found!");
-        res.json(data);
-      }
-    });
+  User.find({ name: new RegExp(searchData, 'i') }, function (err, data) {
+    if (err) {
+      res.sendStatus(400);
+    } else {
+      res.json(data);
+    }
   });
+});
 
+app.post('/follow', ensureAuthenticated, function (req, res) {
+  req.user.follows = req.user.follows || [];
+  req.user.follows.push(req.body._id);
 
-// test authentication
+  req.user.follows = req.user.follows.reduce((arr, id) => {
+    if (arr.indexOf(id) === -1) {
+      arr.push(id);
+    }
+    return arr;
+  }, []);
+
+  req.user.save()
+    .then((user) => {
+      res.json(user);
+    }).catch(() => {
+      res.status(500).json(err);
+    });
+});
+
+app.post('/unfollow', ensureAuthenticated, function (req, res) {
+  var index = req.user.follows.indexOf(req.body._id);
+
+  if (index > -1) {
+    req.user.follows.splice(index, 1);
+  }
+
+  req.user.save()
+    .then((user) => {
+      res.json(user);
+    }).catch(() => {
+      res.status(500).json(err);
+    });
+});
+
 function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { 
-    console.log ('user is authenticated!!');
+  if (req.isAuthenticated()) {
     return next();
-   }
+  }
   res.status(401).send();
 }
 
-
-app.all('*', function(req, res){
+app.all('*', function (req, res) {
   res.sendfile(__dirname + '/client/index.html')
 });
 
 app.listen(port, function () {
   console.log('Example app listening ' + port);
 });
-
-
