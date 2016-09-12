@@ -3,11 +3,13 @@
 
     angular
         .module('app')
-        .controller('ProfileController', function ($http) {
+        .controller('ProfileController', function (user) {
             var vm = this;
-            $http.get('/profile')
-                .success(function (user) {
-                    vm.user = user;
-                })
+
+            vm.user = user;
+            // $http.get('/profile')
+            //     .success(function (user) {
+            //         vm.user = user;
+            //     });
         });
 })();

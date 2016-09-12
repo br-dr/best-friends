@@ -22,12 +22,22 @@
                 .state('profile', {
                     url: "/profile",
                     templateUrl: "components/profile/profile.html",
-                    controller: "ProfileController as profileCtrl",                   
+                    controller: "ProfileController as profileCtrl",  
+                    resolve: {
+                        user: function(UserService){
+                            return UserService.getCurrentUser()
+                        }
+                    }                 
                 })
                 .state('search-users', {
                     url: "/search-users",
                     templateUrl: "components/search-users/search-users.html",
-                    controller: "SearchUsersController as searchUsersCtrl",                   
+                    controller: "SearchUsersController as searchUsersCtrl",
+                    resolve: {
+                        user: function(UserService){
+                            return UserService.getCurrentUser()
+                        }
+                    }                 
                 })
                                             
                
