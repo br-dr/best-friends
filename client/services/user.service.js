@@ -10,23 +10,21 @@
                     });
             }
 
-            // vm.followUser = function (user) {
-            //     return $http.post('/follow', user)
-            //         .then(function (response) {
-            //             console.log('You are following now!');
-            //             return angular.copy(response.data, UserService.currentUser);
+            vm.followUser = function (user) {
+                return $http.post('/follow', user)
+                    .then(function (response) {
+                        return angular.copy(response.data, vm.currentUser);
                         
-            //         });
-            // }
+                    });
+            }
 
-            // vm.unFollowUser = function (user) {
-            //     return $http.post('/unfollow', user)
-            //         .then(function (response) {
-            //             console.log('Unfollowed!');
-            //             return angular.copy(response.data, UserService.currentUser);
+            vm.unFollowUser = function (user) {
+                return $http.post('/unfollow', user)
+                    .then(function (response) {
+                        return angular.copy(response.data, vm.currentUser);
                         
-            //         });
-            // }
+                    });
+            }
         }]);
 })();
 

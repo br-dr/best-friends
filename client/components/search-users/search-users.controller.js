@@ -43,23 +43,12 @@
             }
 
             function follow(user) {
-                console.log(user);
-                $http.post('/follow', user)
-                    .then(function (response) {
-                        console.log('You are following now!');
-                        return angular.copy(response.data, UserService.currentUser);
-                    });
+                UserService.followUser(user);
                                
             }
 
             function unfollow(user) {
-                console.log(user);
-                $http.post('/unfollow', user)
-                    .then(function(response) {
-                        console.log('Unfollowed!');
-                        return angular.copy(response.data, UserService.currentUser);
-                    });
-                
+                UserService.unFollowUser(user);
             }
 
 

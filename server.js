@@ -86,10 +86,8 @@ app.use(passport.session());
 app.get('/profile', ensureAuthenticated, function (req, res) {
   User.findById(req.session.passport.user, function (err, user) {
     if (err) {
-      console.log(err);  // handle errors
+      res.sendStatus(400);
     } else {
-      // res.render('profile', { user: user});
-      // res.send(req.user);
       console.log(JSON.stringify(user, null, 4));
       res.json(user);
     }
@@ -113,7 +111,6 @@ app.get('/auth/google/callback',
 
 app.get('/logout', function (req, res) {
   req.logout();
-  console.log('logged out');
   res.redirect('/');
 });
 
@@ -124,9 +121,8 @@ app.post('/searchUsers', ensureAuthenticated, function (req, res) {
 
   User.find({ name: new RegExp(searchData, 'i') }, function (err, data) {
     if (err) {
-      console.log("SOMETHING IS WRONG");
+      res.sendStatus(400);
     } else {
-      console.log("found!");
       res.json(data);
     }
   });
@@ -168,7 +164,6 @@ app.post('/unfollow', ensureAuthenticated, function (req, res) {
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    console.log('user is authenticated!!');
     return next();
   }
   res.status(401).send();
