@@ -88,7 +88,6 @@ app.get('/profile', ensureAuthenticated, function (req, res) {
     if (err) {
       res.sendStatus(400);
     } else {
-      console.log(JSON.stringify(user, null, 4));
       res.json(user);
     }
   });

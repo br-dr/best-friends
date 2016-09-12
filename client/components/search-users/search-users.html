@@ -18,8 +18,11 @@
                     Search
                 </button>
             </div>
+
+            <div class="text-center form-group" ng-show="searchUsersCtrl.errorMessage">
+                <div class="alert alert-danger" role="alert">Error has occurred</div>
+            </div>
         </form>      
-           
     </div>
 
     <table class="table table-striped">

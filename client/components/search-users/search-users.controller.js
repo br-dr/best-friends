@@ -16,15 +16,13 @@
             });
 
             function searchUsers(input) {
-                console.log(vm.input)
                 $http.post('/searchUsers', vm.input)
                     .success(function (response) {
-                        // console.log(response); 
                         vm.foundUsers = response;
-                        console.log(vm.foundUsers)
+                        vm.errorMessage = false;
                     })
                     .error(function () {
-                        console.log("SOMETHING WENT WRONG");
+                        vm.errorMessage = true;
                     });
             }
 
@@ -43,14 +41,12 @@
             }
 
             function follow(user) {
-                UserService.followUser(user);
-                               
+                UserService.followUser(user);                               
             }
 
             function unfollow(user) {
                 UserService.unFollowUser(user);
             }
-
 
         }]);
 })();

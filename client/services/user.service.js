@@ -13,16 +13,14 @@
             vm.followUser = function (user) {
                 return $http.post('/follow', user)
                     .then(function (response) {
-                        return angular.copy(response.data, vm.currentUser);
-                        
+                        return angular.copy(response.data, vm.currentUser);                        
                     });
             }
 
             vm.unFollowUser = function (user) {
                 return $http.post('/unfollow', user)
                     .then(function (response) {
-                        return angular.copy(response.data, vm.currentUser);
-                        
+                        return angular.copy(response.data, vm.currentUser);                        
                     });
             }
         }]);
