@@ -15,10 +15,10 @@
                 url: ''
             },
             user: user,
-            changeAvatar: changeAvatar,
             errorUrl: false,
-            cancelUrlInput: cancelUrlInput,
             shouldShowInput: false,
+            changeAvatar: changeAvatar,
+            cancelUrlInput: cancelUrlInput,
             changeAvatarByKeypress: changeAvatarByKeypress
         });
 
