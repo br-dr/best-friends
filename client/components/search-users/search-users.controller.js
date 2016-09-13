@@ -15,7 +15,7 @@
                 unfollow: unfollow
             });
 
-            function searchUsers(input) {
+            function searchUsers() {
                 $http.post('/searchUsers', vm.input)
                     .success(function (response) {
                         vm.foundUsers = response;

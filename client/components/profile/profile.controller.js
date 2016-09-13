@@ -3,9 +3,48 @@
 
     angular
         .module('app')
-        .controller('ProfileController', function (user) {
-            var vm = this;
+        .controller('ProfileController', ProfileController);
 
-            vm.user = user;
+    ProfileController.$inject = ['user', '$http'];
+
+    function ProfileController(user, $http) {
+        var vm = this;
+
+        angular.extend(vm, {
+            input: {
+                url: ''
+            },
+            user: user,
+            changeAvatar: changeAvatar,
+            errorUrl: false,
+            cancelUrlInput: cancelUrlInput,
+            shouldShowInput: false,
+            changeAvatarByKeypress: changeAvatarByKeypress
         });
+
+        function changeAvatar() {
+            $http.post('/api/change-avatar', vm.input)
+                .then(function (response) {
+                    angular.copy(response.data, vm.user);
+                    vm.errorUrl = false;
+                    vm.input.url = '';
+                    vm.shouldShowInput = false;
+                })
+                .catch(function () {
+                    vm.errorUrl = true;
+                });
+        }
+
+        function cancelUrlInput() {
+            vm.shouldShowInput = false; 
+            vm.input.url = '';
+            vm.errorUrl = false;            
+        }
+
+        function changeAvatarByKeypress($event) {
+            if ($event.keyCode === 13) {
+                changeAvatar();
+            }
+        }
+    }
 })();
