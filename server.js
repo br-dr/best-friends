@@ -11,24 +11,12 @@ var GoogleStrategy = require('passport-google-oauth2').Strategy;
 var MongoStore = require('connect-mongo')(session);
 var validUrl = require('valid-url');
 
-var port = process.env.PORT || 3000;
+var User = require('./server/user');
+
+var port = process.env.PORT || 3000;  
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/best_friends_db');
-
-var Schema = mongoose.Schema;
-
-var userSchema = new Schema({
-    oauthID: String,
-    name: String,
-    created: Date,
-    firstName: String,
-    lastName: String,
-    follows: Array,
-    avatar: String
-});
-
-var User = mongoose.model('User', userSchema);
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
