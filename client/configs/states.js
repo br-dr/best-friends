@@ -29,6 +29,22 @@
                         }
                     }
                 })
+                .state('profile-public', {
+                    url: '/profile-public/:id',
+                    templateUrl: 'components/profile-public/' +
+                    'profile-public.html',
+                    controller: 'ProfilePublicController as profilePublicCtrl',
+                    resolve: {
+                        user: function($http, $stateParams) {
+                            var id = $stateParams.id;
+                            return $http.get('/profile-public/' + id)
+                                .then(function(response) {
+                                    return response.data;
+                                });
+                        }
+                    }
+
+                })
                 .state('search-users', {
                     url: '/search-users',
                     templateUrl: 'components/search-users/search-users.html',
