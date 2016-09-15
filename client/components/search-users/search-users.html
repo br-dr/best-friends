@@ -29,7 +29,9 @@
 
             <tr ng-repeat="foundUser in searchUsersCtrl.foundUsers">
                 <td>{{foundUser._id}}</td>
-                <td>{{foundUser.name}}</td>
+                <td>
+                    <a ui-sref="user({ id: foundUser._id }) ">{{foundUser.name}}</a>
+                </td>
                 <td>
                     <button class="btn btn-info" 
                             ng-show="searchUsersCtrl.canFollow(foundUser)" 

@@ -29,6 +29,23 @@
                         }
                     }
                 })
+                .state('user', {
+                    url: '/user/:id',
+                    templateUrl: 'components/user/' +
+                    'user.html',
+                    controller: 'UserController as userCtrl',
+
+                    resolve: {
+                        user: function($http, $stateParams) {
+                            var id = $stateParams.id;
+                            return $http.get('/user/' + id)
+                                .then(function(response) {
+                                    return response.data;
+                                });
+                        }
+                    }
+
+                })
                 .state('search-users', {
                     url: '/search-users',
                     templateUrl: 'components/search-users/search-users.html',

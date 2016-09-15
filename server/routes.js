@@ -17,6 +17,16 @@ app.get('/profile', ensureAuthenticated, function(req, res) {
     });
 });
 
+app.get('/user/:id', ensureAuthenticated, function(req, res) {
+    User.findById(req.params.id, function(err, user) {
+        if (err) {
+            res.sendStatus(404);
+        } else {
+            res.json(user);
+        }
+    });
+});
+
 app.get('/auth/google', passport.authenticate('google', {
     scope: [
         'https://www.googleapis.com/auth/plus.login',
