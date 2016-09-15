@@ -7,8 +7,8 @@ var validUrl = require('valid-url');
 var User = require('./user');
 var app = require('./app');
 
-app.get('/profile', ensureAuthenticated, function (req, res) {
-    User.findById(req.session.passport.user, function (err, user) {
+app.get('/profile', ensureAuthenticated, function(req, res) {
+    User.findById(req.session.passport.user, function(err, user) {
         if (err) {
             res.sendStatus(400);
         } else {
@@ -26,20 +26,20 @@ app.get('/auth/google', passport.authenticate('google', {
 
 app.get('/auth/google/callback', passport.authenticate('google', {
     failureRedirect: '/'
-}), function (req, res) {
+}), function(req, res) {
     res.redirect('/#/profile');
 });
 
-app.get('/logout', function (req, res) {
+app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
 
 //search using regex
-app.post('/searchUsers', ensureAuthenticated, function (req, res) {
+app.post('/searchUsers', ensureAuthenticated, function(req, res) {
     var searchData = req.body.searchText;
 
-    User.find({ name: new RegExp(searchData, 'i') }, function (err, data) {
+    User.find({ name: new RegExp(searchData, 'i') }, function(err, data) {
         if (err) {
             res.sendStatus(400);
         } else {
@@ -48,7 +48,7 @@ app.post('/searchUsers', ensureAuthenticated, function (req, res) {
     });
 });
 
-app.post('/follow', ensureAuthenticated, function (req, res) {
+app.post('/follow', ensureAuthenticated, function(req, res) {
     req.user.follows = req.user.follows || [];
     req.user.follows.push(req.body._id);
 
@@ -67,7 +67,7 @@ app.post('/follow', ensureAuthenticated, function (req, res) {
         });
 });
 
-app.post('/unfollow', ensureAuthenticated, function (req, res) {
+app.post('/unfollow', ensureAuthenticated, function(req, res) {
     var index = req.user.follows.indexOf(req.body._id);
 
     if (index > -1) {
@@ -104,12 +104,14 @@ function ensureAuthenticated(req, res, next) {
     res.sendStatus(401);
 }
 
-app.all('/api/*', function (req, res) {
+app.all('/api/*', function(req, res) {
     res.sendStatus(404);
 });
 
-app.all('*', function (req, res) {
-    res.sendfile(path.resolve(__dirname + '/../client/index.html'));
+app.all('*', function(req, res) {
+    res.sendfile(path
+        .resolve(path.join(__dirname, '..', '/client/index.html'))
+    );
 });
 
 module.exports = app;

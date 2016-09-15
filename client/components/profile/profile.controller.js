@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
 
     angular
@@ -24,21 +24,21 @@
 
         function changeAvatar() {
             $http.post('/api/change-avatar', vm.input)
-                .then(function (response) {
+                .then(function(response) {
                     angular.copy(response.data, vm.user);
                     vm.errorUrl = false;
                     vm.input.url = '';
                     vm.shouldShowInput = false;
                 })
-                .catch(function () {
+                .catch(function() {
                     vm.errorUrl = true;
                 });
         }
 
         function cancelUrlInput() {
-            vm.shouldShowInput = false; 
+            vm.shouldShowInput = false;
             vm.input.url = '';
-            vm.errorUrl = false;            
+            vm.errorUrl = false;
         }
 
         function changeAvatarByKeypress($event) {

@@ -12,7 +12,7 @@ var passportConfig = require('./passport-config');
 
 var app = express();
 
-app.use(express.static(path.resolve(__dirname + '/../client')));
+app.use(express.static(path.join(__dirname, '..', 'client')));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,7 +23,7 @@ app.use(session({
         mongooseConnection: mongoose.connection
     })
 }));
-app.use(passport.initialize())
+app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(passportConfig.Strategy);
