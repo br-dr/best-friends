@@ -5,9 +5,9 @@
         .module('app')
         .controller('ProfilePublicController', ProfilePublicController);
 
-    ProfilePublicController.$inject = ['user', '$http'];
+    ProfilePublicController.$inject = ['user'];
 
-    function ProfilePublicController(user, $http) {
+    function ProfilePublicController(user) {
         var vm = this;
 
         angular.extend(vm, {

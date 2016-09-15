@@ -32,6 +32,7 @@ jspm_packages
 public
 .env
 uploads
+.vscode
 
 # Optional npm cache directory
 .npm

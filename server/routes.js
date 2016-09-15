@@ -17,10 +17,10 @@ app.get('/profile', ensureAuthenticated, function(req, res) {
     });
 });
 
-app.get('/profile-public/:id', ensureAuthenticated, function(req, res) {
+app.get('/user/:id', ensureAuthenticated, function(req, res) {
     User.findById(req.params.id, function(err, user) {
         if (err) {
-            res.sendStatus(400);
+            res.sendStatus(404);
         } else {
             res.json(user);
         }

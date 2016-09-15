@@ -29,15 +29,16 @@
                         }
                     }
                 })
-                .state('profile-public', {
-                    url: '/profile-public/:id',
-                    templateUrl: 'components/profile-public/' +
-                    'profile-public.html',
+                .state('user', {
+                    url: '/user/:id',
+                    templateUrl: 'components/user/' +
+                    'user.html',
                     controller: 'ProfilePublicController as profilePublicCtrl',
+
                     resolve: {
                         user: function($http, $stateParams) {
                             var id = $stateParams.id;
-                            return $http.get('/profile-public/' + id)
+                            return $http.get('/user/' + id)
                                 .then(function(response) {
                                     return response.data;
                                 });
