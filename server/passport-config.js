@@ -8,8 +8,9 @@ var User = require('./user');
 var Strategy = new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_AUTH_CALLBACK_URL || "http://localhost:" + port + "/auth/google/callback"
-}, function (accessToken, refreshToken, profile, done) {
+    callbackURL: process.env.GOOGLE_AUTH_CALLBACK_URL ||
+    'http://localhost:' + port + '/auth/google/callback'
+}, function(accessToken, refreshToken, profile, done) {
     User.findOne({ oauthID: profile.id })
         .exec()
         .then((user) => {
@@ -31,12 +32,12 @@ var Strategy = new GoogleStrategy({
 
 module.exports = {
     Strategy: Strategy,
-    serializeUser: function (user, done) {
+    serializeUser: function(user, done) {
         done(null, user._id);
     },
-    deserializeUser: function (id, done) {
-        User.findById(id, function (err, user) {
+    deserializeUser: function(id, done) {
+        User.findById(id, function(err, user) {
             done(err, user);
         });
     }
-}
+};

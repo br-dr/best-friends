@@ -1,28 +1,30 @@
-(function () {
+(function() {
+    'use strict';
+
     angular.module('app')
-        .service('UserService', ['$http', function ($http) {
+        .service('UserService', ['$http', function($http) {
             var vm = this;
 
-            vm.getCurrentUser = function () {
+            vm.getCurrentUser = function() {
                 return $http.get('/profile')
-                    .then(function (response) {
+                    .then(function(response) {
                         return vm.currentUser = response.data;
                     });
-            }
+            };
 
-            vm.followUser = function (user) {
+            vm.followUser = function(user) {
                 return $http.post('/follow', user)
-                    .then(function (response) {
-                        return angular.copy(response.data, vm.currentUser);                        
+                    .then(function(response) {
+                        return angular.copy(response.data, vm.currentUser);
                     });
-            }
+            };
 
-            vm.unFollowUser = function (user) {
+            vm.unFollowUser = function(user) {
                 return $http.post('/unfollow', user)
-                    .then(function (response) {
-                        return angular.copy(response.data, vm.currentUser);                        
+                    .then(function(response) {
+                        return angular.copy(response.data, vm.currentUser);
                     });
-            }
+            };
         }]);
 })();
 
