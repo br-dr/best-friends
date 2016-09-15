@@ -33,7 +33,7 @@
                     url: '/user/:id',
                     templateUrl: 'components/user/' +
                     'user.html',
-                    controller: 'ProfilePublicController as profilePublicCtrl',
+                    controller: 'UserController as userCtrl',
 
                     resolve: {
                         user: function($http, $stateParams) {

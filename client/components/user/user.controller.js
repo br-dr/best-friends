@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .controller('ProfilePublicController', ProfilePublicController);
+        .controller('UserController', UserController);
 
-    ProfilePublicController.$inject = ['user'];
+    UserController.$inject = ['user'];
 
-    function ProfilePublicController(user) {
+    function UserController(user) {
         var vm = this;
 
         angular.extend(vm, {
