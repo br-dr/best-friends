@@ -5,21 +5,30 @@
         .module('app')
         .controller('ProfileController', ProfileController);
 
-    ProfileController.$inject = ['user', '$http'];
+    ProfileController.$inject = ['user', 'posts', '$http'];
 
-    function ProfileController(user, $http) {
+    function ProfileController(user, posts, $http) {
         var vm = this;
 
         angular.extend(vm, {
             input: {
-                url: ''
+                url: '',
+            },
+            postInput: {
+                postTitle: '',
+                postContent: ''
             },
             user: user,
+            posts: posts,
             errorUrl: false,
             shouldShowInput: false,
+            shouldShowPostForm: false,
             changeAvatar: changeAvatar,
             cancelUrlInput: cancelUrlInput,
-            changeAvatarByKeypress: changeAvatarByKeypress
+            changeAvatarByKeypress: changeAvatarByKeypress,
+            cancelPostInput: cancelPostInput,
+            addPost: addPost,
+            deletePost: deletePost
         });
 
         function changeAvatar() {
@@ -45,6 +54,39 @@
             if ($event.keyCode === 13) {
                 changeAvatar();
             }
+        }
+
+        function cancelPostInput() {
+            vm.shouldShowPostForm = false;
+            vm.postInput.postContent = '';
+            vm.postInput.postTitle = '';
+        }
+
+        function addPost() {
+            $http.post('/api/add-post', vm.postInput)
+                .then(function(response) {
+                    vm.posts.push(response.data);
+                    vm.cancelPostInput();
+                }).catch(function() {
+                    console.log('Failed');
+                });
+        }
+
+        function deletePost(_id) {
+            $http.delete('/api/posts/' + _id)
+                .then(function(response) {
+                    var indexToRemove = -1;
+
+                    for (var i = 0; i < vm.posts.length; i++) {
+                        if (vm.posts[i]._id === _id) {
+                            indexToRemove = i;
+                        }
+                    }
+
+                    if (indexToRemove >= 0) {
+                        vm.posts.splice(indexToRemove, 1);
+                    }
+                });
         }
     }
 })();

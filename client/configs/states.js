@@ -26,6 +26,12 @@
                     resolve: {
                         user: function(UserService) {
                             return UserService.getCurrentUser();
+                        },
+                        posts: function($http) {
+                            return $http.get('/api/posts/')
+                                .then(function(response) {
+                                    return response.data;
+                                });
                         }
                     }
                 })
@@ -44,7 +50,6 @@
                                 });
                         }
                     }
-
                 })
                 .state('search-users', {
                     url: '/search-users',

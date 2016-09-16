@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var modelNames = require('./model-names');
 
 var Schema = mongoose.Schema;
 
@@ -11,7 +12,8 @@ var userSchema = new Schema({
     firstName: String,
     lastName: String,
     follows: Array,
-    avatar: String
+    avatar: String,
+    posts: [{ type: Schema.Types.ObjectId, ref: modelNames.POST }]
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model(modelNames.USER, userSchema);

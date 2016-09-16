@@ -5,6 +5,7 @@ var path = require('path');
 var validUrl = require('valid-url');
 
 var User = require('./user');
+var Post = require('./post');
 var app = require('./app');
 
 app.get('/profile', ensureAuthenticated, function(req, res) {
@@ -13,6 +14,10 @@ app.get('/profile', ensureAuthenticated, function(req, res) {
             res.sendStatus(400);
         } else {
             res.json(user);
+            // Post.find({}, function(err, posts) {
+            //     if (err) return res.sendstatus(403);
+            //     res.json({posts: posts, user: user});
+            // });
         }
     });
 });
@@ -105,6 +110,71 @@ app.post('/api/change-avatar', ensureAuthenticated, (req, res) => {
     } else {
         res.sendStatus(400);
     }
+});
+
+app.post('/api/add-post', ensureAuthenticated, (req, res) => {
+    var newPost = new Post();
+
+    newPost.heading = req.body.postTitle;
+    newPost.content = req.body.postContent;
+    newPost.creator = req.user._id;
+    newPost.owner = req.user._id;
+
+    newPost.save(function(err, post) {
+        if (err) {
+            return res.sendStatus(400);
+        }
+
+        var path = [{
+            path: 'owner'
+        }, {
+            path: 'creator'
+        }];
+
+        Post.populate(post, path, function(err, populatedPost) {
+            if (err) {
+                return res.sendStatus(400);
+            }
+
+            res.json(populatedPost);
+        });
+    });
+});
+
+app.delete('/api/posts/:id', ensureAuthenticated, (req, res) => {
+    if (!req.params.id) {
+        return res.sendStatus(404);
+    }
+
+    Post.findOne({ _id: req.params.id }, function(err, post) {
+        if (err) {
+            return res.sendStatus(400);
+        }
+
+        if (post.owner === req.user._id || post.creator === req.user._id) {
+            post.remove(function(err) {
+                if (err) {
+                    return res.sendStatus(400);
+                }
+
+                res.sendStatus(200);
+            });
+        } else {
+            res.sendStatus(403);
+        }
+    });
+});
+
+app.get('/api/posts', ensureAuthenticated, (req, res) => {
+    Post.find({ owner: req.user._id })
+        .populate('owner')
+        .populate('creator')
+        .exec(function(err, posts) {
+            if (err) {
+                return res.sendstatus(403);
+            }
+            return res.json(posts);
+        });
 });
 
 function ensureAuthenticated(req, res, next) {
