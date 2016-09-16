@@ -151,7 +151,10 @@ app.delete('/api/posts/:id', ensureAuthenticated, (req, res) => {
             return res.sendStatus(400);
         }
 
-        if (post.owner === req.user._id || post.creator === req.user._id) {
+        var isOwner = post.owner.equals(req.user._id);
+        var isCreator = post.creator.equals(req.user._id);
+
+        if (isOwner || isCreator) {
             post.remove(function(err) {
                 if (err) {
                     return res.sendStatus(400);
