@@ -47,19 +47,9 @@
                         </fieldset>
                     </form>
                 </div>
-                <div class="post" ng-repeat="post in profileCtrl.posts | orderBy: '-createdAt'">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">{{post.heading}}
-                            <button class="btn text-right btn-danger" ng-click="profileCtrl.deletePost(post._id)">X</button>
-                            <span class="pull-right">{{post.createdAt | date:'dd/MM/yyyy @ h:mma'}}</span>
-                            <span class="pull-right">{{post.creator.name}} - </span>
-                        </div>
-                        <div class="panel-body">
-                            <p>{{post.content}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <!--<posts ng-repeat="post in profileCtrl.posts | orderBy: '-createdAt'"></posts>-->
+                <post ng-repeat="post in profileCtrl.posts | orderBy: '-createdAt'" post="post"></post>
+            </div>  
         </div>
 
         <div class="col-md-2">

@@ -1,0 +1,12 @@
+                <div class="post">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">{{$ctrl.post.heading}}
+                            <button class="btn text-right btn-danger" ng-click="profileCtrl.deletePost(post._id)">X</button>
+                            <span class="pull-right">{{$ctrl.post.createdAt | date:'dd/MM/yyyy @ h:mma'}}</span>
+                            <span class="pull-right">{{$ctrl.post.creator.name}} - </span>
+                        </div>
+                        <div class="panel-body">
+                            <p>{{$ctrl.post.content}}</p>
+                        </div>
+                    </div>
+                </div>
