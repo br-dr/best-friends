@@ -29,16 +29,20 @@
                 }
 
                 function canFollow(user) {
-                    if (user._id == UserService.currentUser._id ||
-                    UserService.currentUser.follows.indexOf(user._id) !== -1) {
+                    var isCurrentUser = user._id == UserService.currentUser._id;
+                    var isFollowing = UserService.currentUser
+                        .following.indexOf(user._id) !== -1;
+                    if (isCurrentUser || isFollowing) {
                         return false;
                     }
                     return true;
                 }
 
                 function canUnFollow(user) {
-                    if (user._id == UserService.currentUser._id ||
-                    UserService.currentUser.follows.indexOf(user._id) == -1) {
+                    var isCurrentUser = user._id == UserService.currentUser._id;
+                    var isNotFollowing = UserService.currentUser
+                        .following.indexOf(user._id) === -1;
+                    if (isCurrentUser || isNotFollowing) {
                         return false;
                     }
                     return true;

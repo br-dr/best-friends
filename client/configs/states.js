@@ -32,6 +32,12 @@
                                 .then(function(response) {
                                     return response.data;
                                 });
+                        },
+                        followers: function($http) {
+                            return $http.get('/api/profile/followers')
+                                .then(function(response) {
+                                    return response.data;
+                                });
                         }
                     }
                 })

@@ -11,9 +11,19 @@ var userSchema = new Schema({
     created: Date,
     firstName: String,
     lastName: String,
-    follows: Array,
+    following: [{
+        type: Schema.Types.ObjectId,
+        ref: modelNames.USER
+    }],
     avatar: String,
-    posts: [{ type: Schema.Types.ObjectId, ref: modelNames.POST }]
+    posts: [{
+        type: Schema.Types.ObjectId,
+        ref: modelNames.POST
+    }]
 });
+
+userSchema.statics.findFollowers = function findFollowers(id) {
+    return this.find({ following: id });
+};
 
 module.exports = mongoose.model(modelNames.USER, userSchema);
