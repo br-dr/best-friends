@@ -1,6 +1,5 @@
 <div class="container">
     <div class="row">
-
         <div class="col-md-4">
             <img ng-src="{{profileCtrl.user.avatar}}" class="img-circle" alt="Avatar" width="300" height="300">
             <p class="text-muted" ng-hide="profileCtrl.shouldShowInput" ng-click="profileCtrl.shouldShowInput = true">
@@ -21,35 +20,10 @@
         </div>
 
         <div class="col-md-6">
-            <div>
-                <h2>Wall
-                    <button class="btn btn-success" 
-                            ng-click="profileCtrl.shouldShowPostForm = true">+ Add new post</button>
-                </h2>
-                <div class="add-post-form" ng-show="profileCtrl.shouldShowPostForm">
-                    <form>
-                        <fieldset>
-                            <div class="form-group">
-                                <label>Title:</label>
-                                <input type="text" class="form-control" ng-model="profileCtrl.postInput.postTitle">
-                            </div>
-                            <div class="form-group">
-                                <label>Content:</label>
-                                <textarea class="form-control" rows="5" 
-                                          ng-model="profileCtrl.postInput.postContent" required></textarea>
-                            </div>
-                            <div class="text-right form-group">
-                                <button type="submit" class="btn btn-success" 
-                                        ng-click="profileCtrl.addPost()">Add</button>
-                                <button class="btn btn-danger" 
-                                        ng-click="profileCtrl.cancelPostInput()">Cancel</button>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-                <!--<posts ng-repeat="post in profileCtrl.posts | orderBy: '-createdAt'"></posts>-->
-                <post ng-repeat="post in profileCtrl.posts | orderBy: '-createdAt'" post="post"></post>
-            </div>  
+           <posts-list posts="profileCtrl.posts" 
+                       owner="profileCtrl.user" 
+                       creator="profileCtrl.user">
+           </posts-list>
         </div>
 
         <div class="col-md-2">

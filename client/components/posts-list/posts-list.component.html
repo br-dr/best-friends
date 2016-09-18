@@ -1,0 +1,28 @@
+<div>
+    <h2>Wall
+        <button class="btn btn-success" ng-click="$ctrl.shouldShowPostForm = true">+ Add new post</button>
+    </h2>
+    <div class="add-post-form" ng-show="$ctrl.shouldShowPostForm">
+        <form>
+            <fieldset>
+                <div class="form-group">
+                    <label>Title:</label>
+                    <input type="text" class="form-control" ng-model="$ctrl.postInput.postTitle">
+                </div>
+                <div class="form-group">
+                    <label>Content:</label>
+                    <textarea class="form-control" rows="5" ng-model="$ctrl.postInput.postContent" required></textarea>
+                </div>
+                <div class="text-right form-group">
+                    <button type="submit" class="btn btn-success" ng-click="$ctrl.addPost()">Add</button>
+                    <button class="btn btn-danger" ng-click="$ctrl.cancelPostInput()">Cancel</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div ng-repeat="post in $ctrl.posts | orderBy: '-createdAt'">
+        <post post="post" delete-post="$ctrl.deletePost" user="$ctrl.creator"></post>
+    </div>
+
+</div>

@@ -16,7 +16,7 @@
     
 }
 
-.add-post-form {
+.add-fade-form {
     background-color: #f5f5ef;
     border: 5px solid;
     border-radius: 15px;
@@ -28,3 +28,24 @@
 	background-color: #DD4B39;
 	color: #fff;
 }
+
+/*.post {
+  transition: 1s linear all;
+  -webkit-transition: 1s linear all;
+}
+
+.post.ng-enter {
+  opacity: 0; 
+}
+
+.post.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+.post.ng-leave {
+  opacity: 1;
+}
+
+.post.ng-leave.ng-leave-active {
+  opacity: 0;
+}*/

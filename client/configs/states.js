@@ -48,6 +48,16 @@
                                 .then(function(response) {
                                     return response.data;
                                 });
+                        },
+                        posts: function($http, $stateParams) {
+                            var id = $stateParams.id;
+                            return $http.get('/api/user/' + id + '/posts/')
+                                .then(function(response) {
+                                    return response.data;
+                                });
+                        },
+                        currentUser: function(UserService) {
+                            return UserService.getCurrentUser();
                         }
                     }
                 })
