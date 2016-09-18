@@ -11,17 +11,10 @@
         </div>
 
         <div class="col-md-6">
-            <h2>Panel Heading</h2>
-            <div class="panel panel-default">
-                <div class="panel-heading">Panel Heading</div>
-                <div class="panel-body">
-                    <p>Panel Content</p>
-                    <p>Panel Content</p>
-                    <p>Panel Content</p>
-                    <p>Panel Content</p>
-                    <p>Panel Content</p>
-                </div>
-            </div>
+             <posts-list posts="userCtrl.posts" 
+                         creator="userCtrl.currentUser" 
+                         owner="userCtrl.user">
+             </posts-list>
         </div>
 
         <div class="col-md-2">

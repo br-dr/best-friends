@@ -5,13 +5,15 @@
         .module('app')
         .controller('UserController', UserController);
 
-    UserController.$inject = ['user'];
+    UserController.$inject = ['user', 'posts', 'currentUser'];
 
-    function UserController(user) {
+    function UserController(user, posts, currentUser) {
         var vm = this;
 
         angular.extend(vm, {
             user: user,
+            posts: posts,
+            currentUser: currentUser
         });
     }
 })();

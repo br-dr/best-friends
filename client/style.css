@@ -16,6 +16,14 @@
     
 }
 
+.add-fade-form {
+    background-color: #f5f5ef;
+    border: 5px solid;
+    border-radius: 15px;
+    border-color: #f5f5ef;
+    margin-bottom: 20px;
+}
+
 .btn-google {
 	background-color: #DD4B39;
 	color: #fff;

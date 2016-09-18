@@ -26,6 +26,12 @@
                     resolve: {
                         user: function(UserService) {
                             return UserService.getCurrentUser();
+                        },
+                        posts: function($http) {
+                            return $http.get('/api/posts/')
+                                .then(function(response) {
+                                    return response.data;
+                                });
                         }
                     }
                 })
@@ -34,7 +40,6 @@
                     templateUrl: 'components/user/' +
                     'user.html',
                     controller: 'UserController as userCtrl',
-
                     resolve: {
                         user: function($http, $stateParams) {
                             var id = $stateParams.id;
@@ -42,9 +47,18 @@
                                 .then(function(response) {
                                     return response.data;
                                 });
+                        },
+                        posts: function($http, $stateParams) {
+                            var id = $stateParams.id;
+                            return $http.get('/api/user/' + id + '/posts/')
+                                .then(function(response) {
+                                    return response.data;
+                                });
+                        },
+                        currentUser: function(UserService) {
+                            return UserService.getCurrentUser();
                         }
                     }
-
                 })
                 .state('search-users', {
                     url: '/search-users',

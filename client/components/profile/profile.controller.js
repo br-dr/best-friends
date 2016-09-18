@@ -5,21 +5,22 @@
         .module('app')
         .controller('ProfileController', ProfileController);
 
-    ProfileController.$inject = ['user', '$http'];
+    ProfileController.$inject = ['user', 'posts', '$http'];
 
-    function ProfileController(user, $http) {
+    function ProfileController(user, posts, $http) {
         var vm = this;
 
         angular.extend(vm, {
             input: {
-                url: ''
+                url: '',
             },
             user: user,
+            posts: posts,
             errorUrl: false,
             shouldShowInput: false,
             changeAvatar: changeAvatar,
             cancelUrlInput: cancelUrlInput,
-            changeAvatarByKeypress: changeAvatarByKeypress
+            changeAvatarByKeypress: changeAvatarByKeypress,
         });
 
         function changeAvatar() {
