@@ -1,16 +1,43 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <img ng-src="{{profileCtrl.user.avatar}}" class="img-circle" alt="Avatar" width="300" height="300">
-            <p class="text-muted" ng-hide="profileCtrl.shouldShowInput" ng-click="profileCtrl.shouldShowInput = true">
+            <img 
+                ng-src="{{profileCtrl.user.avatar}}" 
+                class="img-circle" 
+                alt="Avatar" 
+                width="300" 
+                height="300" 
+            />
+            <p 
+                class="text-muted" 
+                ng-hide="profileCtrl.shouldShowInput" 
+                ng-click="profileCtrl.shouldShowInput = true"
+            >
                 Change avatar
             </p>
-            <div class="form-inline" ng-show="profileCtrl.shouldShowInput" ng-class="{'has-error': profileCtrl.errorUrl}">
-                <input class="form-control" ng-model="profileCtrl.input.url" placeholder="Enter avatar url" ng-change="profileCtrl.errorUrl = false"
-                    ng-keypress="profileCtrl.changeAvatarByKeypress($event)" />
-                <button class="btn btn-success" ng-click="profileCtrl.changeAvatar()">Save</button>
-                <button class="btn btn-default" ng-click="profileCtrl.cancelUrlInput()">
-                        Cancel
+            <div 
+                class="form-inline" 
+                ng-show="profileCtrl.shouldShowInput" 
+                ng-class="{'has-error': profileCtrl.errorUrl}"
+            >
+                <input 
+                    class="form-control" 
+                    ng-model="profileCtrl.input.url" 
+                    placeholder="Enter avatar url" 
+                    ng-change="profileCtrl.errorUrl = false"
+                    ng-keypress="profileCtrl.changeAvatarByKeypress($event)" 
+                />
+                <button 
+                    class="btn btn-success" 
+                    ng-click="profileCtrl.changeAvatar()"
+                >
+                    Save
+                </button>
+                <button 
+                    class="btn btn-default" 
+                    ng-click="profileCtrl.cancelUrlInput()"
+                >
+                    Cancel
                 </button>
             </div>
             <h2 class="well">{{profileCtrl.user.name}}</h2>
@@ -20,10 +47,11 @@
         </div>
 
         <div class="col-md-6">
-           <posts-list posts="profileCtrl.posts" 
-                       owner="profileCtrl.user" 
-                       creator="profileCtrl.user">
-           </posts-list>
+            <posts-list 
+                posts="profileCtrl.posts" 
+                owner="profileCtrl.user" 
+                creator="profileCtrl.user"
+            />
         </div>
 
         <div class="col-md-2">
