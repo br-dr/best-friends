@@ -40,7 +40,6 @@
                     templateUrl: 'components/user/' +
                     'user.html',
                     controller: 'UserController as userCtrl',
-
                     resolve: {
                         user: function($http, $stateParams) {
                             var id = $stateParams.id;

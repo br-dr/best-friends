@@ -18,7 +18,7 @@
                 });
 
                 function searchUsers() {
-                    $http.post('/searchUsers', vm.input)
+                    $http.post('/search-users', vm.input)
                         .success(function(response) {
                             vm.foundUsers = response;
                             vm.errorMessage = false;
