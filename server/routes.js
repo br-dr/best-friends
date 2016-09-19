@@ -198,6 +198,19 @@ app.get('/api/user/:id/followers', ensureAuthenticated, (req, res) => {
         });
 });
 
+app.get('/api/user/:id/following-list', ensureAuthenticated, (req, res) => {
+    var id = req.params.id;
+
+    User.findOne({_id: id})
+        .populate('following')
+        .then((populatedUser) => {
+            return res.json(populatedUser);
+        })
+        .catch((err) => {
+            res.status(400).json(err);
+        });
+});
+
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();

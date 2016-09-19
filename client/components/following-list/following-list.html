@@ -1,0 +1,33 @@
+<h1>User Following those users</h1>
+<table class="table table-striped">
+
+            <tr ng-repeat="user in followingCtrl.user.following">
+                <td>{{user._id}}</td>
+                <td>
+                    <a ui-sref="user({ id: user._id }) ">{{user.name}}</a>
+                </td>
+                <td>
+                    <p>{{user.name}}</p>
+                </td>
+                <td>
+                    <img ng-src="{{user.avatar}}" />
+                </td>
+                <!--<td>
+                    <button class="btn btn-info" 
+                            ng-show="searchUsersCtrl.canFollow(foundUser)" 
+                            ng-click="searchUsersCtrl.follow(foundUser)"
+                    >
+                        Follow this user
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" 
+                            ng-show="searchUsersCtrl.canUnFollow(foundUser)" 
+                            ng-click="searchUsersCtrl.unfollow(foundUser)"
+                    >
+                        Unfollow
+                    </button>
+                </td>               -->
+            </tr>
+
+    </table>

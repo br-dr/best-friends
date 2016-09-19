@@ -9,19 +9,19 @@
             $stateProvider
                 .state('home', {
                     url: '/',
-                    templateUrl: 'components/home/home.html'
+                    templateUrl: '/components/home/home.html'
                 })
                 .state('login', {
                     url: '/login',
-                    templateUrl: 'components/login/login.html'
+                    templateUrl: '/components/login/login.html'
                 })
                 .state('registration', {
                     url: '/registration',
-                    templateUrl: 'components/registration/registration.html'
+                    templateUrl: '/components/registration/registration.html'
                 })
                 .state('profile', {
                     url: '/profile',
-                    templateUrl: 'components/profile/profile.html',
+                    templateUrl: '/components/profile/profile.html',
                     controller: 'ProfileController as profileCtrl',
                     resolve: {
                         user: function(UserService) {
@@ -43,7 +43,7 @@
                 })
                 .state('user', {
                     url: '/user/:id',
-                    templateUrl: 'components/user/' +
+                    templateUrl: '/components/user/' +
                     'user.html',
                     controller: 'UserController as userCtrl',
                     resolve: {
@@ -75,12 +75,26 @@
                 })
                 .state('search-users', {
                     url: '/search-users',
-                    templateUrl: 'components/search-users/search-users.html',
+                    templateUrl: '/components/search-users/search-users.html',
                     controller: 'SearchUsersController as searchUsersCtrl',
                     resolve: {
                         user: function(UserService) {
                             return UserService.getCurrentUser();
                         }
+                    }
+                })
+                .state('following', {
+                    url: '/user/:id/following',
+                    templateUrl: '/components/following-list/following-list.html',
+                    controller: 'FollowingController as followingCtrl',
+                    resolve: {
+                        user: function($http, $stateParams) {
+                            var id = $stateParams.id;
+                            return $http.get('/api/user/' + id + '/following-list/')
+                                .then(function(response) {
+                                    return response.data;
+                                });
+                        },
                     }
                 });
         });
