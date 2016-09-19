@@ -18,7 +18,7 @@ var Strategy = new GoogleStrategy({
                 oauthID: profile.id,
                 name: profile.displayName,
                 created: Date.now(),
-                follows: []
+                following: []
             });
         })
         .then((user) => {

@@ -41,7 +41,11 @@
                 </button>
             </div>
             <h2 class="well">{{profileCtrl.user.name}}</h2>
-            <h3 class="well well-sm">Information:</h3>
+            <follow-count 
+                class="well well-sm block" 
+                followers="profileCtrl.followers.length" 
+                following="profileCtrl.user.following.length"
+            ></follow-count>
             <p class="well well-sm">Birth Date:</p>
             <p class="well well-sm">Location:</p>
         </div>

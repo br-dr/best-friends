@@ -32,6 +32,12 @@
                                 .then(function(response) {
                                     return response.data;
                                 });
+                        },
+                        followers: function($http) {
+                            return $http.get('/api/profile/followers')
+                                .then(function(response) {
+                                    return response.data;
+                                });
                         }
                     }
                 })
@@ -57,6 +63,13 @@
                         },
                         currentUser: function(UserService) {
                             return UserService.getCurrentUser();
+                        },
+                        followers: function($http, $stateParams) {
+                            var id = $stateParams.id;
+                            return $http.get('/api/user/' + id + '/followers/')
+                                .then(function(response) {
+                                    return response.data;
+                                });
                         }
                     }
                 })

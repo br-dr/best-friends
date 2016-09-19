@@ -9,12 +9,16 @@ var Post = require('./post');
 var app = require('./app');
 
 app.get('/profile', ensureAuthenticated, (req, res) => {
-    User.findById(req.session.passport.user)
-        .then((user) => {
-            return res.json(user);
+    res.json(req.user);
+});
+
+app.get('/api/profile/followers', ensureAuthenticated, (req, res) => {
+    User.findFollowers(req.user._id)
+        .then((followers) => {
+            return res.json(followers);
         })
         .catch((err) => {
-            res.sendStatus(400);
+            res.status(400).json(err);
         });
 });
 
@@ -59,10 +63,10 @@ app.post('/search-users', ensureAuthenticated, (req, res) => {
 });
 
 app.post('/follow', ensureAuthenticated, (req, res) => {
-    req.user.follows = req.user.follows || [];
-    req.user.follows.push(req.body._id);
+    req.user.following = req.user.following || [];
+    req.user.following.push(req.body._id);
 
-    req.user.follows = req.user.follows.reduce((arr, id) => {
+    req.user.following = req.user.following.reduce((arr, id) => {
         if (arr.indexOf(id) === -1) {
             arr.push(id);
         }
@@ -78,10 +82,10 @@ app.post('/follow', ensureAuthenticated, (req, res) => {
 });
 
 app.post('/unfollow', ensureAuthenticated, (req, res) => {
-    var index = req.user.follows.indexOf(req.body._id);
+    var index = req.user.following.indexOf(req.body._id);
 
     if (index > -1) {
-        req.user.follows.splice(index, 1);
+        req.user.following.splice(index, 1);
     }
 
     req.user.save()
@@ -179,6 +183,18 @@ app.get('/api/user/:id/posts', ensureAuthenticated, (req, res) => {
         })
         .catch((err) => {
             return res.sendstatus(403);
+        });
+});
+
+app.get('/api/user/:id/followers', ensureAuthenticated, (req, res) => {
+    var id = req.params.id;
+
+    User.findFollowers(id)
+        .then((followers) => {
+            return res.json(followers);
+        })
+        .catch((err) => {
+            res.status(400).json(err);
         });
 });
 

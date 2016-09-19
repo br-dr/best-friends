@@ -5,9 +5,19 @@
         .module('app')
         .controller('ProfileController', ProfileController);
 
-    ProfileController.$inject = ['user', 'posts', '$http'];
+    ProfileController.$inject = [
+        'user',
+        'posts',
+        '$http',
+        'followers'
+    ];
 
-    function ProfileController(user, posts, $http) {
+    function ProfileController(
+        user,
+        posts,
+        $http,
+        followers
+    ) {
         var vm = this;
 
         angular.extend(vm, {
@@ -16,6 +26,7 @@
             },
             user: user,
             posts: posts,
+            followers: followers,
             errorUrl: false,
             shouldShowInput: false,
             changeAvatar: changeAvatar,
