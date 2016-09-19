@@ -5,7 +5,11 @@
             <img ng-src="{{userCtrl.user.avatar}}" class="img-circle" alt="Avatar" width="300" height="300">
             <p>public profile</p>
             <h2 class="well">{{userCtrl.user.name}}</h2>
-            <h3 class="well well-sm">Information:</h3>
+            <follow-count 
+                class="well well-sm block" 
+                followers="userCtrl.followers.length" 
+                following="userCtrl.user.following.length"
+            ></follow-count>
             <p class="well well-sm">Birth Date:</p>
             <p class="well well-sm">Location:</p>
         </div>
