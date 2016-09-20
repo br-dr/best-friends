@@ -25,6 +25,13 @@
                         return angular.copy(response.data, vm.currentUser);
                     });
             };
+
+            vm.getUserById = function(id) {
+                return $http.get('/user/' + id)
+                    .then(function(response) {
+                        return response.data;
+                    });
+            };
         }]);
 })();
 

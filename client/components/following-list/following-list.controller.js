@@ -5,18 +5,21 @@
         .controller('FollowingController', FollowingController);
 
     FollowingController.$inject = [
-        'user',
-        'currentUser'
+        'users',
+        'currentUser',
+        'user'
     ];
 
     function FollowingController(
-        user,
-        currentUser
+        users,
+        currentUser,
+        user
     ) {
         var vm = this;
         angular.extend(vm, {
-            user: user,
-            currentUser: currentUser
+            users: users,
+            currentUser: currentUser,
+            user: user
         });
     }
 })();

@@ -1,18 +1,8 @@
-<h1>User Following those users</h1>
-<table class="table table-striped">
+<h1>User 
+    <a ui-sref="user({id: followingCtrl.user._id})">
+        {{followingCtrl.user.name}}
+    </a>
+     is following next users
+</h1>
 
-    <tr ng-repeat="user in followingCtrl.user.following">
-        <td>{{user._id}}</td>
-        <td>
-            <a ui-sref="user({ id: user._id }) ">{{user.name}}</a>
-        </td>
-
-        <td>
-            <img ng-src="{{user.avatar}}" />
-        </td>
-
-        <td>
-            <follow-buttons user="user"></follow-buttons>
-        </td>
-    </tr>
-</table>
+<user-list users="followingCtrl.users" current-user="followingCtrl.currentUser"></user-list>

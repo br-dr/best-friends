@@ -6,14 +6,20 @@
 
     FollowersController.$inject = [
         'followers',
+        'currentUser',
+        'user'
     ];
 
     function FollowersController(
-        followers
+        followers,
+        currentUser,
+        user
     ) {
         var vm = this;
         angular.extend(vm, {
             followers: followers,
+            currentUser: currentUser,
+            user: user
         });
     }
 })();

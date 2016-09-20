@@ -204,7 +204,7 @@ app.get('/api/user/:id/following-list', ensureAuthenticated, (req, res) => {
     User.findOne({_id: id})
         .populate('following')
         .then((populatedUser) => {
-            return res.json(populatedUser);
+            return res.json(populatedUser.following);
         })
         .catch((err) => {
             res.status(400).json(err);

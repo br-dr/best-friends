@@ -1,20 +1,8 @@
-<h1>User's followers:</h1>
-<table class="table table-striped">
+<h1>Followers of user 
 
-            <tr ng-repeat="follower in followersCtrl.followers">
-                <td>{{follower._id}}</td>
-                <td>
-                    <a ui-sref="user({ id: follower._id }) ">{{follower.name}}</a>
-                </td>
-                <td>
-                    <p>{{follower.name}}</p>
-                </td>
-                <td>
-                    <img ng-src="{{follower.avatar}}" />
-                </td>
+    <a ui-sref="user({id: followersCtrl.user._id})">
+        {{followersCtrl.user.name}}
+    </a>
+</h1>
 
-
-            </tr>
-            
-
-    </table>
+<user-list users="followersCtrl.followers" current-user="followersCtrl.currentUser"></user-list>

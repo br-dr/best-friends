@@ -24,9 +24,7 @@
                     templateUrl: '/components/profile/profile.html',
                     controller: 'ProfileController as profileCtrl',
                     resolve: {
-                        user: function(UserService) {
-                            return UserService.getCurrentUser();
-                        },
+                        user: resolveCurrentUser,
                         posts: function($http) {
                             return $http.get('/api/posts/')
                                 .then(function(response) {
@@ -47,13 +45,7 @@
                     'user.html',
                     controller: 'UserController as userCtrl',
                     resolve: {
-                        user: function($http, $stateParams) {
-                            var id = $stateParams.id;
-                            return $http.get('/user/' + id)
-                                .then(function(response) {
-                                    return response.data;
-                                });
-                        },
+                        user: resolveUserById,
                         posts: function($http, $stateParams) {
                             var id = $stateParams.id;
                             return $http.get('/api/user/' + id + '/posts/')
@@ -61,9 +53,7 @@
                                     return response.data;
                                 });
                         },
-                        currentUser: function(UserService) {
-                            return UserService.getCurrentUser();
-                        },
+                        currentUser: resolveCurrentUser,
                         followers: function($http, $stateParams) {
                             var id = $stateParams.id;
                             return $http.get('/api/user/' + id + '/followers/')
@@ -78,9 +68,7 @@
                     templateUrl: '/components/search-users/search-users.html',
                     controller: 'SearchUsersController as searchUsersCtrl',
                     resolve: {
-                        user: function(UserService) {
-                            return UserService.getCurrentUser();
-                        }
+                        user: resolveCurrentUser
                     }
                 })
                 .state('following', {
@@ -89,17 +77,16 @@
                     'following-list.html',
                     controller: 'FollowingController as followingCtrl',
                     resolve: {
-                        user: function($http, $stateParams) {
+                        users: function($http, $stateParams) {
                             var id = $stateParams.id;
                             return $http.get('/api/user/' + id +
-                            '/following-list/')
+                                '/following-list/')
                                 .then(function(response) {
                                     return response.data;
                                 });
                         },
-                        currentUser: function(UserService) {
-                            return UserService.getCurrentUser();
-                        }
+                        currentUser: resolveCurrentUser,
+                        user: resolveUserById
                     }
                 })
                 .state('followers', {
@@ -111,12 +98,25 @@
                         followers: function($http, $stateParams) {
                             var id = $stateParams.id;
                             return $http.get('/api/user/' + id +
-                             '/followers-list/')
+                                '/followers-list/')
                                 .then(function(response) {
                                     return response.data;
                                 });
                         },
+                        currentUser: resolveCurrentUser,
+                        user: resolveUserById
                     }
                 });
+
         });
+
+    resolveUserById.$inject = ['$stateParams', 'UserService'];
+    function resolveUserById($stateParams, UserService) {
+        return UserService.getUserById($stateParams.id);
+    }
+
+    resolveCurrentUser.$inject = ['UserService'];
+    function resolveCurrentUser(UserService) {
+        return UserService.getCurrentUser();
+    }
 })();

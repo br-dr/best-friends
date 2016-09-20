@@ -8,6 +8,7 @@
             controller: FollowButtonsController,
             bindings: {
                 user: '=', //the one whom you already following
+                currentUser: '='
             }
         });
 
@@ -24,35 +25,34 @@
 
         });
 
-        function canFollow(user) {
+        function canFollow() {
             var isCurrentUser = vm.user._id ==
-                UserService.currentUser._id;
-            var isFollowing = UserService.currentUser
-            .following.indexOf(vm.user._id) !== -1;
+                vm.currentUser._id;
+            var isFollowing = vm.currentUser
+                .following.indexOf(vm.user._id) !== -1;
             if (isCurrentUser || isFollowing) {
                 return false;
             }
             return true;
         }
 
-        function canUnFollow(user) {
+        function canUnFollow() {
             var isCurrentUser = vm.user._id ==
-                UserService.currentUser._id;
-            var isNotFollowing = UserService.currentUser
-            .following.indexOf(vm.user._id) === -1;
+                vm.currentUser._id;
+            var isNotFollowing = vm.currentUser
+                .following.indexOf(vm.user._id) === -1;
             if (isCurrentUser || isNotFollowing) {
                 return false;
             }
             return true;
         }
 
-        function follow(user) {
-            UserService.followUser(user);
+        function follow() {
+            UserService.followUser(vm.user);
         }
 
-        function unfollow(user) {
-            UserService.unFollowUser(user);
+        function unfollow() {
+            UserService.unFollowUser(vm.user);
         }
-
     }
 })();

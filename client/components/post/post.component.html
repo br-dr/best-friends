@@ -1,12 +1,14 @@
 <div>
     <div class="panel panel-info">
         <div class="panel-heading">{{$ctrl.post.heading}}
-            <button class="btn text-right btn-danger" 
-                    ng-click="$ctrl.deletePost($ctrl.post._id)"
-                    ng-if="$ctrl.canDeletePost()">X
+            <button class="btn text-right btn-danger" ng-click="$ctrl.deletePost($ctrl.post._id)" ng-if="$ctrl.canDeletePost()">X
             </button>
             <span class="pull-right">{{$ctrl.post.createdAt | date:'dd/MM/yyyy @ h:mma'}}</span>
-            <span class="pull-right">{{$ctrl.post.creator.name}} - </span>
+            <span class="pull-right">
+                <a ui-sref="user({id: $ctrl.post.creator._id})">
+                    {{$ctrl.post.creator.name}} -
+                </a>
+            </span>
         </div>
         <div class="panel-body">
             <p>{{$ctrl.post.content}}</p>
