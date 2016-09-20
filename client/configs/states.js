@@ -85,12 +85,33 @@
                 })
                 .state('following', {
                     url: '/user/:id/following',
-                    templateUrl: '/components/following-list/following-list.html',
+                    templateUrl: '/components/following-list/' +
+                    'following-list.html',
                     controller: 'FollowingController as followingCtrl',
                     resolve: {
                         user: function($http, $stateParams) {
                             var id = $stateParams.id;
-                            return $http.get('/api/user/' + id + '/following-list/')
+                            return $http.get('/api/user/' + id +
+                            '/following-list/')
+                                .then(function(response) {
+                                    return response.data;
+                                });
+                        },
+                        currentUser: function(UserService) {
+                            return UserService.getCurrentUser();
+                        }
+                    }
+                })
+                .state('followers', {
+                    url: '/user/:id/followers',
+                    templateUrl: '/components/followers-list/' +
+                    'followers-list.html',
+                    controller: 'FollowersController as followersCtrl',
+                    resolve: {
+                        followers: function($http, $stateParams) {
+                            var id = $stateParams.id;
+                            return $http.get('/api/user/' + id +
+                             '/followers-list/')
                                 .then(function(response) {
                                     return response.data;
                                 });

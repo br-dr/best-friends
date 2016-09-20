@@ -211,6 +211,18 @@ app.get('/api/user/:id/following-list', ensureAuthenticated, (req, res) => {
         });
 });
 
+app.get('/api/user/:id/followers-list', ensureAuthenticated, (req, res) => {
+    var id = req.params.id;
+
+    User.findFollowers(id)
+        .then((followers) => {
+            return res.json(followers);
+        })
+        .catch((err) => {
+            res.status(400).json(err);
+        });
+});
+
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
