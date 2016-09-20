@@ -1,0 +1,7 @@
+<h1>Followers of user 
+    <a ui-sref="user({id: followersCtrl.user._id})">
+        {{followersCtrl.user.name}}
+    </a>
+</h1>
+
+<user-list users="followersCtrl.followers" current-user="followersCtrl.currentUser"></user-list>

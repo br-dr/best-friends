@@ -32,3 +32,24 @@
 .block {
     display: block;
 }
+
+.user-list-avatar {
+    max-width: 75px;
+    max-height: 75px;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.user-page-avatar {
+    max-width: 100%;
+    height: auto;
+}
+
+.user-page-avatar-item {
+    width: 200px;
+    min-height: 200px;
+    max-height: auto;
+    margin: 0 auto;
+}

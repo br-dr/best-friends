@@ -22,13 +22,12 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="#">Home</a></li>
+        <li><a ui-sref="profile"> Profile</a></li>
         <li><a ui-sref="search-users">Search Users</a></li>
         <li><a href="#">Page 2</a></li>
         <li><a href="#">Page 3</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a ui-sref="profile"> Profile</a></li>
         <li><a ui-sref="login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
         <li><a ui-sref="registration"><span class="glyphicon glyphicon-log-in"></span> Registration</a></li>
         <li><a href="/logout"> LogOut</a></li>        
@@ -51,6 +50,10 @@
     <script src="/components/posts-list/posts-list.component.js"></script>
     <script src="/services/user.service.js"></script>
     <script src="/components/follow-count/follow-count.component.js"></script>
-
+    <script src="/components/following-list/following-list.controller.js"></script>
+    <script src="/components/followers-list/followers-list.controller.js"></script>
+    <script src="/components/follow-buttons/follow-buttons.component.js"></script>
+    <script src="/components/user-list/user-list.component.js"></script>
+    
 </body>
 </html>

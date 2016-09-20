@@ -1,0 +1,11 @@
+<h1>User 
+    <a ui-sref="user({id: followingCtrl.user._id})">
+        {{followingCtrl.user.name}}
+    </a>
+     is following next users
+</h1>
+
+<user-list 
+    users="followingCtrl.users" 
+    current-user="followingCtrl.currentUser"
+></user-list>

@@ -1,13 +1,16 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <img 
-                ng-src="{{profileCtrl.user.avatar}}" 
-                class="img-circle" 
-                alt="Avatar" 
-                width="300" 
-                height="300" 
-            />
+            <div class="user-page-avatar-item">
+                <img 
+                    ng-src="{{profileCtrl.user.avatar || '/images/avatar.jpeg'}}" 
+                    class="user-page-avatar" 
+                    alt="Avatar" 
+                    width="300" 
+                    height="300" 
+                />
+            </div>
+            
             <p 
                 class="text-muted" 
                 ng-hide="profileCtrl.shouldShowInput" 
@@ -15,6 +18,7 @@
             >
                 Change avatar
             </p>
+
             <div 
                 class="form-inline" 
                 ng-show="profileCtrl.shouldShowInput" 
@@ -40,11 +44,13 @@
                     Cancel
                 </button>
             </div>
+
             <h2 class="well">{{profileCtrl.user.name}}</h2>
             <follow-count 
                 class="well well-sm block" 
                 followers="profileCtrl.followers.length" 
                 following="profileCtrl.user.following.length"
+                user-id="profileCtrl.user._id"
             ></follow-count>
             <p class="well well-sm">Birth Date:</p>
             <p class="well well-sm">Location:</p>

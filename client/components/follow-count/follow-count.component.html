@@ -1,2 +1,2 @@
-    <span>{{$ctrl.following}} following</span>
-    <span>{{$ctrl.followers}} followers</span>
+    <a ui-sref="following({ id: $ctrl.userId })"><span>{{$ctrl.following}} following</span></a>
+    <a ui-sref="followers({ id: $ctrl.userId })"><span>{{$ctrl.followers}} followers</span></a>

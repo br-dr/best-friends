@@ -7,7 +7,8 @@
             controller: FollowCountController,
             bindings: {
                 followers: '=',
-                following: '='
+                following: '=',
+                userId: '='
             }
         });
 
