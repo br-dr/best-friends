@@ -1,11 +1,15 @@
-<button class="btn btn-success"
-        ng-disabled="!$ctrl.canFollow($ctrl.user)"
-        ng-click="$ctrl.follow($ctrl.user)"
->Follow
+<button 
+    class="btn btn-success"
+    ng-disabled="!$ctrl.canFollow()"
+    ng-click="$ctrl.follow()"
+>
+    Follow
 </button>
 
-<button class="btn btn-danger" 
-        ng-disabled="!$ctrl.canUnFollow($ctrl.user)"
-        ng-click="$ctrl.unfollow($ctrl.user)"
->Unfollow
+<button 
+    class="btn btn-danger" 
+    ng-disabled="!$ctrl.canUnFollow()"
+    ng-click="$ctrl.unfollow()"
+>
+    Unfollow
 </button>

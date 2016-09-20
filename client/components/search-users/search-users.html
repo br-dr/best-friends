@@ -1,54 +1,34 @@
-<div class="row">
-    <div class="col-md-offset-4 col-md-4">
-        <h3 class="text-center">Add name to search</h3>
-        <form ng-submit="searchUsersCtrl.searchUsers()">
-            <div class="form-group">
-                <div>
-                    <input type="text" 
-                           placeholder="name" 
-                           class="form-control" 
-                           ng-model="searchUsersCtrl.input.searchText" 
-                    />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+            <h3 class="text-center">Add name to search</h3>
+            <form ng-submit="searchUsersCtrl.searchUsers()">
+                <div class="form-group">
+                    <div>
+                        <input type="text" 
+                            placeholder="name" 
+                            class="form-control" 
+                            ng-model="searchUsersCtrl.input.searchText" 
+                        />
+                    </div>
                 </div>
-            </div>
 
-            <div class="text-center form-group">
-                <button type="submit" class="btn btn-success btn-lg btn-block">
-                    <span class="glyphicon glyphicon-search"></span>
-                    Search
-                </button>
-            </div>
+                <div class="text-center form-group">
+                    <button type="submit" class="btn btn-success btn-lg btn-block">
+                        <span class="glyphicon glyphicon-search"></span>
+                        Search
+                    </button>
+                </div>
 
-            <div class="text-center form-group" ng-show="searchUsersCtrl.errorMessage">
-                <div class="alert alert-danger" role="alert">Error has occurred</div>
-            </div>
-        </form>      
+                <div class="text-center form-group" ng-show="searchUsersCtrl.errorMessage">
+                    <div class="alert alert-danger" role="alert">Error has occurred</div>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <table class="table table-striped">
-
-            <tr ng-repeat="foundUser in searchUsersCtrl.foundUsers">
-                <td>{{foundUser._id}}</td>
-                <td>
-                    <a ui-sref="user({ id: foundUser._id }) ">{{foundUser.name}}</a>
-                </td>
-                <td>
-                    <button class="btn btn-info" 
-                            ng-show="searchUsersCtrl.canFollow(foundUser)" 
-                            ng-click="searchUsersCtrl.follow(foundUser)"
-                    >
-                        Follow
-                    </button>
-                </td>
-                <td>
-                    <button class="btn btn-danger" 
-                            ng-show="searchUsersCtrl.canUnFollow(foundUser)" 
-                            ng-click="searchUsersCtrl.unfollow(foundUser)"
-                    >
-                        Unfollow
-                    </button>
-                </td>               
-            </tr>
-
-    </table>
 </div>
+
+<user-list 
+    users="searchUsersCtrl.foundUsers" 
+    current-user="searchUsersCtrl.currentUser"
+></user-list>

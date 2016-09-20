@@ -16,6 +16,7 @@
         user
     ) {
         var vm = this;
+
         angular.extend(vm, {
             followers: followers,
             currentUser: currentUser,

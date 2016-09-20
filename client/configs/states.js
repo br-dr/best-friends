@@ -41,8 +41,7 @@
                 })
                 .state('user', {
                     url: '/user/:id',
-                    templateUrl: '/components/user/' +
-                    'user.html',
+                    templateUrl: '/components/user/user.html',
                     controller: 'UserController as userCtrl',
                     resolve: {
                         user: resolveUserById,
@@ -54,13 +53,7 @@
                                 });
                         },
                         currentUser: resolveCurrentUser,
-                        followers: function($http, $stateParams) {
-                            var id = $stateParams.id;
-                            return $http.get('/api/user/' + id + '/followers/')
-                                .then(function(response) {
-                                    return response.data;
-                                });
-                        }
+                        followers: resolveFollowers
                     }
                 })
                 .state('search-users', {
@@ -68,7 +61,7 @@
                     templateUrl: '/components/search-users/search-users.html',
                     controller: 'SearchUsersController as searchUsersCtrl',
                     resolve: {
-                        user: resolveCurrentUser
+                        currentUser: resolveCurrentUser
                     }
                 })
                 .state('following', {
@@ -77,14 +70,7 @@
                     'following-list.html',
                     controller: 'FollowingController as followingCtrl',
                     resolve: {
-                        users: function($http, $stateParams) {
-                            var id = $stateParams.id;
-                            return $http.get('/api/user/' + id +
-                                '/following-list/')
-                                .then(function(response) {
-                                    return response.data;
-                                });
-                        },
+                        users: resolveFollowing,
                         currentUser: resolveCurrentUser,
                         user: resolveUserById
                     }
@@ -95,14 +81,7 @@
                     'followers-list.html',
                     controller: 'FollowersController as followersCtrl',
                     resolve: {
-                        followers: function($http, $stateParams) {
-                            var id = $stateParams.id;
-                            return $http.get('/api/user/' + id +
-                                '/followers-list/')
-                                .then(function(response) {
-                                    return response.data;
-                                });
-                        },
+                        followers: resolveFollowers,
                         currentUser: resolveCurrentUser,
                         user: resolveUserById
                     }
@@ -118,5 +97,15 @@
     resolveCurrentUser.$inject = ['UserService'];
     function resolveCurrentUser(UserService) {
         return UserService.getCurrentUser();
+    }
+
+    resolveFollowing.$inject = ['$stateParams', 'UserService'];
+    function resolveFollowing($stateParams, UserService) {
+        return UserService.getFollowing($stateParams.id);
+    }
+
+    resolveFollowers.$inject = ['$stateParams', 'UserService'];
+    function resolveFollowers($stateParams, UserService) {
+        return UserService.getFollowers($stateParams.id);
     }
 })();

@@ -26,33 +26,37 @@
         });
 
         function canFollow() {
-            var isCurrentUser = vm.user._id ==
+            var isCurrentUser = vm.user._id ===
                 vm.currentUser._id;
             var isFollowing = vm.currentUser
                 .following.indexOf(vm.user._id) !== -1;
+
             if (isCurrentUser || isFollowing) {
                 return false;
             }
+
             return true;
         }
 
         function canUnFollow() {
-            var isCurrentUser = vm.user._id ==
+            var isCurrentUser = vm.user._id ===
                 vm.currentUser._id;
             var isNotFollowing = vm.currentUser
                 .following.indexOf(vm.user._id) === -1;
+
             if (isCurrentUser || isNotFollowing) {
                 return false;
             }
+
             return true;
         }
 
         function follow() {
-            UserService.followUser(vm.user);
+            UserService.followUser(vm.user, vm.currentUser);
         }
 
         function unfollow() {
-            UserService.unFollowUser(vm.user);
+            UserService.unFollowUser(vm.user, vm.currentUser);
         }
     }
 })();
