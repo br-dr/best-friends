@@ -41,7 +41,8 @@
                     vm.cancelPostInput();
                 }).catch(function() {
                     // console.log('Failed');
-                    toastr.error('This user is not following you...', 'You can\'t post here!');
+                    toastr.error('This user is not following you...',
+                        'You can\'t post here!');
                 });
         }
 
