@@ -25,7 +25,7 @@
             },
             cancelPostInput: cancelPostInput,
             addPost: addPost,
-            deletePost: deletePost,
+            deletePost: deletePost
         });
 
         function cancelPostInput() {
@@ -40,7 +40,6 @@
                     vm.posts.push(response.data);
                     vm.cancelPostInput();
                 }).catch(function() {
-                    // console.log('Failed');
                     toastr.error('This user is not following you...',
                         'You can\'t post here!');
                 });
