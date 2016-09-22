@@ -118,8 +118,23 @@ app.post('/api/user/:id/add-post/', ensureAuthenticated, (req, res) => {
     newPost.content = req.body.postContent;
     newPost.creator = req.user._id;
     newPost.owner = req.params.id;
+    var creatorId = req.user._id;
 
-    newPost.save()
+    User.findOne({ _id: req.params.id })
+        .then((owner) => {
+            if (owner._id.equals(creatorId)) {
+                return;
+            }
+
+            if (owner.following.indexOf(creatorId) !== -1) {
+                return;
+            }
+
+            return Promise.reject();
+        })
+        .then(() => {
+            return newPost.save();
+        })
         .then((post) => {
             var path = [{ path: 'owner' }, { path: 'creator' }];
 
@@ -129,7 +144,7 @@ app.post('/api/user/:id/add-post/', ensureAuthenticated, (req, res) => {
             return res.json(populatedPost);
         })
         .catch((err) => {
-            res.sendStatus(400);
+            res.status(400).json(err);
         });
 });
 

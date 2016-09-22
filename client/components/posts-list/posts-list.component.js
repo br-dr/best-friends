@@ -12,9 +12,9 @@
             }
         });
 
-    PostsListController.$inject = ['$http'];
+    PostsListController.$inject = ['$http', 'toastr'];
 
-    function PostsListController($http) {
+    function PostsListController($http, toastr) {
         var vm = this;
 
         angular.extend(vm, {
@@ -40,7 +40,8 @@
                     vm.posts.push(response.data);
                     vm.cancelPostInput();
                 }).catch(function() {
-                    console.log('Failed');
+                    toastr.error('This user is not following you...',
+                        'You can\'t post here!');
                 });
         }
 
