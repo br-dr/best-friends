@@ -6,14 +6,14 @@
         .controller('ProfileController', ProfileController);
 
     ProfileController.$inject = [
-        'user',
+        'currentUser',
         'posts',
         '$http',
         'followers'
     ];
 
     function ProfileController(
-        user,
+        currentUser,
         posts,
         $http,
         followers
@@ -24,7 +24,7 @@
             input: {
                 url: '',
             },
-            user: user,
+            currentUser: currentUser,
             posts: posts,
             followers: followers,
             errorUrl: false,

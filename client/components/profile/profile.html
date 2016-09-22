@@ -3,7 +3,7 @@
         <div class="col-md-4">
             <div class="user-page-avatar-item">
                 <img 
-                    ng-src="{{profileCtrl.user.avatar || '/images/avatar.jpeg'}}" 
+                    ng-src="{{profileCtrl.currentUser.avatar || '/images/avatar.jpeg'}}" 
                     class="user-page-avatar" 
                     alt="Avatar" 
                     width="300" 
@@ -45,12 +45,12 @@
                 </button>
             </div>
 
-            <h2 class="well">{{profileCtrl.user.name}}</h2>
+            <h2 class="well">{{profileCtrl.currentUser.name}}</h2>
             <follow-count 
                 class="well well-sm block" 
                 followers="profileCtrl.followers.length" 
-                following="profileCtrl.user.following.length"
-                user-id="profileCtrl.user._id"
+                following="profileCtrl.currentUser.following.length"
+                user-id="profileCtrl.currentUser._id"
             ></follow-count>
             <p class="well well-sm">Birth Date:</p>
             <p class="well well-sm">Location:</p>
@@ -59,8 +59,8 @@
         <div class="col-md-6">
             <posts-list 
                 posts="profileCtrl.posts" 
-                owner="profileCtrl.user" 
-                creator="profileCtrl.user"
+                owner="profileCtrl.currentUser" 
+                creator="profileCtrl.currentUser"
             />
         </div>
 
