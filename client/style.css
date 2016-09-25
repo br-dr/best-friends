@@ -58,3 +58,7 @@
     max-height: auto;
     margin: 0 auto;
 }
+
+.navbar-collapse.in {
+    overflow-y: hidden;
+}
