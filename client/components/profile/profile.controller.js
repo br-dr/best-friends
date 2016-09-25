@@ -37,7 +37,7 @@
         function changeAvatar() {
             $http.post('/api/change-avatar', vm.input)
                 .then(function(response) {
-                    angular.copy(response.data, vm.user);
+                    angular.copy(response.data, vm.currentUser);
                     vm.errorUrl = false;
                     vm.input.url = '';
                     vm.shouldShowInput = false;
