@@ -6,14 +6,14 @@
         .controller('ProfileController', ProfileController);
 
     ProfileController.$inject = [
-        'user',
+        'currentUser',
         'posts',
         '$http',
         'followers'
     ];
 
     function ProfileController(
-        user,
+        currentUser,
         posts,
         $http,
         followers
@@ -24,7 +24,7 @@
             input: {
                 url: '',
             },
-            user: user,
+            currentUser: currentUser,
             posts: posts,
             followers: followers,
             errorUrl: false,
@@ -37,7 +37,7 @@
         function changeAvatar() {
             $http.post('/api/change-avatar', vm.input)
                 .then(function(response) {
-                    angular.copy(response.data, vm.user);
+                    angular.copy(response.data, vm.currentUser);
                     vm.errorUrl = false;
                     vm.input.url = '';
                     vm.shouldShowInput = false;

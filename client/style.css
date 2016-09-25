@@ -6,22 +6,27 @@
 	margin: 0px;
 }
 
-.login-form-background,
-.registration-form-background {
-    background-color: #f5f5ef;
-    border: 5px solid;
-    border-radius: 15px;
-    border-color: #f5f5ef;
-    margin-top: 80px;
-    
+.login-form-background {
+    background-color:rgba(255,255,255,0.6);
+    border-radius: 25px;
+    padding-bottom: 15px;
 }
 
-.add-fade-form {
-    background-color: #f5f5ef;
-    border: 5px solid;
-    border-radius: 15px;
-    border-color: #f5f5ef;
-    margin-bottom: 20px;
+.guest-container{
+    background: url("/images/friends.jpg") no-repeat center center;
+    background-size: cover;
+    min-height: 100vh;
+    display:table;
+    width: 100%;
+    padding: 0;
+    color:#DD4B39;
+}
+
+
+.centered-row {
+    height: 100%; 
+    display:table-cell; 
+    vertical-align: middle;
 }
 
 .btn-google {

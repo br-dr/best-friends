@@ -42,7 +42,7 @@ app.get('/auth/google', passport.authenticate('google', {
 app.get('/auth/google/callback', passport.authenticate('google', {
     failureRedirect: '/'
 }), (req, res) => {
-    res.redirect('/#/profile');
+    res.redirect('/');
 });
 
 app.get('/logout', (req, res) => {
