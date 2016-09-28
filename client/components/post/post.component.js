@@ -11,7 +11,9 @@
                 deletePost: '=',
                 likePost: '=',
                 unlikePost: '=',
-                likeOrUnlike: '='
+                likeOrUnlike: '=',
+                currentUser: '=',
+                // isLiked: '='
             }
         });
 

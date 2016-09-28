@@ -28,9 +28,9 @@
             addPost: addPost,
             deletePost: deletePost,
             likePost: likePost,
-            unlikepost: unlikePost,
+            unlikePost: unlikePost,
             likeOrUnlike: likeOrUnlike,
-            isLiked: false
+            // isLiked: isLiked
         });
 
         function cancelPostInput() {
@@ -95,8 +95,18 @@
             if (index === -1) {
                 vm.likePost(post);
             } else {
-                vm.ulikePost(post);
+                vm.unlikePost(post);
             }
         }
+
+        // function isLiked(post) {
+        //     var index = post.likedBy.indexOf(vm.currentUser._id);
+
+        //     if (index === -1) {
+        //         return false;
+        //     } else {
+        //         return true;
+        //     }
+        // }
     }
 })();
