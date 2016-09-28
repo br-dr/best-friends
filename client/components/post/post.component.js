@@ -13,7 +13,7 @@
                 unlikePost: '=',
                 likeOrUnlike: '=',
                 currentUser: '=',
-                // isLiked: '='
+                isLiked: '='
             }
         });
 

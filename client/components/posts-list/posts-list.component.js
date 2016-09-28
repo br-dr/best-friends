@@ -31,6 +31,7 @@
             unlikePost: unlikePost,
             likeOrUnlike: likeOrUnlike,
             // isLiked: isLiked
+            isLiked: isLiked
         });
 
         function cancelPostInput() {
@@ -70,7 +71,6 @@
         function likePost(post) {
             $http.post('/api/posts/' + post._id + '/like-post')
                 .then(function(response) {
-                    vm.isLiked = true;
                     return angular.copy(response.data, post);
                 })
                 .catch(function() {
@@ -81,7 +81,6 @@
         function unlikePost(post) {
             $http.post('/api/posts/' + post._id + '/unlike-post')
                 .then(function(response) {
-                    vm.isLiked = false;
                     return angular.copy(response.data, post);
                 })
                 .catch(function() {
@@ -99,14 +98,14 @@
             }
         }
 
-        // function isLiked(post) {
-        //     var index = post.likedBy.indexOf(vm.currentUser._id);
+        function isLiked(post) {
+            var index = post.likedBy.indexOf(vm.currentUser._id);
 
-        //     if (index === -1) {
-        //         return false;
-        //     } else {
-        //         return true;
-        //     }
-        // }
+            if (index === -1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
     }
 })();

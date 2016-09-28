@@ -23,7 +23,7 @@
         </div>
         <div>
             <i
-                ng-class="{unliked: !$ctrl.isLiked(), liked: $ctrl.isLiked()}"
+                ng-class="{unliked: !$ctrl.isLiked($ctrl.post), liked: $ctrl.isLiked($ctrl.post)}"
                 class="fa fa-heart" 
                 ng-click="$ctrl.likeOrUnlike($ctrl.post)"
                 aria-hidden="true"
