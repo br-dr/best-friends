@@ -8,7 +8,8 @@
             bindings: {
                 posts: '=',
                 owner: '=',
-                creator: '='
+                creator: '=',
+                currentUser: '='
             }
         });
 
@@ -89,14 +90,12 @@
         }
 
         function likeOrUnlike(post) {
-            var i;
+            var index = post.likedBy.indexOf(vm.currentUser._id);
 
-            for (i = 0; i < vm.post.likedBy.length; i++) {
-                if (vm.post.likedBy[i] === vm.user._id) {
-                    vm.likePost(vm.post);
-                } else {
-                    vm.unlikePost(vm.post);
-                }
+            if (index === -1) {
+                vm.likePost(post);
+            } else {
+                vm.ulikePost(post);
             }
         }
     }
