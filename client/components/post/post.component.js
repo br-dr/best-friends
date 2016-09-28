@@ -8,7 +8,9 @@
             bindings: {
                 post: '=',
                 user: '=',
-                deletePost: '='
+                deletePost: '=',
+                likePost: '=',
+                unlikePost: '='
             }
         });
 

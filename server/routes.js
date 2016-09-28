@@ -118,6 +118,7 @@ app.post('/api/user/:id/add-post/', ensureAuthenticated, (req, res) => {
     newPost.content = req.body.postContent;
     newPost.creator = req.user._id;
     newPost.owner = req.params.id;
+    newPost.likedBy = [];
     var creatorId = req.user._id;
 
     User.findOne({ _id: req.params.id })
@@ -147,6 +148,56 @@ app.post('/api/user/:id/add-post/', ensureAuthenticated, (req, res) => {
             res.status(400).json(err);
         });
 });
+
+app.post('/api/posts/:id/like-post', ensureAuthenticated, (req, res) => {
+    var id = req.params.id;
+    Post.findOne({ _id: id })
+        .populate('owner')
+        .populate('creator')
+        .then((populatedPost) => {
+            populatedPost.likedBy.push(req.user._id);
+            return populatedPost;
+        })
+
+        .then((post) => {
+            return post.save();
+        })
+        .then((post) => {
+            return res.json(post);
+        })
+        .catch((err) => {
+            res.sendStatus(403);
+        });
+});
+
+app.post('/api/posts/:id/unlike-post', ensureAuthenticated, (req, res) => {
+    // var whoIsUnliking = req.user._id;
+    var id = req.params.id;
+    Post.findOne({ _id: id })
+        .populate('owner')
+        .populate('creator')
+        .then((populatedPost) => {
+            var index = populatedPost.likedBy.indexOf(req.user._id);
+
+            if (index > -1) {
+                populatedPost.likedBy.splice(index, 1);
+            }
+
+            return populatedPost;
+        })
+
+        .then((post) => {
+            return post.save();
+        })
+        .then((post) => {
+            return res.json(post);
+        })
+        .catch((err) => {
+            res.sendStatus(403);
+        });
+});
+
+
 
 app.delete('/api/posts/:id', ensureAuthenticated, (req, res) => {
     if (!req.params.id) {
@@ -201,6 +252,7 @@ app.get('/api/user/:id/posts', ensureAuthenticated, (req, res) => {
         });
 });
 
+
 app.get('/api/user/:id/followers', ensureAuthenticated, (req, res) => {
     var id = req.params.id;
 
@@ -216,7 +268,7 @@ app.get('/api/user/:id/followers', ensureAuthenticated, (req, res) => {
 app.get('/api/user/:id/following-list', ensureAuthenticated, (req, res) => {
     var id = req.params.id;
 
-    User.findOne({_id: id})
+    User.findOne({ _id: id })
         .populate('following')
         .then((populatedUser) => {
             return res.json(populatedUser.following);

@@ -21,11 +21,15 @@
             shouldShowPostForm: false,
             postInput: {
                 postTitle: '',
-                postContent: ''
+                postContent: '',
             },
             cancelPostInput: cancelPostInput,
             addPost: addPost,
-            deletePost: deletePost
+            deletePost: deletePost,
+            likePost: likePost,
+            unlikepost: unlikePost,
+            likeOrUnlike: likeOrUnlike,
+            isLiked: false
         });
 
         function cancelPostInput() {
@@ -60,6 +64,40 @@
                         vm.posts.splice(indexToRemove, 1);
                     }
                 });
+        }
+
+        function likePost(post) {
+            $http.post('/api/posts/' + post._id + '/like-post')
+                .then(function(response) {
+                    vm.isLiked = true;
+                    return angular.copy(response.data, post);
+                })
+                .catch(function() {
+                    return console.log('can\'t like, something is wrong');
+                });
+        }
+
+        function unlikePost(post) {
+            $http.post('/api/posts/' + post._id + '/unlike-post')
+                .then(function(response) {
+                    vm.isLiked = false;
+                    return angular.copy(response.data, post);
+                })
+                .catch(function() {
+                    return console.log('can\'t like, something is wrong');
+                });
+        }
+
+        function likeOrUnlike(post) {
+            var i;
+
+            for (i = 0; i < vm.post.likedBy.length; i++) {
+                if (vm.post.likedBy[i] === vm.user._id) {
+                    vm.likePost(vm.post);
+                } else {
+                    vm.unlikePost(vm.post);
+                }
+            }
         }
     }
 })();

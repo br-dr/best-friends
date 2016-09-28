@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "eslint": "^3.5.0",
+    "node-debug": "^0.1.0",
     "nodemon": "^1.10.2"
   }
 }

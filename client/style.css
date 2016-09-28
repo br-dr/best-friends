@@ -58,3 +58,11 @@
     max-height: auto;
     margin: 0 auto;
 }
+
+.liked {
+    color: #2e9e2e;
+}
+
+.unliked {
+    color: #577557;
+}

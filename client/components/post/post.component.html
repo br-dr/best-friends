@@ -21,5 +21,14 @@
         <div class="panel-body">
             <p>{{$ctrl.post.content}}</p>
         </div>
+        <div>
+            <i
+                ng-class="{unliked: !$ctrl.isLiked(), liked: $ctrl.isLiked()}"
+                class="fa fa-heart" 
+                ng-click="$ctrl.likeOrUnlike($ctrl.post)"
+                aria-hidden="true"
+                ></i>
+            <p>{{$ctrl.post.likedBy.length}}</p>
+        </div>
     </div>
 </div>

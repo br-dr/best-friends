@@ -15,9 +15,14 @@ var postSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId, //id of postwall owner
         ref: modelNames.USER
-    }
-}, {
-    timestamps: true
-});
+    },
+    likedBy: [{
+        type: Schema.Types.ObjectId, //id of user who liked the post
+        ref: modelNames.USER
+    }]
+}
+    , {
+        timestamps: true
+    });
 
 module.exports = mongoose.model(modelNames.POST, postSchema);
