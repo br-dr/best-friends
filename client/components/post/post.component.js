@@ -27,7 +27,7 @@
             if (isOwner || isCreator) {
                 return true;
             }
-            
+
             return false;
         };
     }
