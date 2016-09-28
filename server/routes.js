@@ -158,7 +158,6 @@ app.post('/api/posts/:id/like-post', ensureAuthenticated, (req, res) => {
             populatedPost.likedBy.push(req.user._id);
             return populatedPost;
         })
-
         .then((post) => {
             return post.save();
         })
@@ -171,8 +170,8 @@ app.post('/api/posts/:id/like-post', ensureAuthenticated, (req, res) => {
 });
 
 app.post('/api/posts/:id/unlike-post', ensureAuthenticated, (req, res) => {
-    // var whoIsUnliking = req.user._id;
     var id = req.params.id;
+
     Post.findOne({ _id: id })
         .populate('owner')
         .populate('creator')
@@ -185,7 +184,6 @@ app.post('/api/posts/:id/unlike-post', ensureAuthenticated, (req, res) => {
 
             return populatedPost;
         })
-
         .then((post) => {
             return post.save();
         })
@@ -196,7 +194,6 @@ app.post('/api/posts/:id/unlike-post', ensureAuthenticated, (req, res) => {
             res.sendStatus(403);
         });
 });
-
 
 app.delete('/api/posts/:id', ensureAuthenticated, (req, res) => {
     if (!req.params.id) {

@@ -30,7 +30,6 @@
             likePost: likePost,
             unlikePost: unlikePost,
             likeOrUnlike: likeOrUnlike,
-            // isLiked: isLiked
             isLiked: isLiked
         });
 
@@ -74,7 +73,8 @@
                     return angular.copy(response.data, post);
                 })
                 .catch(function() {
-                    return console.log('can\'t like, something is wrong');
+                    toastr.error('Server error',
+                        'Can\'t like post');
                 });
         }
 
@@ -84,7 +84,8 @@
                     return angular.copy(response.data, post);
                 })
                 .catch(function() {
-                    return console.log('can\'t like, something is wrong');
+                    toastr.error('Server error',
+                        'Can\'t unlike post');
                 });
         }
 

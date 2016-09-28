@@ -20,15 +20,15 @@
         </div>
         <div class="panel-body">
             <p>{{$ctrl.post.content}}</p>
-        </div>
-        <div>
-            <i
-                ng-class="{unliked: !$ctrl.isLiked($ctrl.post), liked: $ctrl.isLiked($ctrl.post)}"
-                class="fa fa-heart" 
-                ng-click="$ctrl.likeOrUnlike($ctrl.post)"
-                aria-hidden="true"
+            <div class="pull-right">
+                <i
+                    ng-class="{unliked: !$ctrl.isLiked($ctrl.post), liked: $ctrl.isLiked($ctrl.post)}"
+                    class="fa fa-heart"
+                    ng-click="$ctrl.likeOrUnlike($ctrl.post)"
+                    aria-hidden="true"
                 ></i>
-            <p>{{$ctrl.post.likedBy.length}}</p>
+                <span class="label label-success">{{$ctrl.post.likedBy.length}}</span>
+            </div>
         </div>
     </div>
 </div>
