@@ -198,7 +198,6 @@ app.post('/api/posts/:id/unlike-post', ensureAuthenticated, (req, res) => {
 });
 
 
-
 app.delete('/api/posts/:id', ensureAuthenticated, (req, res) => {
     if (!req.params.id) {
         return res.sendStatus(404);

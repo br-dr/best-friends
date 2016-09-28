@@ -10,7 +10,8 @@
                 user: '=',
                 deletePost: '=',
                 likePost: '=',
-                unlikePost: '='
+                unlikePost: '=',
+                likeOrUnlike: '='
             }
         });
 
