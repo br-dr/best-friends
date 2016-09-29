@@ -102,11 +102,7 @@
         function isLiked(post) {
             var index = post.likedBy.indexOf(vm.currentUser._id);
 
-            if (index === -1) {
-                return false;
-            } else {
-                return true;
-            }
+            return index !== -1;
         }
     }
 })();

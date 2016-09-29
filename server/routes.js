@@ -119,6 +119,7 @@ app.post('/api/user/:id/add-post/', ensureAuthenticated, (req, res) => {
     newPost.creator = req.user._id;
     newPost.owner = req.params.id;
     newPost.likedBy = [];
+
     var creatorId = req.user._id;
 
     User.findOne({ _id: req.params.id })
@@ -150,8 +151,7 @@ app.post('/api/user/:id/add-post/', ensureAuthenticated, (req, res) => {
 });
 
 app.post('/api/posts/:id/like-post', ensureAuthenticated, (req, res) => {
-    var id = req.params.id;
-    Post.findOne({ _id: id })
+    Post.findOne({ _id: req.params.id })
         .populate('owner')
         .populate('creator')
         .then((populatedPost) => {

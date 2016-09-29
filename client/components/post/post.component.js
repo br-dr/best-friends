@@ -9,8 +9,6 @@
                 post: '=',
                 user: '=',
                 deletePost: '=',
-                likePost: '=',
-                unlikePost: '=',
                 likeOrUnlike: '=',
                 currentUser: '=',
                 isLiked: '='

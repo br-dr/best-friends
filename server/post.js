@@ -20,9 +20,8 @@ var postSchema = new Schema({
         type: Schema.Types.ObjectId, //id of user who liked the post
         ref: modelNames.USER
     }]
-}
-    , {
-        timestamps: true
-    });
+}, {
+    timestamps: true
+});
 
 module.exports = mongoose.model(modelNames.POST, postSchema);
