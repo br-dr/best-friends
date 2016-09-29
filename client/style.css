@@ -67,3 +67,7 @@
     color: #577557;
 }
 
+.navbar-collapse.in {
+    overflow-y: hidden;
+}
+
