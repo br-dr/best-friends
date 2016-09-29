@@ -73,8 +73,7 @@
                     return angular.copy(response.data, post);
                 })
                 .catch(function() {
-                    toastr.error('Server error',
-                        'Can\'t like post');
+                    toastr.error('Server error', 'Can\'t like post');
                 });
         }
 
@@ -84,8 +83,7 @@
                     return angular.copy(response.data, post);
                 })
                 .catch(function() {
-                    toastr.error('Server error',
-                        'Can\'t unlike post');
+                    toastr.error('Server error', 'Can\'t unlike post');
                 });
         }
 
