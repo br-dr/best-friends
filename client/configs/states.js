@@ -106,7 +106,7 @@
 
     resolveUserPosts.$inject = ['$stateParams', 'PostService'];
     function resolveUserPosts($stateParams, PostService) {
-        return PostService.getPosts($stateParams.id);
+        return PostService.getUserPosts($stateParams.id);
     }
 
     resolvePosts.$inject = ['PostService'];
