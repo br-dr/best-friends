@@ -2,11 +2,14 @@
     <div class="row">
 
         <div class="col-md-4">
-            <img 
-                ng-src="{{userCtrl.user.avatar || '/images/avatar.jpeg'}}" 
-                class="img-circle user-page-avatar" 
-                alt="Avatar" 
-            />
+            <div class="user-page-avatar-item">
+                <img 
+                    ng-src="{{userCtrl.user.avatar || '/images/avatar.jpeg'}}" 
+                    class="img-circle user-page-avatar" 
+                    alt="Avatar" 
+                />
+            </div>
+
             <p>public profile</p>
             <h2 class="well">{{userCtrl.user.name}}</h2>
             <follow-count 
