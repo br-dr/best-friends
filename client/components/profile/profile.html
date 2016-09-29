@@ -4,7 +4,7 @@
             <div class="user-page-avatar-item">
                 <img 
                     ng-src="{{profileCtrl.currentUser.avatar || '/images/avatar.jpeg'}}" 
-                    class="user-page-avatar" 
+                    class="img-circle user-page-avatar" 
                     alt="Avatar" 
                     width="300" 
                     height="300" 
@@ -58,8 +58,8 @@
 
         <div class="col-md-6">
             <posts-list 
-                posts="profileCtrl.posts" 
-                owner="profileCtrl.currentUser" 
+                posts="profileCtrl.posts"
+                owner="profileCtrl.currentUser"
                 creator="profileCtrl.currentUser"
             />
         </div>

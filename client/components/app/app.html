@@ -15,13 +15,11 @@
         <div 
             class="collapse navbar-collapse" 
             uib-collapse="navbarCtrl.isNavCollapsed"
-            ng-click="navbarCtrl.isNavCollapsed = !navbarCtrl.isNavCollapsed"
+            ng-click="!navbarCtrl.isNavCollapsed && (navbarCtrl.isNavCollapsed = !navbarCtrl.isNavCollapsed)"
         >
             <ul class="nav navbar-nav">
                 <li><a ui-sref="app.profile"> Profile</a></li>
                 <li><a ui-sref="app.search-users">Search Users</a></li>
-                <li><a href="#">Page 2</a></li>
-                <li><a href="#">Page 3</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/logout"> LogOut</a></li>

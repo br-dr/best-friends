@@ -34,12 +34,7 @@
                     templateUrl: '/components/profile/profile.html',
                     controller: 'ProfileController as profileCtrl',
                     resolve: {
-                        posts: function($http) {
-                            return $http.get('/api/posts/')
-                                .then(function(response) {
-                                    return response.data;
-                                });
-                        },
+                        posts: resolvePosts,
                         followers: function($http) {
                             return $http.get('/api/profile/followers')
                                 .then(function(response) {
@@ -54,13 +49,7 @@
                     controller: 'UserController as userCtrl',
                     resolve: {
                         user: resolveUserById,
-                        posts: function($http, $stateParams) {
-                            var id = $stateParams.id;
-                            return $http.get('/api/user/' + id + '/posts/')
-                                .then(function(response) {
-                                    return response.data;
-                                });
-                        },
+                        posts: resolveUserPosts,
                         followers: resolveFollowers
                     }
                 })
@@ -113,5 +102,15 @@
     resolveFollowers.$inject = ['$stateParams', 'UserService'];
     function resolveFollowers($stateParams, UserService) {
         return UserService.getFollowers($stateParams.id);
+    }
+
+    resolveUserPosts.$inject = ['$stateParams', 'PostService'];
+    function resolveUserPosts($stateParams, PostService) {
+        return PostService.getPosts($stateParams.id);
+    }
+
+    resolvePosts.$inject = ['PostService'];
+    function resolvePosts(PostService) {
+        return PostService.getPosts();
     }
 })();

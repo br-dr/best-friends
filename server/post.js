@@ -15,7 +15,11 @@ var postSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId, //id of postwall owner
         ref: modelNames.USER
-    }
+    },
+    likedBy: [{
+        type: Schema.Types.ObjectId, //id of user who liked the post
+        ref: modelNames.USER
+    }]
 }, {
     timestamps: true
 });

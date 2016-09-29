@@ -118,6 +118,8 @@ app.post('/api/user/:id/add-post/', ensureAuthenticated, (req, res) => {
     newPost.content = req.body.postContent;
     newPost.creator = req.user._id;
     newPost.owner = req.params.id;
+    newPost.likedBy = [];
+
     var creatorId = req.user._id;
 
     User.findOne({ _id: req.params.id })
@@ -145,6 +147,45 @@ app.post('/api/user/:id/add-post/', ensureAuthenticated, (req, res) => {
         })
         .catch((err) => {
             res.status(400).json(err);
+        });
+});
+
+app.post('/api/posts/:id/like-post', ensureAuthenticated, (req, res) => {
+    Post.findOne({ _id: req.params.id })
+        .populate('owner')
+        .populate('creator')
+        .then((populatedPost) => {
+            populatedPost.likedBy.push(req.user._id);
+            return populatedPost.save();
+        })
+        .then((post) => {
+            return res.json(post);
+        })
+        .catch((err) => {
+            res.sendStatus(403);
+        });
+});
+
+app.post('/api/posts/:id/unlike-post', ensureAuthenticated, (req, res) => {
+    var id = req.params.id;
+
+    Post.findOne({ _id: id })
+        .populate('owner')
+        .populate('creator')
+        .then((populatedPost) => {
+            var index = populatedPost.likedBy.indexOf(req.user._id);
+
+            if (index > -1) {
+                populatedPost.likedBy.splice(index, 1);
+            }
+
+            return populatedPost.save();
+        })
+        .then((post) => {
+            return res.json(post);
+        })
+        .catch((err) => {
+            res.sendStatus(403);
         });
 });
 
@@ -216,7 +257,7 @@ app.get('/api/user/:id/followers', ensureAuthenticated, (req, res) => {
 app.get('/api/user/:id/following-list', ensureAuthenticated, (req, res) => {
     var id = req.params.id;
 
-    User.findOne({_id: id})
+    User.findOne({ _id: id })
         .populate('following')
         .then((populatedUser) => {
             return res.json(populatedUser.following);

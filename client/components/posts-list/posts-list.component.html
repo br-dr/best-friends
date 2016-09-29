@@ -22,7 +22,12 @@
     </div>
 
     <div ng-repeat="post in $ctrl.posts | orderBy: '-createdAt'">
-        <post post="post" delete-post="$ctrl.deletePost" user="$ctrl.creator"></post>
+        <post 
+            post="post" 
+            delete-post="$ctrl.deletePost" 
+            user="$ctrl.creator" 
+            like-or-unlike="$ctrl.likeOrUnlike"
+            is-liked="$ctrl.isLiked(post)"
+        ></post>
     </div>
-
 </div>
