@@ -22,7 +22,7 @@
             <p>{{$ctrl.post.content}}</p>
             <div class="pull-right">
                 <i
-                    ng-class="{unliked: !$ctrl.isLiked($ctrl.post), liked: $ctrl.isLiked($ctrl.post)}"
+                    ng-class="{unliked: !$ctrl.isLiked, liked: $ctrl.isLiked}"
                     class="fa fa-heart"
                     ng-click="$ctrl.likeOrUnlike($ctrl.post)"
                     aria-hidden="true"

@@ -61,10 +61,12 @@
 
 .liked {
     color: #14b814;
+    cursor: pointer;
 }
 
 .unliked {
     color: #577557;
+    cursor: pointer;
 }
 
 .navbar-collapse.in {

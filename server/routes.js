@@ -156,10 +156,7 @@ app.post('/api/posts/:id/like-post', ensureAuthenticated, (req, res) => {
         .populate('creator')
         .then((populatedPost) => {
             populatedPost.likedBy.push(req.user._id);
-            return populatedPost;
-        })
-        .then((post) => {
-            return post.save();
+            return populatedPost.save();
         })
         .then((post) => {
             return res.json(post);
@@ -182,10 +179,7 @@ app.post('/api/posts/:id/unlike-post', ensureAuthenticated, (req, res) => {
                 populatedPost.likedBy.splice(index, 1);
             }
 
-            return populatedPost;
-        })
-        .then((post) => {
-            return post.save();
+            return populatedPost.save();
         })
         .then((post) => {
             return res.json(post);
@@ -247,7 +241,6 @@ app.get('/api/user/:id/posts', ensureAuthenticated, (req, res) => {
             return res.sendstatus(403);
         });
 });
-
 
 app.get('/api/user/:id/followers', ensureAuthenticated, (req, res) => {
     var id = req.params.id;

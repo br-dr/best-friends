@@ -31,7 +31,7 @@
             shouldShowInput: false,
             changeAvatar: changeAvatar,
             cancelUrlInput: cancelUrlInput,
-            changeAvatarByKeypress: changeAvatarByKeypress,
+            changeAvatarByKeypress: changeAvatarByKeypress
         });
 
         function changeAvatar() {
