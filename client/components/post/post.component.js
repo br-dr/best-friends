@@ -10,7 +10,6 @@
                 user: '=',
                 deletePost: '=',
                 likeOrUnlike: '=',
-                currentUser: '=',
                 isLiked: '='
             }
         });

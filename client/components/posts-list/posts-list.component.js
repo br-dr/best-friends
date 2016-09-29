@@ -9,7 +9,6 @@
                 posts: '=',
                 owner: '=',
                 creator: '=',
-                currentUser: '='
             }
         });
 
@@ -27,8 +26,6 @@
             cancelPostInput: cancelPostInput,
             addPost: addPost,
             deletePost: deletePost,
-            likePost: likePost,
-            unlikePost: unlikePost,
             likeOrUnlike: likeOrUnlike,
             isLiked: isLiked
         });
@@ -88,17 +85,17 @@
         }
 
         function likeOrUnlike(post) {
-            var index = post.likedBy.indexOf(vm.currentUser._id);
+            var index = post.likedBy.indexOf(vm.creator._id);
 
             if (index === -1) {
-                vm.likePost(post);
+                likePost(post);
             } else {
-                vm.unlikePost(post);
+                unlikePost(post);
             }
         }
 
         function isLiked(post) {
-            var index = post.likedBy.indexOf(vm.currentUser._id);
+            var index = post.likedBy.indexOf(vm.creator._id);
 
             return index !== -1;
         }
