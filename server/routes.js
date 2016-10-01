@@ -6,6 +6,7 @@ var validUrl = require('valid-url');
 
 var User = require('./user');
 var Post = require('./post');
+var Visit = require('./visit');
 var app = require('./app');
 
 app.get('/profile', ensureAuthenticated, (req, res) => {
@@ -29,6 +30,20 @@ app.get('/user/:id', ensureAuthenticated, (req, res) => {
         })
         .catch((err) => {
             res.sendStatus(404);
+        });
+});
+
+app.post('/api/user/:id/visit', ensureAuthenticated, (req, res) => {
+    var newVisit = new Visit();
+
+    newVisit.user = req.params.id;
+    newVisit.visitor = req.user._id;
+    newVisit.save()
+        .then((visit) => {
+            res.sendStatus(200);
+        })
+        .catch((err) => {
+            return res.sendStatus(400);
         });
 });
 
@@ -279,12 +294,34 @@ app.get('/api/user/:id/followers-list', ensureAuthenticated, (req, res) => {
         });
 });
 
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.sendStatus(401);
-}
+app.get('/api/profile/total-visits', ensureAuthenticated, (req, res) => {
+    Visit.find({
+        user: req.user._id,
+        visitor: { $ne: req.user._id }
+    })
+        .then((visits) => {
+            return res.json(visits.length);
+        })
+        .catch((err) => {
+            res.status(400).json(err);
+        });
+});
+
+app.get('/api/profile/unique-visits', ensureAuthenticated, (req, res) => {
+    Visit.find({
+        user: req.user._id,
+        visitor: { $ne: req.user._id }
+    })
+        .then((visits) => {
+            return removeDuplicates(visits, 'visitor');
+        })
+        .then((uniqueVisits) => {
+            res.json(uniqueVisits.length);
+        })
+        .catch((err) => {
+            res.status(400).json();
+        });
+});
 
 app.all('/api/*', (req, res) => {
     res.sendStatus(404);
@@ -297,3 +334,26 @@ app.all('*', (req, res) => {
 });
 
 module.exports = app;
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.sendStatus(401);
+}
+
+function removeDuplicates(originalArray, objKey) {
+    var uniqueVisits = [];
+    var values = [];
+    var value;
+
+    for (var i = 0; i < originalArray.length; i++) {
+        value = originalArray[i][objKey];
+
+        if (values.indexOf(value) === -1) {
+            uniqueVisits.push(originalArray[i]);
+            values.push(value);
+        }
+    }
+    return uniqueVisits;
+}

@@ -9,14 +9,18 @@
         'currentUser',
         'posts',
         '$http',
-        'followers'
+        'followers',
+        'totalVisits',
+        'uniqueVisits'
     ];
 
     function ProfileController(
         currentUser,
         posts,
         $http,
-        followers
+        followers,
+        totalVisits,
+        uniqueVisits
     ) {
         var vm = this;
 
@@ -31,7 +35,9 @@
             shouldShowInput: false,
             changeAvatar: changeAvatar,
             cancelUrlInput: cancelUrlInput,
-            changeAvatarByKeypress: changeAvatarByKeypress
+            changeAvatarByKeypress: changeAvatarByKeypress,
+            totalVisits: totalVisits,
+            uniqueVisits: uniqueVisits
         });
 
         function changeAvatar() {

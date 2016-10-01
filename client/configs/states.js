@@ -40,7 +40,9 @@
                                 .then(function(response) {
                                     return response.data;
                                 });
-                        }
+                        },
+                        totalVisits: resolveTotalVisits,
+                        uniqueVisits: resolveUniqueVisits
                     }
                 })
                 .state('app.user', {
@@ -112,5 +114,15 @@
     resolvePosts.$inject = ['PostService'];
     function resolvePosts(PostService) {
         return PostService.getPosts();
+    }
+
+    resolveTotalVisits.$inject = ['VisitService'];
+    function resolveTotalVisits(VisitService) {
+        return VisitService.getTotalVisits();
+    }
+
+    resolveUniqueVisits.$inject = ['VisitService'];
+    function resolveUniqueVisits(VisitService) {
+        return VisitService.getUniqueVisits();
     }
 })();
