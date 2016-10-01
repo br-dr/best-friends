@@ -42,7 +42,13 @@
                                 });
                         },
                         totalVisits: resolveTotalVisits,
-                        uniqueVisits: resolveUniqueVisits
+                        uniqueVisits: resolveUniqueVisits,
+                        totalVisitsThisDay: resolveTotalVisitsThisDay,
+                        totalVisitsThisWeek: resolveTotalVisitsThisWeek,
+                        totalVisitsThisMonth: resolveTotalVisitsThisMonth,
+                        uniqueVisitsThisDay: resolveUniqueVisitsThisDay,
+                        uniqueVisitsThisWeek: resolveUniqueVisitsThisWeek,
+                        uniqueVisitsThisMonth: resolveUniqueVisitsThisMonth
                     }
                 })
                 .state('app.user', {
@@ -124,5 +130,35 @@
     resolveUniqueVisits.$inject = ['VisitService'];
     function resolveUniqueVisits(VisitService) {
         return VisitService.getUniqueVisits();
+    }
+
+    resolveTotalVisitsThisDay.$inject = ['VisitService'];
+    function resolveTotalVisitsThisDay(VisitService) {
+        return VisitService.getTotalVisitsThisDay();
+    }
+
+    resolveTotalVisitsThisWeek.$inject = ['VisitService'];
+    function resolveTotalVisitsThisWeek(VisitService) {
+        return VisitService.getTotalVisitsThisWeek();
+    }
+
+    resolveTotalVisitsThisMonth.$inject = ['VisitService'];
+    function resolveTotalVisitsThisMonth(VisitService) {
+        return VisitService.getTotalVisitsThisMonth();
+    }
+
+    resolveUniqueVisitsThisDay.$inject = ['VisitService'];
+    function resolveUniqueVisitsThisDay(VisitService) {
+        return VisitService.getUniqueVisitsThisDay();
+    }
+
+    resolveUniqueVisitsThisWeek.$inject = ['VisitService'];
+    function resolveUniqueVisitsThisWeek(VisitService) {
+        return VisitService.getUniqueVisitsThisWeek();
+    }
+
+    resolveUniqueVisitsThisMonth.$inject = ['VisitService'];
+    function resolveUniqueVisitsThisMonth(VisitService) {
+        return VisitService.getUniqueVisitsThisMonth();
     }
 })();
