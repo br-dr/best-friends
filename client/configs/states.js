@@ -51,6 +51,14 @@
                         uniqueVisitsThisMonth: resolveUniqueVisitsThisMonth
                     }
                 })
+                .state('app.visit-stats', {
+                    url: '/visit-stats',
+                    templateUrl: '/components/visit-stats/visit-stats.html',
+                    controller: 'VisitStatsController as visitStatsCtrl',
+                    resolve: {
+                        visits: resolveVisits
+                    }
+                })
                 .state('app.user', {
                     url: '/user/:id',
                     templateUrl: '/components/user/user.html',
@@ -160,5 +168,10 @@
     resolveUniqueVisitsThisMonth.$inject = ['VisitService'];
     function resolveUniqueVisitsThisMonth(VisitService) {
         return VisitService.getUniqueVisitsThisMonth();
+    }
+
+    resolveVisits.$inject = ['$stateParams', 'VisitService'];
+    function resolveVisits($stateParams, VisitService) {
+        return VisitService.getVisitsByPeriod($stateParams.period);
     }
 })();

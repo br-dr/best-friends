@@ -9,6 +9,7 @@
     function VisitService($timeout, $http) {
         return {
             createVisit: createVisit,
+            // getVisits: getVisits,
             getTotalVisits: getTotalVisits,
             getUniqueVisits: getUniqueVisits,
             getTotalVisitsThisDay: getTotalVisitsThisDay,
@@ -16,7 +17,8 @@
             getTotalVisitsThisMonth: getTotalVisitsThisMonth,
             getUniqueVisitsThisDay: getUniqueVisitsThisDay,
             getUniqueVisitsThisWeek: getUniqueVisitsThisWeek,
-            getUniqueVisitsThisMonth: getUniqueVisitsThisMonth
+            getUniqueVisitsThisMonth: getUniqueVisitsThisMonth,
+            getVisitsByPeriod: getVisitsByPeriod
         };
 
         function createVisit(id) {
@@ -79,6 +81,10 @@
                 .then(function(response) {
                     return response.data;
                 });
+        }
+
+        function getVisitsByPeriod(period, totalOrUnique) {
+            return $http.get('/api/profile/visit-stats/' + period + '/' + totalOrUnique);
         }
     }
 })();

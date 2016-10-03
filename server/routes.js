@@ -442,7 +442,8 @@ app.get('/api/profile/unique-visits-month', ensureAuthenticated, (req, res) => {
 
     Visit.find({
         user: req.user._id,
-        visitor: { $ne: req.user._id }
+        visitor: { $ne: req.user._id },
+        createdAt: { $gt: monthStart }
     })
         .then((visits) => {
             return removeDuplicates(visits, 'visitor');
@@ -452,6 +453,49 @@ app.get('/api/profile/unique-visits-month', ensureAuthenticated, (req, res) => {
         })
         .catch((err) => {
             res.status(400).json();
+        });
+});
+
+app.get('/api/profile/visit-stats/:period/:totalOrUnique', ensureAuthenticated, (req, res) => {
+    var periodStart = new Date();
+
+    switch (req.params.period) {
+        case 'day':
+            periodStart.setHours(0, 0, 0, 0);
+            break;
+        case 'week':
+            periodStart.setHours(0, 0, 0, 0);
+
+            for (var i = 1; i < 7; i++) {
+                if (periodStart.getDay() !== 1) {
+                    periodStart = periodStart - i * 24 * 60 * 60 * 1000;
+                }
+                break;
+            }
+            break;
+        case 'month':
+            periodStart.setHours(0, 0, 0, 0);
+            periodStart.setDate(1);
+            break;
+    }
+
+
+    Visit.find({
+        user: req.user._id,
+        visitor: { $ne: req.user._id },
+        createdAt: { $gt: periodStart }
+    })
+        .then((visits) => {
+            if (req.params.totalOrUnique == 'total') {
+                return visits;
+            }
+            return removeDuplicates(visits, 'visitor');
+        })
+        .then((visits) => {
+            return res.json(visits);
+        })
+        .catch((err) => {
+            return res.status(400).json(err);
         });
 });
 
