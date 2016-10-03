@@ -22,6 +22,6 @@
         <button class="btn btn-info" type="submit">Check!</button>
     </form>
     <div ng-show="visitStatsCtrl.areVisitsShown">
-        <p>total visits this: {{visitStatsCtrl.visits}}</p>
+        <p>{{visitStatsCtrl.input.totalOrUnique}} visits this {{visitStatsCtrl.input.period}}: {{visitStatsCtrl.visits}}</p>
     </div>
 </div>
