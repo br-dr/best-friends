@@ -101,3 +101,4 @@ rules:
 
 globals:
   angular: true
+  Highcharts: true

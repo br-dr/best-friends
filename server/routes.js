@@ -456,48 +456,79 @@ app.get('/api/profile/unique-visits-month', ensureAuthenticated, (req, res) => {
         });
 });
 
-app.get('/api/profile/visit-stats/:period/:totalOrUnique', ensureAuthenticated, (req, res) => {
-    var periodStart = new Date();
+app.get(
+    '/api/profile/visit-stats/:period/:totalOrUnique',
+    ensureAuthenticated,
+    (req, res) => {
+        var periodStart = new Date();
 
-    switch (req.params.period) {
-        case 'day':
-            periodStart.setHours(0, 0, 0, 0);
-            break;
-        case 'week':
-            periodStart.setHours(0, 0, 0, 0);
-
-            for (var i = 1; i < 7; i++) {
-                if (periodStart.getDay() !== 1) {
-                    periodStart = periodStart - i * 24 * 60 * 60 * 1000;
-                }
+        var howToGroup = {};
+        switch (req.params.period) {
+            case 'day':
+                periodStart.setHours(0, 0, 0, 0);
+                howToGroup = { $hour: '$createdAt' };
                 break;
-            }
-            break;
-        case 'month':
-            periodStart.setHours(0, 0, 0, 0);
-            periodStart.setDate(1);
-            break;
-    }
+            case 'week':
+                howToGroup = { $dayOfWeek: '$createdAt' };
+                if ((new Date().getDay()) === 0) {
+                    periodStart = new Date(new Date() - 6 * 24 * 60 * 60 * 1000).setHours(0, 0, 0, 0);
+                    break;
+                }
+                periodStart = new Date((new Date() - (new Date().getDay() - 1) * 24 * 60 * 60 * 1000)).setHours(0, 0, 0, 0);
+                break;
+            case 'month':
+                periodStart.setHours(0, 0, 0, 0);
+                periodStart.setDate(1);
+                howToGroup = { $dayOfMonth: '$createdAt' };
+                break;
+        }
 
-
-    Visit.find({
-        user: req.user._id,
-        visitor: { $ne: req.user._id },
-        createdAt: { $gt: periodStart }
-    })
-        .then((visits) => {
-            if (req.params.totalOrUnique == 'total') {
-                return visits;
+        var aggregations = [{
+            $match: {
+                user: req.user._id,
+                // visitor: { $ne: req.user._id },
+                // createdAt: { $gt: periodStart }
             }
-            return removeDuplicates(visits, 'visitor');
-        })
-        .then((visits) => {
-            return res.json(visits);
-        })
-        .catch((err) => {
-            return res.status(400).json(err);
-        });
-});
+        }];
+
+        // if (req.params.totalOrUnique === 'unique') {
+        //     aggregations.push({
+        //         $group: {
+        //             _id: '$_id',
+        //             createdAt: '$createdAt'
+        //         }
+        //     });
+        // }
+
+        // aggregations.push({
+        //     $group: {
+        //         _id: howToGroup,
+        //         count: { $sum: 1 }
+        //     }
+        // });
+
+        Visit.aggregate([])
+            // Visit.find({
+            //     user: req.user._id,
+            //     visitor: { $ne: req.user._id },
+            //     createdAt: { $gt: periodStart }
+            // })
+            //     .then((visits) => {
+            //         if (req.params.totalOrUnique == 'total') {
+            //             return visits;
+            //         }
+            //         return removeDuplicates(visits, 'visitor');
+            //     })
+            //     .then((visits) => {
+            //         switch(req.params.per
+            //     })
+            .then((visits) => {
+                return res.json(visits);
+            })
+            .catch((err) => {
+                return res.status(400).json(err);
+            });
+    });
 
 app.all('/api/*', (req, res) => {
     res.sendStatus(404);
