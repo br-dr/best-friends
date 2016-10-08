@@ -83,8 +83,8 @@
                 });
         }
 
-        function getVisitsByPeriod(period, totalOrUnique) {
-            return $http.get('/api/profile/visit-stats/' + period + '/' + totalOrUnique);
+        function getVisitsByPeriod(period) {
+            return $http.get('/api/profile/visit-stats/' + period);
         }
     }
 })();

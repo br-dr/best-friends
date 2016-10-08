@@ -6,8 +6,14 @@ var modelNames = require('./model-names');
 var Schema = mongoose.Schema;
 
 var visitSchema = new Schema({
-    user: String,
-    visitor: String,
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: modelNames.USER
+    },
+    visitor: {
+        type: Schema.Types.ObjectId,
+        ref: modelNames.USER
+    },
 }, {
     timestamps: true
 });

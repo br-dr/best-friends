@@ -458,7 +458,7 @@ app.get('/api/profile/unique-visits-month', ensureAuthenticated, (req, res) => {
 });
 
 app.get(
-    '/api/profile/visit-stats/:period/:totalOrUnique',
+    '/api/profile/visit-stats/:period/',
     ensureAuthenticated,
     (req, res) => {
         var periodStart = new Date();
@@ -472,10 +472,12 @@ app.get(
             case 'week':
                 howToGroup = { $dayOfWeek: '$createdAt' };
                 if ((new Date().getDay()) === 0) {
-                    periodStart = new Date(new Date() - 6 * 24 * 60 * 60 * 1000).setHours(0, 0, 0, 0);
+                    periodStart = new Date(new Date() - 6 * 24 * 60 * 60 * 1000);
+                    periodStart.setHours(0, 0, 0, 0);
                     break;
                 }
-                periodStart = new Date((new Date() - (new Date().getDay() - 1) * 24 * 60 * 60 * 1000)).setHours(0, 0, 0, 0);
+                periodStart = new Date(new Date() - (new Date().getDay() - 1) * 24 * 60 * 60 * 1000);
+                periodStart.setHours(0, 0, 0, 0);
                 break;
             case 'month':
                 periodStart.setHours(0, 0, 0, 0);
@@ -486,25 +488,17 @@ app.get(
 
         var aggregations = [{
             $match: {
-                user: mongoose.Types.ObjectId(req.user._id),
-                visitor: { $ne: mongoose.Types.ObjectId(req.user._id) },
+                user: req.user._id,
+                visitor: { $ne: req.user._id },
                 createdAt: { $gt: periodStart }
             }
         }];
 
-        if (req.params.totalOrUnique === 'unique') {
-            aggregations.push({
-                $group: {
-                    _id: '$_id',
-                    createdAt: '$createdAt'
-                }
-            });
-        }
-
         aggregations.push({
             $group: {
                 _id: howToGroup,
-                count: { $sum: 1 }
+                count: { $sum: 1 },
+                visitors: { $addToSet: '$visitor'}
             }
         });
 

@@ -11,19 +11,12 @@
             <label><input type="radio" ng-model="visitStatsCtrl.input.period" value="month" name="period">This month</label>
         </div>
 
-        <h4>Total visits or visits by unique users?</h4>
-        <div class="radio">
-            <label><input type="radio" ng-model="visitStatsCtrl.input.totalOrUnique" value="total" name="totalOrUnique">total</label>
-        </div>
-        <div class="radio">
-            <label><input type="radio" ng-model="visitStatsCtrl.input.totalOrUnique" value="unique" name="totalOrUnique">unique</label>
-        </div>
-
         <button class="btn btn-info" type="submit">Check!</button>
     </form>
     <div ng-show="visitStatsCtrl.areVisitsShown">
-        <p>{{visitStatsCtrl.input.totalOrUnique}} visits this {{visitStatsCtrl.input.period}}: {{visitStatsCtrl.visits}}</p>
+        <p>visits this {{visitStatsCtrl.input.period}}: {{visitStatsCtrl.visits}}</p>
+        <!--<p>visits for chart {{visitStatsCtrl.visitsForChart}}</p>-->
     </div>
     <!--<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>-->
-    <div id="chart-container">Placeholder for chart</div>
+    <div id="chart-container" ng-show="visitStatsCtrl.areVisitsShown">Placeholder for chart</div>
 </div>
