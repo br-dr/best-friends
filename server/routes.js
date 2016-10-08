@@ -3,6 +3,7 @@
 var passport = require('passport');
 var path = require('path');
 var validUrl = require('valid-url');
+var mongoose = require('mongoose');
 
 var User = require('./user');
 var Post = require('./post');
@@ -485,43 +486,29 @@ app.get(
 
         var aggregations = [{
             $match: {
-                user: req.user._id,
-                // visitor: { $ne: req.user._id },
-                // createdAt: { $gt: periodStart }
+                user: mongoose.Types.ObjectId(req.user._id),
+                visitor: { $ne: mongoose.Types.ObjectId(req.user._id) },
+                createdAt: { $gt: periodStart }
             }
         }];
 
-        // if (req.params.totalOrUnique === 'unique') {
-        //     aggregations.push({
-        //         $group: {
-        //             _id: '$_id',
-        //             createdAt: '$createdAt'
-        //         }
-        //     });
-        // }
+        if (req.params.totalOrUnique === 'unique') {
+            aggregations.push({
+                $group: {
+                    _id: '$_id',
+                    createdAt: '$createdAt'
+                }
+            });
+        }
 
-        // aggregations.push({
-        //     $group: {
-        //         _id: howToGroup,
-        //         count: { $sum: 1 }
-        //     }
-        // });
+        aggregations.push({
+            $group: {
+                _id: howToGroup,
+                count: { $sum: 1 }
+            }
+        });
 
-        Visit.aggregate([])
-            // Visit.find({
-            //     user: req.user._id,
-            //     visitor: { $ne: req.user._id },
-            //     createdAt: { $gt: periodStart }
-            // })
-            //     .then((visits) => {
-            //         if (req.params.totalOrUnique == 'total') {
-            //             return visits;
-            //         }
-            //         return removeDuplicates(visits, 'visitor');
-            //     })
-            //     .then((visits) => {
-            //         switch(req.params.per
-            //     })
+        Visit.aggregate(aggregations)
             .then((visits) => {
                 return res.json(visits);
             })
