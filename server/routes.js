@@ -3,7 +3,6 @@
 var passport = require('passport');
 var path = require('path');
 var validUrl = require('valid-url');
-var mongoose = require('mongoose');
 
 var User = require('./user');
 var Post = require('./post');
@@ -310,11 +309,16 @@ app.get(
             case 'week':
                 howToGroup = { $dayOfWeek: '$createdAt' };
                 if ((new Date().getDay()) === 0) {
-                    periodStart = new Date(new Date() - 6 * 24 * 60 * 60 * 1000);
+                    periodStart = new Date(
+                        new Date() - 6 * 24 * 60 * 60 * 1000
+                    );
                     periodStart.setHours(0, 0, 0, 0);
                     break;
                 }
-                periodStart = new Date(new Date() - (new Date().getDay() - 1) * 24 * 60 * 60 * 1000);
+                periodStart = new Date(
+                    new Date() -
+                    (new Date().getDay() - 1) * 24 * 60 * 60 * 1000
+                );
                 periodStart.setHours(0, 0, 0, 0);
                 break;
             case 'month':
@@ -332,15 +336,17 @@ app.get(
             }
         }];
 
-        aggregations.push({
-            $group: {
-                _id: howToGroup,
-                count: { $sum: 1 },
-                visitors: { $addToSet: '$visitor'}
+        aggregations.push(
+            {
+                $group: {
+                    _id: howToGroup,
+                    count: { $sum: 1 },
+                    visitors: { $addToSet: '$visitor' }
+                }
+            }, {
+                $sort: { _id: 1 }
             }
-        }, {
-            $sort: { _id: 1 }
-        });
+        );
 
         Visit.aggregate(aggregations)
             .then((visits) => {

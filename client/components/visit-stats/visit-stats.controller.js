@@ -47,9 +47,10 @@
                         case 'day':
                             start = 0;
                             end = (new Date()).getHours();
-                            categories = Array.apply(null, Array(24)).map(function(item, index) {
-                                return index + 'h';
-                            });
+                            categories = Array.apply(null, Array(24))
+                                .map(function(item, index) {
+                                    return index + 'h';
+                                });
                             break;
                         case 'week':
                             start = 0;
@@ -58,7 +59,10 @@
                                 visit._id = visit._id - 2;
                                 return visit;
                             });
-                            categories = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                            categories = [
+                                'Mon', 'Tue', 'Wed',
+                                'Thu', 'Fri', 'Sat', 'Sun'
+                            ];
                             break;
                         case 'month':
                             start = 1;
@@ -72,10 +76,17 @@
                         });
 
                         totalVisits.push([i, visit ? visit.count : 0]);
-                        uniqueVisits.push([i, visit ? visit.visitors.length : 0]);
+                        uniqueVisits.push([
+                            i,
+                            visit ? visit.visitors.length : 0
+                        ]);
                     }
 
-                    return { total: totalVisits, unique: uniqueVisits, categories: categories };
+                    return {
+                        total: totalVisits,
+                        unique: uniqueVisits,
+                        categories: categories
+                    };
                 })
                 .then(drawChart)
                 .catch(function(err) {
@@ -112,17 +123,16 @@
                     }
                 },
 
-                series: [{
-                    name: 'total',
-                    data: data.total
-                }, {
+                series: [
+                    {
+                        name: 'total',
+                        data: data.total
+                    }, {
                         name: 'unique',
                         data: data.unique
-                    }]
+                    }
+                ]
             });
         }
-
-
-
     }
 })();
