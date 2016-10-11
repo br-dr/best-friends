@@ -6,6 +6,7 @@
         'ngAnimate',
         'toastr',
         'ngSanitize',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'angular-loading-bar'
     ]);
 })();
