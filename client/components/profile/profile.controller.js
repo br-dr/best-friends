@@ -9,30 +9,14 @@
         'currentUser',
         'posts',
         '$http',
-        'followers',
-        'totalVisits',
-        'uniqueVisits',
-        'totalVisitsThisDay',
-        'totalVisitsThisWeek',
-        'totalVisitsThisMonth',
-        'uniqueVisitsThisDay',
-        'uniqueVisitsThisWeek',
-        'uniqueVisitsThisMonth'
+        'followers'
     ];
 
     function ProfileController(
         currentUser,
         posts,
         $http,
-        followers,
-        totalVisits,
-        uniqueVisits,
-        totalVisitsThisDay,
-        totalVisitsThisWeek,
-        totalVisitsThisMonth,
-        uniqueVisitsThisDay,
-        uniqueVisitsThisWeek,
-        uniqueVisitsThisMonth
+        followers
     ) {
         var vm = this;
 
@@ -47,15 +31,7 @@
             shouldShowInput: false,
             changeAvatar: changeAvatar,
             cancelUrlInput: cancelUrlInput,
-            changeAvatarByKeypress: changeAvatarByKeypress,
-            totalVisits: totalVisits,
-            uniqueVisits: uniqueVisits,
-            totalVisitsThisDay: totalVisitsThisDay,
-            totalVisitsThisWeek: totalVisitsThisWeek,
-            totalVisitsThisMonth: totalVisitsThisMonth,
-            uniqueVisitsThisDay: uniqueVisitsThisDay,
-            uniqueVisitsThisWeek: uniqueVisitsThisWeek,
-            uniqueVisitsThisMonth: uniqueVisitsThisMonth
+            changeAvatarByKeypress: changeAvatarByKeypress
         });
 
         function changeAvatar() {
