@@ -41,23 +41,12 @@
                                     return response.data;
                                 });
                         },
-                        totalVisits: resolveTotalVisits,
-                        uniqueVisits: resolveUniqueVisits,
-                        totalVisitsThisDay: resolveTotalVisitsThisDay,
-                        totalVisitsThisWeek: resolveTotalVisitsThisWeek,
-                        totalVisitsThisMonth: resolveTotalVisitsThisMonth,
-                        uniqueVisitsThisDay: resolveUniqueVisitsThisDay,
-                        uniqueVisitsThisWeek: resolveUniqueVisitsThisWeek,
-                        uniqueVisitsThisMonth: resolveUniqueVisitsThisMonth
                     }
                 })
                 .state('app.visit-stats', {
                     url: '/visit-stats',
                     templateUrl: '/components/visit-stats/visit-stats.html',
                     controller: 'VisitStatsController as visitStatsCtrl',
-                    resolve: {
-                        visits: resolveVisits
-                    }
                 })
                 .state('app.user', {
                     url: '/user/:id',
@@ -128,50 +117,5 @@
     resolvePosts.$inject = ['PostService'];
     function resolvePosts(PostService) {
         return PostService.getPosts();
-    }
-
-    resolveTotalVisits.$inject = ['VisitService'];
-    function resolveTotalVisits(VisitService) {
-        return VisitService.getTotalVisits();
-    }
-
-    resolveUniqueVisits.$inject = ['VisitService'];
-    function resolveUniqueVisits(VisitService) {
-        return VisitService.getUniqueVisits();
-    }
-
-    resolveTotalVisitsThisDay.$inject = ['VisitService'];
-    function resolveTotalVisitsThisDay(VisitService) {
-        return VisitService.getTotalVisitsThisDay();
-    }
-
-    resolveTotalVisitsThisWeek.$inject = ['VisitService'];
-    function resolveTotalVisitsThisWeek(VisitService) {
-        return VisitService.getTotalVisitsThisWeek();
-    }
-
-    resolveTotalVisitsThisMonth.$inject = ['VisitService'];
-    function resolveTotalVisitsThisMonth(VisitService) {
-        return VisitService.getTotalVisitsThisMonth();
-    }
-
-    resolveUniqueVisitsThisDay.$inject = ['VisitService'];
-    function resolveUniqueVisitsThisDay(VisitService) {
-        return VisitService.getUniqueVisitsThisDay();
-    }
-
-    resolveUniqueVisitsThisWeek.$inject = ['VisitService'];
-    function resolveUniqueVisitsThisWeek(VisitService) {
-        return VisitService.getUniqueVisitsThisWeek();
-    }
-
-    resolveUniqueVisitsThisMonth.$inject = ['VisitService'];
-    function resolveUniqueVisitsThisMonth(VisitService) {
-        return VisitService.getUniqueVisitsThisMonth();
-    }
-
-    resolveVisits.$inject = ['$stateParams', 'VisitService'];
-    function resolveVisits($stateParams, VisitService) {
-        return VisitService.getVisitsByPeriod($stateParams.period);
     }
 })();

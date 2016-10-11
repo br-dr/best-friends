@@ -6,48 +6,78 @@
 
     VisitStatsController.$inject = [
         'currentUser',
-        'VisitService',
-        'visits',
+        'VisitService'
     ];
 
     function VisitStatsController(
         currentUser,
-        VisitService,
-        visits
+        VisitService
     ) {
         var vm = this;
 
         angular.extend(vm, {
             areVisitsShown: false,
+            period: localStorage.getItem('period') || 'day',
             visits: [],
-            input: {
-                period: ''
-            },
             getVisits: getVisits,
         });
 
         var totalVisits = [];
         var uniqueVisits = [];
 
-        function getVisits() {
+        getVisits(vm.period);
+
+        function getVisits(period) {
+            vm.period = period;
+            localStorage.setItem('period', vm.period);
             return VisitService.getVisitsByPeriod(
-                vm.input.period
+                period
             )
                 .then(function(response) {
                     vm.areVisitsShown = true;
+                    totalVisits.length = 0;
+                    uniqueVisits.length = 0;
 
                     angular.copy(response.data, vm.visits);
-                    for (var i = 0; i < vm.visits.length; i++) {
-                        totalVisits.push([vm.visits[i]._id, vm.visits[i].count]);
-                        uniqueVisits.push([vm.visits[i]._id, vm.visits[i].visitors.length]);
-                        var data = {total: totalVisits, unique: uniqueVisits};
+
+                    var end = 0;
+                    var start = 0;
+                    var categories = [];
+                    switch (period) {
+                        case 'day':
+                            start = 0;
+                            end = (new Date()).getHours();
+                            categories = Array.apply(null, Array(24)).map(function(item, index) {
+                                return index + 'h';
+                            });
+                            break;
+                        case 'week':
+                            start = 0;
+                            end = ((new Date()).getDay() || 7) - 1;
+                            vm.visits = vm.visits.map(function(visit) {
+                                visit._id = visit._id - 2;
+                                return visit;
+                            });
+                            categories = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                            break;
+                        case 'month':
+                            start = 1;
+                            end = (new Date()).getDate();
+                            break;
                     }
-                    
-                    return data;
+
+                    for (var i = start; i <= end; i++) {
+                        var visit = vm.visits.find(function(visit) {
+                            return visit._id === i;
+                        });
+
+                        totalVisits.push([i, visit ? visit.count : 0]);
+                        uniqueVisits.push([i, visit ? visit.visitors.length : 0]);
+                    }
+
+                    return { total: totalVisits, unique: uniqueVisits, categories: categories };
                 })
-                .then(function(data) {
-                    return drawChart(data);
-                })
+                .then(drawChart)
                 .catch(function(err) {
                     console.log('error with getting visits');
                 });
@@ -60,11 +90,14 @@
                 },
 
                 xAxis: {
+                    allowDecimals: false,
                     title: {
                         text: 'time'
                     },
+                    categories: data.categories
                 },
                 yAxis: {
+                    allowDecimals: false,
                     title: {
                         text: 'Visits count'
                     },
@@ -83,9 +116,9 @@
                     name: 'total',
                     data: data.total
                 }, {
-                    name: 'unique',
-                    data: data.unique
-                }]
+                        name: 'unique',
+                        data: data.unique
+                    }]
             });
         }
 

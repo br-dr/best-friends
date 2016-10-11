@@ -1,22 +1,13 @@
-<div>
-    <form ng-submit="visitStatsCtrl.getVisits()">
-        <h4>Choose period to check visit stats</h4>
-        <div class="radio">
-            <label><input type="radio" ng-model="visitStatsCtrl.input.period" value="day" name="period">This day</label>
-        </div>
-        <div class="radio">
-            <label><input type="radio" ng-model="visitStatsCtrl.input.period" value="week" name="period">This week</label>
-        </div>
-        <div class="radio">
-            <label><input type="radio" ng-model="visitStatsCtrl.input.period" value="month" name="period">This month</label>
-        </div>
-
-        <button class="btn btn-info" type="submit">Check!</button>
-    </form>
-    <div ng-show="visitStatsCtrl.areVisitsShown">
-        <p>visits this {{visitStatsCtrl.input.period}}: {{visitStatsCtrl.visits}}</p>
-        <!--<p>visits for chart {{visitStatsCtrl.visitsForChart}}</p>-->
+<div class="container">
+    <h4>Choose period to check visit stats</h4>
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default" ng-click="visitStatsCtrl.getVisits('day')" ng-class="{active: visitStatsCtrl.period === 'day'}">Day</button>
+        <button type="button" class="btn btn-default" ng-click="visitStatsCtrl.getVisits('week')" ng-class="{active: visitStatsCtrl.period === 'week'}">Week</button>
+        <button type="button" class="btn btn-default" ng-click="visitStatsCtrl.getVisits('month')" ng-class="{active: visitStatsCtrl.period === 'month'}">Month</button>
     </div>
-    <!--<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>-->
-    <div id="chart-container" ng-show="visitStatsCtrl.areVisitsShown">Placeholder for chart</div>
+    <div 
+        id="chart-container" 
+        style="min-width: 80%; height: 400px; margin: 0 auto"
+        ng-show="visitStatsCtrl.areVisitsShown"
+    >Placeholder for chart</div>
 </div>

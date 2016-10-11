@@ -295,168 +295,6 @@ app.get('/api/user/:id/followers-list', ensureAuthenticated, (req, res) => {
         });
 });
 
-app.get('/api/profile/total-visits', ensureAuthenticated, (req, res) => {
-    Visit.find({
-        user: req.user._id,
-        visitor: { $ne: req.user._id }
-    })
-        .then((visits) => {
-            return res.json(visits.length);
-        })
-        .catch((err) => {
-            res.status(400).json(err);
-        });
-});
-
-app.get('/api/profile/unique-visits', ensureAuthenticated, (req, res) => {
-    Visit.find({
-        user: req.user._id,
-        visitor: { $ne: req.user._id }
-    })
-        .then((visits) => {
-            return removeDuplicates(visits, 'visitor');
-        })
-        .then((uniqueVisits) => {
-            res.json(uniqueVisits.length);
-        })
-        .catch((err) => {
-            res.status(400).json();
-        });
-});
-
-app.get('/api/profile/total-visits-day', ensureAuthenticated, (req, res) => {
-    var start = new Date();
-
-    start.setHours(0, 0, 0, 0);
-
-    Visit.find({
-        user: req.user._id,
-        visitor: { $ne: req.user._id },
-        createdAt: { $gt: start }
-    })
-        .then((visits) => {
-            return res.json(visits.length);
-        })
-        .catch((err) => {
-            return res.status(400).json(err);
-        });
-});
-
-app.get('/api/profile/total-visits-week', ensureAuthenticated, (req, res) => {
-    var weekStart = new Date();
-
-    weekStart.setHours(0, 0, 0, 0);
-
-    for (var i = 1; i < 7; i++) {
-        if (weekStart.getDay() !== 1) {
-            weekStart = weekStart - i * 24 * 60 * 60 * 1000;
-        }
-        break;
-    }
-
-    Visit.find({
-        user: req.user._id,
-        visitor: { $ne: req.user._id },
-        createdAt: { $gt: weekStart }
-    })
-        .then((visits) => {
-            return res.json(visits.length);
-        })
-        .catch((err) => {
-            return res.status(400).json(err);
-        });
-});
-
-app.get('/api/profile/total-visits-month', ensureAuthenticated, (req, res) => {
-    var monthStart = new Date();
-
-    monthStart.setHours(0, 0, 0, 0);
-    monthStart.setDate(1);
-
-    Visit.find({
-        user: req.user._id,
-        visitor: { $ne: req.user._id },
-        createdAt: { $gt: monthStart }
-    })
-        .then((visits) => {
-            return res.json(visits.length);
-        })
-        .catch((err) => {
-            return res.status(400).json(err);
-        });
-});
-
-app.get('/api/profile/unique-visits-day', ensureAuthenticated, (req, res) => {
-    var start = new Date();
-
-    start.setHours(0, 0, 0, 0);
-
-    Visit.find({
-        user: req.user._id,
-        visitor: { $ne: req.user._id },
-        createdAt: { $gt: start }
-    })
-        .then((visits) => {
-            return removeDuplicates(visits, 'visitor');
-        })
-        .then((uniqueVisits) => {
-            res.json(uniqueVisits.length);
-        })
-        .catch((err) => {
-            res.status(400).json();
-        });
-});
-
-app.get('/api/profile/unique-visits-week', ensureAuthenticated, (req, res) => {
-    var weekStart = new Date();
-
-    weekStart.setHours(0, 0, 0, 0);
-
-    for (var i = 1; i < 7; i++) {
-        if (weekStart.getDay() !== 1) {
-            weekStart = weekStart - i * 24 * 60 * 60 * 1000;
-        }
-        break;
-    }
-
-    Visit.find({
-        user: req.user._id,
-        visitor: { $ne: req.user._id },
-        createdAt: { $gt: weekStart }
-    })
-        .then((visits) => {
-            return removeDuplicates(visits, 'visitor');
-        })
-        .then((uniqueVisits) => {
-            res.json(uniqueVisits.length);
-        })
-        .catch((err) => {
-            res.status(400).json();
-        });
-});
-
-app.get('/api/profile/unique-visits-month', ensureAuthenticated, (req, res) => {
-    var monthStart = new Date();
-
-    monthStart.setHours(0, 0, 0, 0);
-    monthStart.setDate(1);
-
-    Visit.find({
-        user: req.user._id,
-        visitor: { $ne: req.user._id },
-        createdAt: { $gt: monthStart }
-    })
-        .then((visits) => {
-            return removeDuplicates(visits, 'visitor');
-        })
-        .then((uniqueVisits) => {
-            res.json(uniqueVisits.length);
-        })
-        .catch((err) => {
-            res.status(400).json();
-        });
-});
-
 app.get(
     '/api/profile/visit-stats/:period/',
     ensureAuthenticated,
@@ -500,6 +338,8 @@ app.get(
                 count: { $sum: 1 },
                 visitors: { $addToSet: '$visitor'}
             }
+        }, {
+            $sort: { _id: 1 }
         });
 
         Visit.aggregate(aggregations)
@@ -528,20 +368,4 @@ function ensureAuthenticated(req, res, next) {
         return next();
     }
     res.sendStatus(401);
-}
-
-function removeDuplicates(originalArray, objKey) {
-    var uniqueVisits = [];
-    var values = [];
-    var value;
-
-    for (var i = 0; i < originalArray.length; i++) {
-        value = originalArray[i][objKey];
-
-        if (values.indexOf(value) === -1) {
-            uniqueVisits.push(originalArray[i]);
-            values.push(value);
-        }
-    }
-    return uniqueVisits;
 }
