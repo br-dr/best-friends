@@ -6,6 +6,7 @@ var validUrl = require('valid-url');
 
 var User = require('./user');
 var Post = require('./post');
+var Visit = require('./visit');
 var app = require('./app');
 
 app.get('/profile', ensureAuthenticated, (req, res) => {
@@ -29,6 +30,20 @@ app.get('/user/:id', ensureAuthenticated, (req, res) => {
         })
         .catch((err) => {
             res.sendStatus(404);
+        });
+});
+
+app.post('/api/user/:id/visit', ensureAuthenticated, (req, res) => {
+    var newVisit = new Visit();
+
+    newVisit.user = req.params.id;
+    newVisit.visitor = req.user._id;
+    newVisit.save()
+        .then((visit) => {
+            res.sendStatus(200);
+        })
+        .catch((err) => {
+            return res.sendStatus(400);
         });
 });
 
@@ -279,12 +294,68 @@ app.get('/api/user/:id/followers-list', ensureAuthenticated, (req, res) => {
         });
 });
 
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.sendStatus(401);
-}
+app.get(
+    '/api/profile/visit-stats/:period/',
+    ensureAuthenticated,
+    (req, res) => {
+        var periodStart = new Date();
+
+        var howToGroup = {};
+        switch (req.params.period) {
+            case 'day':
+                periodStart.setHours(0, 0, 0, 0);
+                howToGroup = { $hour: '$createdAt' };
+                break;
+            case 'week':
+                howToGroup = { $dayOfWeek: '$createdAt' };
+                if ((new Date().getDay()) === 0) {
+                    periodStart = new Date(
+                        new Date() - 6 * 24 * 60 * 60 * 1000
+                    );
+                    periodStart.setHours(0, 0, 0, 0);
+                    break;
+                }
+                periodStart = new Date(
+                    new Date() -
+                    (new Date().getDay() - 1) * 24 * 60 * 60 * 1000
+                );
+                periodStart.setHours(0, 0, 0, 0);
+                break;
+            case 'month':
+                periodStart.setHours(0, 0, 0, 0);
+                periodStart.setDate(1);
+                howToGroup = { $dayOfMonth: '$createdAt' };
+                break;
+        }
+
+        var aggregations = [{
+            $match: {
+                user: req.user._id,
+                visitor: { $ne: req.user._id },
+                createdAt: { $gt: periodStart }
+            }
+        }];
+
+        aggregations.push(
+            {
+                $group: {
+                    _id: howToGroup,
+                    count: { $sum: 1 },
+                    visitors: { $addToSet: '$visitor' }
+                }
+            }, {
+                $sort: { _id: 1 }
+            }
+        );
+
+        Visit.aggregate(aggregations)
+            .then((visits) => {
+                return res.json(visits);
+            })
+            .catch((err) => {
+                return res.status(400).json(err);
+            });
+    });
 
 app.all('/api/*', (req, res) => {
     res.sendStatus(404);
@@ -297,3 +368,10 @@ app.all('*', (req, res) => {
 });
 
 module.exports = app;
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.sendStatus(401);
+}

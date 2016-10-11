@@ -2,5 +2,6 @@
 
 module.exports = {
     USER: 'User',
-    POST: 'Post'
+    POST: 'Post',
+    VISIT: 'Visit'
 };

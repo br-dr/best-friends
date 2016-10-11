@@ -40,8 +40,13 @@
                                 .then(function(response) {
                                     return response.data;
                                 });
-                        }
+                        },
                     }
+                })
+                .state('app.visit-stats', {
+                    url: '/visit-stats',
+                    templateUrl: '/components/visit-stats/visit-stats.html',
+                    controller: 'VisitStatsController as visitStatsCtrl',
                 })
                 .state('app.user', {
                     url: '/user/:id',

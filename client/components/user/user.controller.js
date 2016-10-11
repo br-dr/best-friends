@@ -9,14 +9,16 @@
         'user',
         'posts',
         'currentUser',
-        'followers'
+        'followers',
+        'VisitService'
     ];
 
     function UserController(
         user,
         posts,
         currentUser,
-        followers
+        followers,
+        VisitService
     ) {
         var vm = this;
 
@@ -24,7 +26,9 @@
             user: user,
             posts: posts,
             currentUser: currentUser,
-            followers: followers
+            followers: followers,
         });
+
+        VisitService.createVisit(user._id);
     }
 })();
