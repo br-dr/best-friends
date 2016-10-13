@@ -378,6 +378,18 @@ app.post('/api/events/add-event/', ensureAuthenticated, (req, res) => {
         });
 });
 
+app.post('/api/events/search-events', ensureAuthenticated, (req, res) => {
+    var searchData = req.body.searchText;
+
+    Event.find({ title: new RegExp(searchData, 'i') })
+        .then((data) => {
+            return res.json(data);
+        })
+        .catch(() => {
+            return res.sendStatus(400);
+        });
+});
+
 app.all('/api/*', (req, res) => {
     res.sendStatus(404);
 });

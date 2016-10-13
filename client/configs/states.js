@@ -92,6 +92,11 @@
                     url: '/events/new',
                     templateUrl: '/components/events/new-event.html',
                     controller: 'NewEventController as newEventCtrl',
+                })
+                .state('app.events.search-events', {
+                    url: '/events/search-events',
+                    templateUrl: '/components/events/search-events.html',
+                    controller: 'SearchEventsController as searchEventsCtrl',
                 });
         });
 
