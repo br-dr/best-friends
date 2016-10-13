@@ -1,0 +1,43 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li>
+                    <a ui-sref="app.events.new">
+                        Create new
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.events.upcoming">
+                        Upcoming
+                        <span class="badge">0</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.events.invites">
+                        Invites
+                        <span class="badge">0</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.events.dismissed">
+                        Dismissed
+                        <span class="badge">0</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.events.search">
+                        Search
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.events.archive">
+                        Archive
+                        <span class="badge">0</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-offset-1 col-sm-6 col-md-4">
+            <div ui-view></div>
+        </div>

@@ -1,0 +1,53 @@
+<div>
+    <form ng-submit="newEventCtrl.addNewEvent()">
+        <fieldset>
+
+            <div class="form-group">
+                <label>Event Title:</label>
+                <input type="text" class="form-control" ng-model="newEventCtrl.input.title">
+            </div>
+
+            <div class="form-group">
+                <label>Description:</label>
+                <textarea class="form-control" rows="3" ng-model="newEventCtrl.input.description"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Place:</label>
+                <input type="text" class="form-control" ng-model="newEventCtrl.input.place">
+            </div>
+
+            <div class="form-group">
+                <label>Date:</label>
+                </br>
+                Selected date is: {{newEventCtrl.input.date | date:'fullDate'}}
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        uib-datepicker-popup="dd.MM.yy"
+                        ng-model="newEventCtrl.input.date" 
+                        is-open="newEventCtrl.popupDatePicker.opened"
+                        ng-click="newEventCtrl.openDatePicker()"
+                        close-text="Close"
+                    />
+            </div>
+            
+            <div class="form-group">
+                <label>Time:</label>
+                </br>
+                Time is: {{newEventCtrl.input.time | date:'shortTime' }}
+                <div 
+                    uib-timepicker
+                    ng-model="newEventCtrl.input.time"
+                    hour-step="1"
+                    minute-step="5"
+                >
+                </div>
+            </div>
+
+            <div class="text-right form-group">
+                <button type="submit" class="btn btn-success" ng-click="">Add Event</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

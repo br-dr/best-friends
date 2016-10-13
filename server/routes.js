@@ -7,6 +7,7 @@ var validUrl = require('valid-url');
 var User = require('./user');
 var Post = require('./post');
 var Visit = require('./visit');
+var Event = require('./event');
 var app = require('./app');
 
 app.get('/profile', ensureAuthenticated, (req, res) => {
@@ -356,6 +357,26 @@ app.get(
                 return res.status(400).json(err);
             });
     });
+
+app.post('/api/events/add-event/', ensureAuthenticated, (req, res) => {
+    var newEvent = new Event();
+
+    newEvent.creator = req.user._id;
+    newEvent.title = req.body.title;
+    newEvent.description = req.body.description;
+    newEvent.place = req.body.place;
+    newEvent.date = req.body.date;
+    newEvent.time = req.body.time;
+
+    newEvent.save()
+        .then((event) => {
+            return res.sendStatus(200);
+        })
+        .catch((err) => {
+            // res.send(500).json(err);
+            console.log('Problem with saving..');
+        });
+});
 
 app.all('/api/*', (req, res) => {
     res.sendStatus(404);

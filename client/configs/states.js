@@ -82,8 +82,17 @@
                         followers: resolveFollowers,
                         user: resolveUserById
                     }
+                })
+                .state('app.events', {
+                    url: '/events',
+                    templateUrl: '/components/events/events.html',
+                    // controller: 'EventsController as EventsCtrl'
+                })
+                .state('app.events.new', {
+                    url: '/events/new',
+                    templateUrl: '/components/events/new-event.html',
+                    controller: 'NewEventController as newEventCtrl',
                 });
-
         });
 
     resolveUserById.$inject = ['$stateParams', 'UserService'];
