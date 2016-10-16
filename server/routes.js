@@ -10,7 +10,7 @@ var Visit = require('./visit');
 var Event = require('./event');
 var app = require('./app');
 
-app.get('/profile', ensureAuthenticated, (req, res) => {
+app.get('/api/profile', ensureAuthenticated, (req, res) => {
     res.json(req.user);
 });
 
@@ -24,7 +24,7 @@ app.get('/api/profile/followers', ensureAuthenticated, (req, res) => {
         });
 });
 
-app.get('/user/:id', ensureAuthenticated, (req, res) => {
+app.get('/api/user/:id', ensureAuthenticated, (req, res) => {
     User.findById(req.params.id)
         .then((user) => {
             return res.json(user);
@@ -66,7 +66,7 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
-app.post('/search-users', ensureAuthenticated, (req, res) => {
+app.post('/api/search-users', ensureAuthenticated, (req, res) => {
     var searchData = req.body.searchText;
 
     User.find({ name: new RegExp(searchData, 'i') }, (err, data) => {
@@ -78,7 +78,7 @@ app.post('/search-users', ensureAuthenticated, (req, res) => {
     });
 });
 
-app.post('/follow', ensureAuthenticated, (req, res) => {
+app.post('/api/follow', ensureAuthenticated, (req, res) => {
     req.user.following = req.user.following || [];
     req.user.following.push(req.body._id);
 
@@ -97,7 +97,7 @@ app.post('/follow', ensureAuthenticated, (req, res) => {
         });
 });
 
-app.post('/unfollow', ensureAuthenticated, (req, res) => {
+app.post('/api/unfollow', ensureAuthenticated, (req, res) => {
     var index = req.user.following.indexOf(req.body._id);
 
     if (index > -1) {
@@ -112,7 +112,7 @@ app.post('/unfollow', ensureAuthenticated, (req, res) => {
         });
 });
 
-app.post('/api/change-avatar', ensureAuthenticated, (req, res) => {
+app.post('/api/profile/change-avatar', ensureAuthenticated, (req, res) => {
     if (!validUrl.isUri(req.body.url)) {
         return res.sendStatus(400);
     }

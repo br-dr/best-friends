@@ -35,7 +35,7 @@
         });
 
         function changeAvatar() {
-            $http.post('/api/change-avatar', vm.input)
+            $http.post('/api/profile/change-avatar', vm.input)
                 .then(function(response) {
                     angular.copy(response.data, vm.currentUser);
                     vm.errorUrl = false;
