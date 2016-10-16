@@ -365,6 +365,8 @@ app.post('/api/events/add-event/', ensureAuthenticated, (req, res) => {
     newEvent.title = req.body.title;
     newEvent.description = req.body.description;
     newEvent.place = req.body.place;
+    newEvent.isPrivate = req.body.isPrivate;
+    newEvent.invitedPersons = req.body.invitedPersons;
 
     var time = req.body.time;
     var date = req.body.date;
@@ -391,6 +393,16 @@ app.post('/api/events/search-events', ensureAuthenticated, (req, res) => {
     var searchData = req.body.searchText;
 
     Event.find({ title: new RegExp(searchData, 'i') })
+        .then((data) => {
+            return res.json(data);
+        })
+        .catch(() => {
+            return res.sendStatus(400);
+        });
+});
+
+app.get('/api/allusers', ensureAuthenticated, (req, res) => {
+    User.find({})
         .then((data) => {
             return res.json(data);
         })

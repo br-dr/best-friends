@@ -10,11 +10,15 @@ var eventSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: modelNames.USER
     },
+    invitedPeople: [{
+        type: Schema.Types.ObjectId,
+        ref: modelNames.USER
+    }],
     title: String,
     description: String,
     place: String,
-    // date: Date,
-    time: Date
+    time: Date,
+    isPrivate: Boolean
 }, { timestamps: true });
 
 module.exports = mongoose.model(modelNames.EVENT, eventSchema);

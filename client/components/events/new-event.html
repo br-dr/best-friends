@@ -45,6 +45,51 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="radio-inline">
+                    <input 
+                        type="radio" 
+                        name="privacy"
+                        ng-model="newEventCtrl.input.isPrivate"
+                        ng-value="false"
+                    / > public
+                </label>
+                <label class="radio-inline">
+                    <input 
+                        type="radio" 
+                        name="privacy"
+                        ng-model="newEventCtrl.input.isPrivate" 
+                        ng-value="true"
+                    / > private
+                </label>
+            </div>
+                    <!--ng-disabled="ctrl.disabled" -->
+                    <!--sortable="true"-->
+            <div class="form-group">
+                <label>Participants</label>
+                <ui-select 
+                    multiple 
+                    tagging="newEventController.tagTransform" 
+                    ng-model="newEventController.selectedPeople" 
+                    theme="bootstrap" 
+                    ng-disabled="newEvenController.disabled"
+                    style="width: 500px;" 
+                    title="Choose a person"
+                >
+                    <!--<ui-select-match placeholder="Select person...">{{$item.name}}</ui-select-match>-->
+                    <ui-select-match placeholder="Select person...">{{$select.selected.name}}</ui-select-match>                    
+                    <ui-select-choices repeat="person in newEventCtrl.allUsers | filter: {name: $select.search}">
+                        <div ng-if="person.isTag" ng-bind-html="person.name +' <small>(new)</small>'| highlight: $select.search"></div>
+                        <div ng-if="!person.isTag" ng-bind-html="person.name + person.isTag| highlight: $select.search"></div>
+                            <!--<small>
+                                email: {{person.email}}
+                                age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+                            </small>-->
+                    </ui-select-choices>
+                </ui-select>
+                <p>Selected: {{newEventCtrl.selectedPeople}}</p>
+            </div>
+
             <div class="text-right form-group">
                 <button type="submit" class="btn btn-success" ng-click="">Add Event</button>
             </div>

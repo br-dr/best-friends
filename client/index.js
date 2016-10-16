@@ -7,6 +7,7 @@
         'toastr',
         'ngSanitize',
         'ui.bootstrap',
-        'angular-loading-bar'
+        'angular-loading-bar',
+        'ui.select'
     ]);
 })();

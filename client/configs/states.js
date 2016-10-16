@@ -92,6 +92,9 @@
                     url: '/events/new',
                     templateUrl: '/components/events/new-event.html',
                     controller: 'NewEventController as newEventCtrl',
+                    resolve: {
+                        allUsers: resolveAllUsers
+                    }
                 })
                 .state('app.events.search-events', {
                     url: '/events/search-events',
@@ -131,5 +134,13 @@
     resolvePosts.$inject = ['PostService'];
     function resolvePosts(PostService) {
         return PostService.getPosts();
+    }
+
+    resolveAllUsers.$inject = ['$http'];
+    function resolveAllUsers($http) {
+        return $http.get('/api/allusers')
+            .then(function(response) {
+                return response.data;
+            });
     }
 })();
