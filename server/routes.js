@@ -365,8 +365,17 @@ app.post('/api/events/add-event/', ensureAuthenticated, (req, res) => {
     newEvent.title = req.body.title;
     newEvent.description = req.body.description;
     newEvent.place = req.body.place;
-    newEvent.date = req.body.date;
-    newEvent.time = req.body.time;
+
+    var time = req.body.time;
+    var date = req.body.date;
+
+    newEvent.time = new Date(
+        new Date(date).getFullYear(),
+        new Date(date).getMonth(),
+        new Date(date).getDate(),
+        new Date(time).getHours(),
+        new Date(time).getMinutes()
+    );
 
     newEvent.save()
         .then((event) => {

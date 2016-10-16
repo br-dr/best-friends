@@ -13,7 +13,7 @@ var eventSchema = new Schema({
     title: String,
     description: String,
     place: String,
-    date: Date,
+    // date: Date,
     time: Date
 }, { timestamps: true });
 
