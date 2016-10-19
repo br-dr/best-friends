@@ -4,7 +4,9 @@
             <p>{{event.creator}}</p>
         </div>-->
         <div class="col-md-3">
-            <p>{{event.title}}</p>
+            <a ui-sref="app.event({id: event._id})">
+                <p>{{event.title}}</p>
+            </a>
         </div>
         <div class="col-md-3">
             <p>{{event.description}}</p>

@@ -100,6 +100,14 @@
                     url: '/events/search-events',
                     templateUrl: '/components/events/search-events.html',
                     controller: 'SearchEventsController as searchEventsCtrl',
+                })
+                .state('app.event', {
+                    url: '/event/:id',
+                    templateUrl: '/components/event/event.html',
+                    controller: 'EventController as eventCtrl',
+                    resolve: {
+                        event: resolveEventById
+                    }
                 });
         });
 
@@ -142,5 +150,10 @@
             .then(function(response) {
                 return response.data;
             });
+    }
+
+    resolveEventById.$inject = ['$stateParams', 'EventService'];
+    function resolveEventById($stateParams, EventService) {
+        return EventService.getEventById($stateParams.id);
     }
 })();

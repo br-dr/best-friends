@@ -4,9 +4,9 @@
     angular.module('app')
         .controller('NewEventController', NewEventController);
 
-    NewEventController.$inject = ['$http'];
+    NewEventController.$inject = ['$http', 'allUsers'];
 
-    function NewEventController($http) {
+    function NewEventController($http, allUsers) {
 
         var vm = this;
 
@@ -18,8 +18,9 @@
                 isPrivate: false,
                 time: new Date().setMinutes(0),
                 date: null,
-                invitedPersons: [],
-                selectedPeople: []
+                // invitedPersons: [],
+                selectedPeople: [],
+                allUsers: allUsers
             },
             format: 'dd-MMMM-yyyy',
             popupDatePicker: {
@@ -43,8 +44,9 @@
                 });
         }
 
-        vm.person = {};
-        vm.people = [];
+
+        // vm.person = {};
+        // vm.people = [];
 
         // vm.disabled = undefined;
         // vm.searchEnabled = undefined;
@@ -82,11 +84,11 @@
         //     };
         // };
 
-        vm.addPerson = function(item, model) {
-            if (item.hasOwnProperty('isTag')) {
-                delete item.isTag;
-                vm.people.push(item);
-            }
-        };
+        // vm.addPerson = function(item, model) {
+        //     if (item.hasOwnProperty('isTag')) {
+        //         delete item.isTag;
+        //         vm.people.push(item);
+        //     }
+        // };
     }
 })();

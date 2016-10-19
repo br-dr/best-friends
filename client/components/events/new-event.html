@@ -65,22 +65,22 @@
             </div>
                     <!--ng-disabled="ctrl.disabled" -->
                     <!--sortable="true"-->
+            
             <div class="form-group">
-                <label>Participants</label>
-                <ui-select 
-                    multiple 
-                    tagging="newEventController.tagTransform" 
-                    ng-model="newEventController.selectedPeople" 
-                    theme="bootstrap" 
-                    ng-disabled="newEvenController.disabled"
-                    style="width: 500px;" 
-                    title="Choose a person"
+                <h3>Invited:</h3>
+                <ui-select
+                    multiple
+                    ng-model="newEventCtrl.selectedPeople"
+                    theme="bootstrap"
+                    close-on-select="false"
+                    style="width: 800px;"
                 >
-                    <!--<ui-select-match placeholder="Select person...">{{$item.name}}</ui-select-match>-->
-                    <ui-select-match placeholder="Select person...">{{$select.selected.name}}</ui-select-match>                    
+                    <!--ng-disabled="ctrl.disabled"-->
+                    <ui-select-match placeholder="Select person...">{{$item.name}}</ui-select-match>
                     <ui-select-choices repeat="person in newEventCtrl.allUsers | filter: {name: $select.search}">
-                        <div ng-if="person.isTag" ng-bind-html="person.name +' <small>(new)</small>'| highlight: $select.search"></div>
-                        <div ng-if="!person.isTag" ng-bind-html="person.name + person.isTag| highlight: $select.search"></div>
+                        <div ng-bind-html="person.name"></div>
+                        <!--<div ng-bind-html="person.name | highlight: $select.search"></div>-->
+                        
                             <!--<small>
                                 email: {{person.email}}
                                 age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>

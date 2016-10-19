@@ -401,6 +401,16 @@ app.post('/api/events/search-events', ensureAuthenticated, (req, res) => {
         });
 });
 
+app.get('/api/event/:id', ensureAuthenticated, (req, res) => {
+    Event.find({ _id: req.params.id})
+        .then((data) => {
+            return res.json(data);
+        })
+        .catch(() => {
+            return res.sendStatus(400);
+        });
+});
+
 app.get('/api/allusers', ensureAuthenticated, (req, res) => {
     User.find({})
         .then((data) => {
