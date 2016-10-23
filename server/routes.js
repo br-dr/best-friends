@@ -402,9 +402,9 @@ app.post('/api/events/search-events', ensureAuthenticated, (req, res) => {
 });
 
 app.get('/api/event/:id', ensureAuthenticated, (req, res) => {
-    Event.find({ _id: req.params.id})
+    Event.findOne({ _id: req.params.id})
         .then((data) => {
-            return res.json(data);
+            return res.json(data[0]);
         })
         .catch(() => {
             return res.sendStatus(400);
