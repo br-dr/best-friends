@@ -26,8 +26,7 @@
         });
 
         function searchEvents() {
-            $http.post('/api/events/search-events', vm.input)
-
+            $http.get('/api/events', {params: vm.input})
                 .then(function(response) {
                     vm.errorMessage = false;
                     return angular.copy(response.data, vm.foundEvents);

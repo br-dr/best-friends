@@ -22,14 +22,14 @@
             }
 
             function followUser(user, currentUser) {
-                return $http.post('/api/follow', user)
+                return $http.post('/api/user/' + user._id + '/follow')
                     .then(function(response) {
                         return angular.copy(response.data, currentUser);
                     });
             }
 
             function unFollowUser(user, currentUser) {
-                return $http.post('/api/unfollow', user)
+                return $http.post('/api/user/' + user._id + '/unfollow')
                     .then(function(response) {
                         return angular.copy(response.data, currentUser);
                     });

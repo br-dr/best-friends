@@ -26,7 +26,7 @@
         });
 
         function searchUsers() {
-            $http.post('/api/search-users', vm.input)
+            $http.get('/api/users', {params: vm.input})
                 .success(function(response) {
                     vm.foundUsers = response;
                     vm.errorMessage = false;

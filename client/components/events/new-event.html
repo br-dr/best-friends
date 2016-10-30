@@ -21,27 +21,15 @@
                 <label>Date:</label>
                 </br>
                 Selected date is: {{newEventCtrl.input.date | date:'fullDate'}}
-                    <input 
-                        type="text" 
-                        class="form-control" 
-                        uib-datepicker-popup="dd.MM.yy"
-                        ng-model="newEventCtrl.input.date" 
-                        is-open="newEventCtrl.popupDatePicker.opened"
-                        ng-click="newEventCtrl.openDatePicker()"
-                        close-text="Close"
-                    />
+                <input type="text" class="form-control" uib-datepicker-popup="dd.MM.yy" ng-model="newEventCtrl.input.date" is-open="newEventCtrl.popupDatePicker.opened"
+                    ng-click="newEventCtrl.openDatePicker()" close-text="Close" />
             </div>
-            
+
             <div class="form-group">
                 <label>Time:</label>
                 </br>
                 Time is: {{newEventCtrl.input.time | date:'shortTime' }}
-                <div 
-                    uib-timepicker
-                    ng-model="newEventCtrl.input.time"
-                    hour-step="1"
-                    minute-step="5"
-                >
+                <div uib-timepicker ng-model="newEventCtrl.input.time" hour-step="1" minute-step="5">
                 </div>
             </div>
 
@@ -63,36 +51,34 @@
                     / > private
                 </label>
             </div>
-                    <!--ng-disabled="ctrl.disabled" -->
-                    <!--sortable="true"-->
-            
-            <div class="form-group">
+
+            <!--ng-disabled="ctrl.disabled" -->
+            <!--sortable="true"-->
+
+            <!--<div class="form-group">
                 <h3>Invited:</h3>
-                <ui-select
-                    multiple
-                    ng-model="newEventCtrl.selectedPeople"
-                    theme="bootstrap"
-                    close-on-select="false"
-                    style="width: 800px;"
-                >
-                    <!--ng-disabled="ctrl.disabled"-->
+                <ui-select multiple ng-model="newEventCtrl.selectedPeople" theme="bootstrap" close-on-select="false" style="width: 800px;">
                     <ui-select-match placeholder="Select person...">{{$item.name}}</ui-select-match>
                     <ui-select-choices repeat="person in newEventCtrl.allUsers | filter: {name: $select.search}">
                         <div ng-bind-html="person.name"></div>
-                        <!--<div ng-bind-html="person.name | highlight: $select.search"></div>-->
-                        
-                            <!--<small>
-                                email: {{person.email}}
-                                age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
-                            </small>-->
+
                     </ui-select-choices>
                 </ui-select>
                 <p>Selected: {{newEventCtrl.selectedPeople}}</p>
-            </div>
+            </div>-->
+            <div class="form-group">
+                <ui-select multiple ng-model="eventCtrl.input.invitedPersons" theme="bootstrap" style="width: 300px;">
+                    <ui-select-match placeholder="Select persons...">{{$item.name}}</ui-select-match>
+                    <ui-select-choices repeat="person in eventCtrl.allUsers | filter:$select.search">
+                        {{person.name}}
+                    </ui-select-choices>
+                </ui-select>
+                <p>Selected: {{eventCtrl.input.invitedPersons}}</p>
 
-            <div class="text-right form-group">
-                <button type="submit" class="btn btn-success" ng-click="">Add Event</button>
-            </div>
+                <div class="text-right form-group">
+                    <button type="submit" class="btn btn-success" ng-click="">Add Event</button>
+                </div>
+            </div>  
         </fieldset>
     </form>
 </div>

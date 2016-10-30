@@ -40,7 +40,7 @@
         }
 
         function getPosts() {
-            return $http.get('/api/posts/')
+            return $http.get('/api/profile/posts/')
                 .then(function(response) {
                     return response.data;
                 });

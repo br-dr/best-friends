@@ -3,7 +3,7 @@ dotenv.config();
 
 var mongoose = require('mongoose');
 
-var app = require('./server/routes');
+var app = require('./server/app');
 var port = require('./server/port');
 
 mongoose.Promise = global.Promise;

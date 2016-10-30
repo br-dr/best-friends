@@ -18,16 +18,15 @@
                 isPrivate: false,
                 time: new Date().setMinutes(0),
                 date: null,
-                // invitedPersons: [],
-                selectedPeople: [],
-                allUsers: allUsers
+                invitedPersons: []
             },
             format: 'dd-MMMM-yyyy',
             popupDatePicker: {
                 opened: false,
             },
             openDatePicker: openDatePicker,
-            addNewEvent: addNewEvent
+            addNewEvent: addNewEvent,
+            allUsers: allUsers,
         });
 
         function openDatePicker() {

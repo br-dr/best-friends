@@ -101,7 +101,7 @@
                     templateUrl: '/components/events/search-events.html',
                     controller: 'SearchEventsController as searchEventsCtrl',
                 })
-                .state('app.event', {
+                .state('app.events.event', {
                     url: '/event/:id',
                     templateUrl: '/components/event/event.html',
                     controller: 'EventController as eventCtrl',
@@ -146,7 +146,7 @@
 
     resolveAllUsers.$inject = ['$http'];
     function resolveAllUsers($http) {
-        return $http.get('/api/allusers')
+        return $http.get('/api/users')
             .then(function(response) {
                 return response.data;
             });

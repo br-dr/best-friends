@@ -4,12 +4,15 @@
             <p>{{event.creator}}</p>
         </div>-->
         <div class="col-md-3">
-            <a ui-sref="app.event({id: event._id})">
+            <a ui-sref="app.events.event({id: event._id})">
                 <p>{{event.title}}</p>
             </a>
         </div>
-        <div class="col-md-3">
+        <!--<div class="col-md-3">
             <p>{{event.description}}</p>
+        </div>-->
+        <div class="col-md-3">
+            <p>{{event.time | date:'MMM d, h:mm a' : 'utc+2'}}</p>
         </div>
     </div>
 </div>
