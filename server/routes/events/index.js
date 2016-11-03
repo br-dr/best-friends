@@ -10,6 +10,7 @@ router
     .post('/', addEvent)
     .get('/', findEvents)
     .get('/upcoming-events', getUpcomingEvents)
+    .get('/declined-events', getDeclinedEvents)
     .use(event);
 
 module.exports = router;
@@ -68,6 +69,27 @@ function getUpcomingEvents(req, res) {
                 invitedPersons: {$all: [req.user._id]},
                 time: {$gt: now},
                 declined: {$not: {$all: [req.user._id]}}
+            }
+        }
+    ];
+
+    Event.aggregate(aggregations)
+        .then((data) => {
+            res.json(data);
+        })
+        .catch(() => {
+            return res.sendStatus(400);
+        });
+}
+
+function getDeclinedEvents(req, res) {
+    var now = new Date();
+    var aggregations = [
+        {
+            $match: {
+                invitedPersons: {$all: [req.user._id]},
+                time: {$gt: now},
+                declined: {$all: [req.user._id]}
             }
         }
     ];

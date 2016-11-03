@@ -101,6 +101,14 @@
                         upcomingEvents: resolveUpcomingEvents
                     }
                 })
+                .state('app.events.declined', {
+                    url: '/events/declined',
+                    templateUrl: '/components/events/declined-events.html',
+                    controller: 'DeclinedEventsController as declinedEventsCtrl',
+                    resolve: {
+                        declinedEvents: resolveDeclinedEvents
+                    }
+                })
                 .state('app.events.search-events', {
                     url: '/events/search-events',
                     templateUrl: '/components/events/search-events.html',
@@ -157,5 +165,10 @@
     resolveUpcomingEvents.$inject = ['EventService'];
     function resolveUpcomingEvents(EventService) {
         return EventService.getUpcomingEvents();
+    }
+
+    resolveDeclinedEvents.$inject = ['EventService'];
+    function resolveDeclinedEvents(EventService) {
+        return EventService.getDeclinedEvents();
     }
 })();

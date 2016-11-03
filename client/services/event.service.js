@@ -10,6 +10,7 @@
         return {
             getEventById: getEventById,
             getUpcomingEvents: getUpcomingEvents,
+            getDeclinedEvents: getDeclinedEvents,
             acceptEvent: acceptEvent,
             declineEvent: declineEvent
         };
@@ -23,6 +24,13 @@
 
         function getUpcomingEvents() {
             return $http.get('/api/events/upcoming-events')
+                .then(function(response) {
+                    return response.data;
+                });
+        }
+
+        function getDeclinedEvents() {
+            return $http.get('/api/events/declined-events')
                 .then(function(response) {
                     return response.data;
                 });
