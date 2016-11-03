@@ -10,7 +10,15 @@ var eventSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: modelNames.USER
     },
-    invitedPeople: [{
+    invitedPersons: [{
+        type: Schema.Types.ObjectId,
+        ref: modelNames.USER
+    }],
+    accepted: [{
+        type: Schema.Types.ObjectId,
+        ref: modelNames.USER
+    }],
+    declined: [{
         type: Schema.Types.ObjectId,
         ref: modelNames.USER
     }],

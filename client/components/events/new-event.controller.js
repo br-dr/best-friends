@@ -4,9 +4,9 @@
     angular.module('app')
         .controller('NewEventController', NewEventController);
 
-    NewEventController.$inject = ['$http', 'allUsers'];
+    NewEventController.$inject = ['$http'];
 
-    function NewEventController($http, allUsers) {
+    function NewEventController($http) {
 
         var vm = this;
 
@@ -26,68 +26,45 @@
             },
             openDatePicker: openDatePicker,
             addNewEvent: addNewEvent,
-            allUsers: allUsers,
+            selectedUser: selectedUser
         });
 
         function openDatePicker() {
             vm.popupDatePicker.opened = true;
         }
 
-        function addNewEvent() {
-            $http.post('/api/events/add-event', vm.input)
+        function addNewEvent($event) {
+            $event.preventDefault();
+
+            var input = angular.copy(vm.input);
+            input.invitedPersons = input.invitedPersons.map(function(user) {
+                return user._id;
+            });
+
+            $http.post('/api/events', input)
                 .then(function(data) {
-                    console.log(data);
                 })
                 .catch(function() {
                     console.log('Something is wrong');
                 });
         }
 
+        function selectedUser(user) {
+            if (!user) {
+                return;
+            }
 
-        // vm.person = {};
-        // vm.people = [];
+            var userId = user.originalObject._id;
 
-        // vm.disabled = undefined;
-        // vm.searchEnabled = undefined;
+            for (var i = 0; i < vm.input.invitedPersons.length; i++) {
+                var personId = vm.input.invitedPersons[i]._id;
 
-        // vm.enable = function() {
-        //     vm.disabled = false;
-        // };
+                if (personId === userId) {
+                    return;
+                }
+            }
 
-        // vm.disable = function() {
-        //     vm.disabled = true;
-        // };
-
-        // vm.enableSearch = function() {
-        //     vm.searchEnabled = true;
-        // };
-
-        // vm.disableSearch = function() {
-        //     vm.searchEnabled = false;
-        // };
-
-        // vm.clear = function() {
-        //     vm.person.selected = undefined;
-        // };
-
-        // vm.counter = 0;
-        // vm.someFunction = function(item, model) {
-        //     vm.counter++;
-        //     vm.eventResult = { item: item, model: model };
-        // };
-
-        // vm.removed = function(item, model) {
-        //     vm.lastRemoved = {
-        //         item: item,
-        //         model: model
-        //     };
-        // };
-
-        // vm.addPerson = function(item, model) {
-        //     if (item.hasOwnProperty('isTag')) {
-        //         delete item.isTag;
-        //         vm.people.push(item);
-        //     }
-        // };
+            vm.input.invitedPersons.push(user.originalObject);
+        }
     }
 })();

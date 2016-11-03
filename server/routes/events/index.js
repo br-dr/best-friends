@@ -9,6 +9,7 @@ const router = express.Router();
 router
     .post('/', addEvent)
     .get('/', findEvents)
+    .get('/upcoming-events', getUpcomingEvents)
     .use(event);
 
 module.exports = router;
@@ -21,7 +22,10 @@ function addEvent(req, res) {
     newEvent.description = req.body.description;
     newEvent.place = req.body.place;
     newEvent.isPrivate = req.body.isPrivate;
-    newEvent.invitedPersons = req.body.invitedPersons;
+    newEvent.invitedPersons = req.body.invitedPersons.concat(req.user._id);
+    newEvent.accepted = [];
+    newEvent.accepted.push(req.user._id);
+    newEvent.declined = [];
 
     var time = req.body.time;
     var date = req.body.date;
@@ -49,6 +53,27 @@ function findEvents(req, res) {
     Event.find({ title: new RegExp(searchData, 'i') })
         .then((data) => {
             return res.json(data);
+        })
+        .catch(() => {
+            return res.sendStatus(400);
+        });
+}
+
+function getUpcomingEvents(req, res) {
+
+    var now = new Date();
+    var aggregations = [
+        {
+            $match: {
+                invitedPersons: {$all: [req.user._id]},
+                time: {$gt: now}
+            }
+        }
+    ];
+
+    Event.aggregate(aggregations)
+        .then((data) => {
+            res.json(data);
         })
         .catch(() => {
             return res.sendStatus(400);

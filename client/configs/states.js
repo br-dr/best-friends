@@ -86,14 +86,19 @@
                 .state('app.events', {
                     url: '/events',
                     templateUrl: '/components/events/events.html',
-                    // controller: 'EventsController as EventsCtrl'
+                    // controller: 'EventsController as EventsCtrl',
                 })
                 .state('app.events.new', {
                     url: '/events/new',
                     templateUrl: '/components/events/new-event.html',
                     controller: 'NewEventController as newEventCtrl',
+                })
+                .state('app.events.upcoming', {
+                    url: '/events/upcoming',
+                    templateUrl: '/components/events/upcoming-events.html',
+                    controller: 'UpcomingEventsController as upcomingEventsCtrl',
                     resolve: {
-                        allUsers: resolveAllUsers
+                        upcomingEvents: resolveUpcomingEvents
                     }
                 })
                 .state('app.events.search-events', {
@@ -144,16 +149,13 @@
         return PostService.getPosts();
     }
 
-    resolveAllUsers.$inject = ['$http'];
-    function resolveAllUsers($http) {
-        return $http.get('/api/users')
-            .then(function(response) {
-                return response.data;
-            });
-    }
-
     resolveEventById.$inject = ['$stateParams', 'EventService'];
     function resolveEventById($stateParams, EventService) {
         return EventService.getEventById($stateParams.id);
+    }
+
+    resolveUpcomingEvents.$inject = ['EventService'];
+    function resolveUpcomingEvents(EventService) {
+        return EventService.getUpcomingEvents();
     }
 })();

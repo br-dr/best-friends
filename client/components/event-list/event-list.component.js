@@ -7,7 +7,7 @@
             controller: EventListController,
             bindings: {
                 events: '=',
-                // currentUser: '='
+                currentUser: '='
             }
         });
 
