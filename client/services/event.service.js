@@ -25,28 +25,28 @@
         }
 
         function getInvitesEvents() {
-            return $http.get('/api/events/invites-events')
+            return $http.get('/api/events/invites')
                 .then(function(response) {
                     return response.data;
                 });
         }
 
         function getDeclinedEvents() {
-            return $http.get('/api/events/declined-events')
+            return $http.get('/api/events/declined')
                 .then(function(response) {
                     return response.data;
                 });
         }
 
         function getArchivedEvents() {
-            return $http.get('/api/events/archived-events')
+            return $http.get('/api/events/archived')
                 .then(function(response) {
                     return response.data;
                 });
         }
 
         function getUpcomingEvents() {
-            return $http.get('/api/events/upcoming-events')
+            return $http.get('/api/events/upcoming')
                 .then(function(response) {
                     return response.data;
                 });

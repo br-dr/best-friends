@@ -9,10 +9,10 @@ const router = express.Router();
 router
     .post('/', addEvent)
     .get('/', findEvents)
-    .get('/invites-events', getInvitesEvents)
-    .get('/declined-events', getDeclinedEvents)
-    .get('/archived-events', getArchivedEvents)
-    .get('/upcoming-events', getUpcomingEvents)
+    .get('/invites', getInvitesEvents)
+    .get('/declined', getDeclinedEvents)
+    .get('/archived', getArchivedEvents)
+    .get('/upcoming', getUpcomingEvents)
     .use(event);
 
 module.exports = router;
