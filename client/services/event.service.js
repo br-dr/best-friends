@@ -11,6 +11,7 @@
             getEventById: getEventById,
             getUpcomingEvents: getUpcomingEvents,
             getDeclinedEvents: getDeclinedEvents,
+            getArchivedEvents: getArchivedEvents,
             acceptEvent: acceptEvent,
             declineEvent: declineEvent
         };
@@ -31,6 +32,13 @@
 
         function getDeclinedEvents() {
             return $http.get('/api/events/declined-events')
+                .then(function(response) {
+                    return response.data;
+                });
+        }
+
+        function getArchivedEvents() {
+            return $http.get('/api/events/archived-events')
                 .then(function(response) {
                     return response.data;
                 });

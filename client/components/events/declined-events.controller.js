@@ -14,7 +14,7 @@
 
         angular.extend(vm, {
             declinedEvents: declinedEvents,
-            currentUser: currentUser //not needed?
+            currentUser: currentUser
         });
     }
 })();

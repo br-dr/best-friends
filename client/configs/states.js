@@ -109,6 +109,14 @@
                         declinedEvents: resolveDeclinedEvents
                     }
                 })
+                .state('app.events.archive', {
+                    url: '/events/archive',
+                    templateUrl: '/components/events/archived-events.html',
+                    controller: 'ArchivedEventsController as archivedEventsCtrl',
+                    resolve: {
+                        archivedEvents: resolveArchivedEvents
+                    }
+                })
                 .state('app.events.search-events', {
                     url: '/events/search-events',
                     templateUrl: '/components/events/search-events.html',
@@ -170,5 +178,10 @@
     resolveDeclinedEvents.$inject = ['EventService'];
     function resolveDeclinedEvents(EventService) {
         return EventService.getDeclinedEvents();
+    }
+
+    resolveArchivedEvents.$inject = ['EventService'];
+    function resolveArchivedEvents(EventService) {
+        return EventService.getArchivedEvents();
     }
 })();
