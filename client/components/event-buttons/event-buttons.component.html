@@ -1,6 +1,7 @@
 <button 
     class="btn btn-success"
     ng-click="$ctrl.accept()"
+    ng-disabled="!$ctrl.canAccept()"
 >
     Accept
 </button>
@@ -8,8 +9,7 @@
 <button 
     class="btn btn-danger" 
     ng-click="$ctrl.decline()"
+    ng-disabled="!$ctrl.canDecline()"
 >
     Decline
 </button>
-    <!--ng-disabled="!$ctrl.canFollow()"-->
-    <!--ng-disabled="!$ctrl.canUnFollow()"-->

@@ -66,7 +66,8 @@ function getUpcomingEvents(req, res) {
         {
             $match: {
                 invitedPersons: {$all: [req.user._id]},
-                time: {$gt: now}
+                time: {$gt: now},
+                declined: {$not: {$all: [req.user._id]}}
             }
         }
     ];

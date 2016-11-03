@@ -19,9 +19,9 @@
 
         angular.extend(vm, {
             accept: accept,
-            decline: decline
-            // canAccept: canAccept,
-            // canDecline: canDecline,
+            decline: decline,
+            canAccept: canAccept,
+            canDecline: canDecline
         });
 
         function accept() {
@@ -30,6 +30,22 @@
 
         function decline() {
             EventService.declineEvent(vm.event, vm.currentUser);
+        }
+
+        function canAccept() {
+            if (vm.event.accepted.indexOf(vm.currentUser._id) === -1) {
+                return true;
+            }
+
+            return false;
+        }
+
+        function canDecline() {
+            if (vm.event.declined.indexOf(vm.currentUser._id) === -1) {
+                return true;
+            }
+
+            return false;
         }
     }
 })();

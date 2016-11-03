@@ -36,6 +36,12 @@ function acceptEvent(req, res) {
         req.event.accepted.push(req.user._id);
     }
 
+    var index = req.event.declined.indexOf(req.user._id);
+
+    if (index !== -1) {
+        req.event.declined.splice(index, 1);
+    }
+
     // req.event.accepted = req.event.accepted.reduce((arr, id) => {
     //     if (arr.indexOf(id) === -1) {
     //         arr.push(id);
@@ -58,7 +64,13 @@ function declineEvent(req, res) {
         req.event.accepted.splice(index, 1);
     }
 
-    req.user.save()
+    var declinedIndex = req.event.declined.indexOf(req.user._id);
+
+    if (declinedIndex === -1) {
+        req.event.declined.push(req.user._id);
+    }
+
+    req.event.save()
         .then((event) => {
             res.json(event);
         }).catch(() => {
