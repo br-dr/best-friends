@@ -9,9 +9,10 @@ const router = express.Router();
 router
     .post('/', addEvent)
     .get('/', findEvents)
-    .get('/upcoming-events', getUpcomingEvents)
+    .get('/invites-events', getInvitesEvents)
     .get('/declined-events', getDeclinedEvents)
     .get('/archived-events', getArchivedEvents)
+    .get('/upcoming-events', getUpcomingEvents)
     .use(event);
 
 module.exports = router;
@@ -61,7 +62,7 @@ function findEvents(req, res) {
         });
 }
 
-function getUpcomingEvents(req, res) {
+function getInvitesEvents(req, res) {
 
     var now = new Date();
     var aggregations = [
@@ -111,6 +112,27 @@ function getArchivedEvents(req, res) {
             $match: {
                 invitedPersons: {$all: [req.user._id]},
                 time: {$lt: now},
+            }
+        }
+    ];
+
+    Event.aggregate(aggregations)
+        .then((data) => {
+            res.json(data);
+        })
+        .catch(() => {
+            return res.sendStatus(400);
+        });
+}
+
+function getUpcomingEvents(req, res) {
+    var now = new Date();
+    var aggregations = [
+        {
+            $match: {
+                invitedPersons: {$all: [req.user._id]},
+                time: {$gt: now},
+                accepted: {$all: [req.user._id]}
             }
         }
     ];

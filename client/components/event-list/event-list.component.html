@@ -1,17 +1,14 @@
 <div class="container-fluid">
     <div class="row" ng-repeat="event in $ctrl.events">
-        <!--<div class="col-md-3">
-            <p>{{event.creator}}</p>
-        </div>-->
         <div class="col-md-3">
             <a ui-sref="app.events.event({id: event._id})">
                 <p>{{event.title}}</p>
             </a>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <p>{{event.time | date:'MMM d, h:mm a' : 'utc+2'}}</p>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <event-buttons
                 event="event" 
                 current-user="$ctrl.currentUser"

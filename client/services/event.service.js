@@ -9,9 +9,10 @@
     function EventService($http) {
         return {
             getEventById: getEventById,
-            getUpcomingEvents: getUpcomingEvents,
+            getInvitesEvents: getInvitesEvents,
             getDeclinedEvents: getDeclinedEvents,
             getArchivedEvents: getArchivedEvents,
+            getUpcomingEvents: getUpcomingEvents,
             acceptEvent: acceptEvent,
             declineEvent: declineEvent
         };
@@ -23,8 +24,8 @@
                 });
         }
 
-        function getUpcomingEvents() {
-            return $http.get('/api/events/upcoming-events')
+        function getInvitesEvents() {
+            return $http.get('/api/events/invites-events')
                 .then(function(response) {
                     return response.data;
                 });
@@ -39,6 +40,13 @@
 
         function getArchivedEvents() {
             return $http.get('/api/events/archived-events')
+                .then(function(response) {
+                    return response.data;
+                });
+        }
+
+        function getUpcomingEvents() {
+            return $http.get('/api/events/upcoming-events')
                 .then(function(response) {
                     return response.data;
                 });

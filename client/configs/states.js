@@ -93,6 +93,14 @@
                     templateUrl: '/components/events/new-event.html',
                     controller: 'NewEventController as newEventCtrl',
                 })
+                .state('app.events.invites', {
+                    url: '/events/invites',
+                    templateUrl: '/components/events/invites-events.html',
+                    controller: 'InvitesEventsController as invitesEventsCtrl',
+                    resolve: {
+                        invitesEvents: resolveInvitesEvents
+                    }
+                })
                 .state('app.events.upcoming', {
                     url: '/events/upcoming',
                     templateUrl: '/components/events/upcoming-events.html',
@@ -170,9 +178,9 @@
         return EventService.getEventById($stateParams.id);
     }
 
-    resolveUpcomingEvents.$inject = ['EventService'];
-    function resolveUpcomingEvents(EventService) {
-        return EventService.getUpcomingEvents();
+    resolveInvitesEvents.$inject = ['EventService'];
+    function resolveInvitesEvents(EventService) {
+        return EventService.getInvitesEvents();
     }
 
     resolveDeclinedEvents.$inject = ['EventService'];
@@ -183,5 +191,10 @@
     resolveArchivedEvents.$inject = ['EventService'];
     function resolveArchivedEvents(EventService) {
         return EventService.getArchivedEvents();
+    }
+
+    resolveUpcomingEvents.$inject = ['EventService'];
+    function resolveUpcomingEvents(EventService) {
+        return EventService.getUpcomingEvents();
     }
 })();

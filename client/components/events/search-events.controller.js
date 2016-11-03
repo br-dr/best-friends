@@ -21,7 +21,7 @@
                 searchText: ''
             },
             foundEvents: [],
-            // currentUser: currentUser,
+            currentUser: currentUser,
             searchEvents: searchEvents
         });
 

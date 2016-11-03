@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-4">
             <h3 class="text-center">Event name to search</h3>
             <form ng-submit="searchEventsCtrl.searchEvents()">
                 <div class="form-group">
@@ -31,5 +31,6 @@
 
 <event-list 
     events="searchEventsCtrl.foundEvents" 
+    current-user="searchEventsCtrl.currentUser"
 ></event-list>
     <!--current-user="searchEventsCtrl.currentUser"-->
