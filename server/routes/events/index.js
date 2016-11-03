@@ -70,7 +70,8 @@ function getInvitesEvents(req, res) {
             $match: {
                 invitedPersons: {$all: [req.user._id]},
                 time: {$gt: now},
-                declined: {$not: {$all: [req.user._id]}}
+                declined: {$not: {$all: [req.user._id]}},
+                accepted: {$not: {$all: [req.user._id]}}
             }
         }
     ];
