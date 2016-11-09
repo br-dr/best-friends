@@ -14,7 +14,9 @@
             getArchivedEvents: getArchivedEvents,
             getUpcomingEvents: getUpcomingEvents,
             acceptEvent: acceptEvent,
-            declineEvent: declineEvent
+            declineEvent: declineEvent,
+            inviteEvent: inviteEvent,
+            undo: undo
         };
 
         function getEventById(id) {
@@ -52,7 +54,7 @@
                 });
         }
 
-        function acceptEvent(event, currentUser) {
+        function acceptEvent(event) {
             return $http.post('/api/events/' + event._id + '/accept')
                 .then(function(response) {
                     return angular.copy(response.data, event);
@@ -61,6 +63,20 @@
 
         function declineEvent(event, currentUser) {
             return $http.post('/api/events/' + event._id + '/decline')
+                .then(function(response) {
+                    return angular.copy(response.data, event);
+                });
+        }
+
+        function inviteEvent(event) {
+            return $http.post('/api/events/' + event._id + '/invite')
+                .then(function(response) {
+                    return angular.copy(response.data, event);
+                });
+        }
+
+        function undo(event, type) {
+            return $http.post('/api/events/' + event._id + '/undo/' + type)
                 .then(function(response) {
                     return angular.copy(response.data, event);
                 });

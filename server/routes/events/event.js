@@ -9,8 +9,9 @@ module.exports = router
     .param('id', resolveEvent)
     .get('/:id', getEvent)
     .post('/:id/accept', acceptEvent)
-    .post('/:id/decline', declineEvent);
-
+    .post('/:id/decline', declineEvent)
+    .post('/:id/invite', inviteEvent)
+    .post('/:id/undo/:type', undo);
 
 function resolveEvent(req, res, next, id) {
     Event.findOne({ _id: req.params.id })
@@ -42,12 +43,26 @@ function acceptEvent(req, res) {
         req.event.declined.splice(index, 1);
     }
 
-    // req.event.accepted = req.event.accepted.reduce((arr, id) => {
-    //     if (arr.indexOf(id) === -1) {
-    //         arr.push(id);
-    //     }
-    //     return arr;
-    // }, []);
+    req.event.save()
+        .then((event) => {
+            res.json(event);
+        }).catch(() => {
+            res.status(500);
+        });
+}
+
+function inviteEvent(req, res) {
+    var index = req.event.accepted.indexOf(req.user._id);
+
+    if (index !== -1) {
+        req.event.accepted.splice(index, 1);
+    }
+
+    index = req.event.declined.indexOf(req.user._id);
+
+    if (index !== -1) {
+        req.event.declined.splice(index, 1);
+    }
 
     req.event.save()
         .then((event) => {
@@ -76,4 +91,19 @@ function declineEvent(req, res) {
         }).catch(() => {
             res.sendStatus(500);
         });
+}
+
+function undo(req, res) {
+    const type = req.params.type;
+
+    switch (type) {
+        case 'accept':
+            return acceptEvent(req, res);
+        case 'decline':
+            return declineEvent(req, res);
+        case 'invite':
+            return inviteEvent(req, res);
+    }
+
+    res.sendStatus(500);
 }

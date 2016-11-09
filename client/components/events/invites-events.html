@@ -1,6 +1,8 @@
 <h1>Your invites events:</h1>
 
 <event-list 
+    type="invite"
     events="invitesEventsCtrl.invitesEvents"
     current-user="invitesEventsCtrl.currentUser"
+    on-decide="eventsCtrl.decide(event, type)"
 ></event-list>

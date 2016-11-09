@@ -1,6 +1,8 @@
 <h1>Your declined events:</h1>
 
 <event-list 
+    type="decline"
     events="declinedEventsCtrl.declinedEvents"
     current-user="declinedEventsCtrl.currentUser"
+    on-decide="eventsCtrl.decide(event, type)"
 ></event-list>

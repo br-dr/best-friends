@@ -8,44 +8,42 @@
             controller: EventButtonsController,
             bindings: {
                 event: '=',
-                currentUser: '='
+                type: '@',
+                currentUser: '=',
+                onDecide: '&'
             }
         });
 
-    EventButtonsController.$inject = ['EventService'];
+    EventButtonsController.$inject = ['EventService', 'toastr'];
 
-    function EventButtonsController(EventService) {
+    function EventButtonsController(EventService, toastr) {
         var vm = this;
 
         angular.extend(vm, {
             accept: accept,
+            invite: invite,
             decline: decline,
-            canAccept: canAccept,
-            canDecline: canDecline
         });
 
         function accept() {
-            EventService.acceptEvent(vm.event, vm.currentUser);
+            EventService.acceptEvent(vm.event)
+                .then(function() {
+                    vm.onDecide({type: vm.type});
+                });
+        }
+
+        function invite() {
+            EventService.inviteEvent(vm.event)
+                .then(function() {
+                    vm.onDecide({type: vm.type});
+                });
         }
 
         function decline() {
-            EventService.declineEvent(vm.event, vm.currentUser);
-        }
-
-        function canAccept() {
-            if (vm.event.accepted.indexOf(vm.currentUser._id) === -1) {
-                return true;
-            }
-
-            return false;
-        }
-
-        function canDecline() {
-            if (vm.event.declined.indexOf(vm.currentUser._id) === -1) {
-                return true;
-            }
-
-            return false;
+            EventService.declineEvent(vm.event)
+                .then(function() {
+                    vm.onDecide({type: vm.type});
+                });
         }
     }
 })();

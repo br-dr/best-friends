@@ -6,6 +6,39 @@
         .config(function($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise('/');
 
+            var appEventsUpcoming = {
+                url: '/events/upcoming',
+                templateUrl: '/components/events/upcoming-events.html',
+                controller: 'UpcomingEventsController as upcomingEventsCtrl',
+                resolve: {
+                    upcomingEvents: resolveUpcomingEvents
+                }
+            };
+
+            $stateProvider.state('app.events.upcoming', appEventsUpcoming);
+
+            var appEventsDeclined = {
+                url: '/events/declined',
+                templateUrl: '/components/events/declined-events.html',
+                controller: 'DeclinedEventsController as declinedEventsCtrl',
+                resolve: {
+                    declinedEvents: resolveDeclinedEvents
+                }
+            };
+
+            $stateProvider.state('app.events.declined', appEventsDeclined);
+
+            var appEventsArchive = {
+                url: '/events/archive',
+                templateUrl: '/components/events/archived-events.html',
+                controller: 'ArchivedEventsController as archivedEventsCtrl',
+                resolve: {
+                    archivedEvents: resolveArchivedEvents
+                }
+            };
+
+            $stateProvider.state('app.events.archive', appEventsArchive);
+
             $stateProvider
                 .state('app', {
                     templateUrl: '/components/app/app.html',
@@ -86,7 +119,7 @@
                 .state('app.events', {
                     url: '/events',
                     templateUrl: '/components/events/events.html',
-                    // controller: 'EventsController as EventsCtrl',
+                    controller: 'EventsController as eventsCtrl',
                 })
                 .state('app.events.new', {
                     url: '/events/new',
@@ -99,30 +132,6 @@
                     controller: 'InvitesEventsController as invitesEventsCtrl',
                     resolve: {
                         invitesEvents: resolveInvitesEvents
-                    }
-                })
-                .state('app.events.upcoming', {
-                    url: '/events/upcoming',
-                    templateUrl: '/components/events/upcoming-events.html',
-                    controller: 'UpcomingEventsController as upcomingEventsCtrl',
-                    resolve: {
-                        upcomingEvents: resolveUpcomingEvents
-                    }
-                })
-                .state('app.events.declined', {
-                    url: '/events/declined',
-                    templateUrl: '/components/events/declined-events.html',
-                    controller: 'DeclinedEventsController as declinedEventsCtrl',
-                    resolve: {
-                        declinedEvents: resolveDeclinedEvents
-                    }
-                })
-                .state('app.events.archive', {
-                    url: '/events/archive',
-                    templateUrl: '/components/events/archived-events.html',
-                    controller: 'ArchivedEventsController as archivedEventsCtrl',
-                    resolve: {
-                        archivedEvents: resolveArchivedEvents
                     }
                 })
                 .state('app.events.search-events', {

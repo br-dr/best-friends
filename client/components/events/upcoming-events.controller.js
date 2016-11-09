@@ -4,7 +4,6 @@
     angular.module('app')
         .controller('UpcomingEventsController', UpcomingEventsController);
 
-
     UpcomingEventsController.$inject = [
         'upcomingEvents',
         'currentUser'

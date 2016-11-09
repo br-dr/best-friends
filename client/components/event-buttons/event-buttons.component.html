@@ -14,20 +14,27 @@
     Decline
 </button>-->
 <div class="btn-group btn-group-justified" role="group" aria-label="...">
-    <div class="btn-group">
+    <div class="btn-group" ng-if="$ctrl.type === 'decline' || $ctrl.type === 'accept'">
         <button 
-        class="btn btn-success"
-        ng-click="$ctrl.accept()"
-        ng-disabled="!$ctrl.canAccept()"
+            class="btn btn-default"
+            ng-click="$ctrl.accept()"
+        >
+            Not Sure
+        </button>
+    </div>
+    <div class="btn-group" ng-if="$ctrl.type === 'decline' || $ctrl.type === 'invite'">
+        <button 
+            class="btn btn-success"
+            ng-click="$ctrl.accept()"
         >
             Accept
         </button>
     </div>
-    <div class="btn-group">
+    <div class="btn-group" ng-if="$ctrl.type === 'invite' || $ctrl.type === 'accept'">
         <button
             class="btn btn-danger" 
-            ng-click="$ctrl.decline()" 
-            ng-disabled="!$ctrl.canDecline()">
+            ng-click="$ctrl.decline()"
+        >
             Decline
         </button>
     </div>
