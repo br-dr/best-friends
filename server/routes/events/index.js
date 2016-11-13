@@ -68,10 +68,10 @@ function getInvitesEvents(req, res) {
     var aggregations = [
         {
             $match: {
-                invitedPersons: {$all: [req.user._id]},
-                time: {$gt: now},
-                declined: {$not: {$all: [req.user._id]}},
-                accepted: {$not: {$all: [req.user._id]}}
+                invitedPersons: { $all: [req.user._id] },
+                time: { $gt: now },
+                declined: { $not: { $all: [req.user._id] } },
+                accepted: { $not: { $all: [req.user._id] } }
             }
         }
     ];
@@ -90,9 +90,9 @@ function getDeclinedEvents(req, res) {
     var aggregations = [
         {
             $match: {
-                invitedPersons: {$all: [req.user._id]},
-                time: {$gt: now},
-                declined: {$all: [req.user._id]}
+                invitedPersons: { $all: [req.user._id] },
+                time: { $gt: now },
+                declined: { $all: [req.user._id] }
             }
         }
     ];
@@ -111,8 +111,8 @@ function getArchivedEvents(req, res) {
     var aggregations = [
         {
             $match: {
-                invitedPersons: {$all: [req.user._id]},
-                time: {$lt: now},
+                invitedPersons: { $all: [req.user._id] },
+                time: { $lt: now },
             }
         }
     ];
@@ -131,9 +131,9 @@ function getUpcomingEvents(req, res) {
     var aggregations = [
         {
             $match: {
-                invitedPersons: {$all: [req.user._id]},
-                time: {$gt: now},
-                accepted: {$all: [req.user._id]}
+                invitedPersons: { $all: [req.user._id] },
+                time: { $gt: now },
+                accepted: { $all: [req.user._id] }
             }
         }
     ];

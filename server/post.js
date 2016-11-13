@@ -6,7 +6,6 @@ var modelNames = require('./model-names');
 var Schema = mongoose.Schema;
 
 var postSchema = new Schema({
-    heading: String,
     content: String,
     creator: {
         type: Schema.Types.ObjectId, //id of poster

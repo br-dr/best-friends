@@ -49,7 +49,6 @@ function addVisit(req, res) {
 function addPost(req, res) {
     var newPost = new Post();
 
-    newPost.heading = req.body.postTitle;
     newPost.content = req.body.postContent;
     newPost.creator = req.user._id;
     newPost.owner = req.targetUser._id;

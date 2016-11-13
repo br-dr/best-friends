@@ -119,7 +119,7 @@
                 .state('app.events', {
                     url: '/events',
                     templateUrl: '/components/events/events.html',
-                    controller: 'EventsController as eventsCtrl',
+                    controller: 'EventsController as eventsCtrl'
                 })
                 .state('app.events.new', {
                     url: '/events/new',
@@ -206,4 +206,5 @@
     function resolveUpcomingEvents(EventService) {
         return EventService.getUpcomingEvents();
     }
+
 })();

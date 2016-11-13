@@ -1,26 +1,26 @@
 <div>
     <div class="panel panel-info">
-        <div class="panel-heading">
-            <span>{{$ctrl.post.heading}}</span>
-            <button 
-                class="btn text-right btn-danger" 
-                ng-click="$ctrl.deletePost($ctrl.post._id)" 
-                ng-if="$ctrl.canDeletePost()"
-            >
-                X
-            </button>
+        <div class="panel-body">
+            <span class="pull-left">
+                <a ui-sref="app.user({id: $ctrl.post.creator._id})">
+                    {{$ctrl.post.creator.name}}
+                </a>
+            </span>
+            <span class="pull-right">
+                <i
+                    class="fa fa-ban"
+                    aria-hidden="true"
+                    ng-click="$ctrl.deletePost($ctrl.post._id)"
+                    ng-if="$ctrl.canDeletePost()"
+                ></i>
+            </span>
+            <hr>
+                <p class="post-content">{{$ctrl.post.content}}</p>
+            <hr>
             <span class="pull-right">
                 {{$ctrl.post.createdAt | date:'dd/MM/yyyy @ h:mma'}}
             </span>
-            <span class="pull-right">
-                <a ui-sref="app.user({id: $ctrl.post.creator._id})">
-                    {{$ctrl.post.creator.name}} -
-                </a>
-            </span>
-        </div>
-        <div class="panel-body">
-            <p>{{$ctrl.post.content}}</p>
-            <div class="pull-right">
+            <div class="pull-left">
                 <i
                     ng-class="{unliked: !$ctrl.isLiked, liked: $ctrl.isLiked}"
                     class="fa fa-heart"

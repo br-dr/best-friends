@@ -1,18 +1,3 @@
-<!--<button 
-    class="btn btn-success"
-    ng-click="$ctrl.accept()"
-    ng-disabled="!$ctrl.canAccept()"
->
-    Accept
-</button>
-
-<button 
-    class="btn btn-danger" 
-    ng-click="$ctrl.decline()"
-    ng-disabled="!$ctrl.canDecline()"
->
-    Decline
-</button>-->
 <div class="btn-group btn-group-justified" role="group" aria-label="...">
     <div class="btn-group" ng-if="$ctrl.type === 'decline' || $ctrl.type === 'accept'">
         <button 
