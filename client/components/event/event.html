@@ -1,9 +1,19 @@
-<h3>Created by: {{eventCtrl.event.creator.name}}</h3>
-<h3>Title: {{eventCtrl.event.title}}</h3>
-<h3>Description: {{eventCtrl.event.description}}</h3>
-<h3>Time: {{eventCtrl.event.time | date:'MMM d, h:mm a' : 'utc+2'}}</h3>
-<comment-list
-    comments="eventCtrl.comments" 
-    event="eventCtrl.event"
-    creator="eventCtrl.currentUser" 
-></comment-list>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Created by: {{eventCtrl.event.creator.name}}</h3>
+            <h3>Title: {{eventCtrl.event.title}}</h3>
+            <h3>Description: {{eventCtrl.event.description}}</h3>
+            <h3>Time: {{eventCtrl.event.time | date:'MMM d, h:mm a' : 'utc+2'}}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <comment-list 
+                comments="eventCtrl.comments" 
+                event="eventCtrl.event" 
+                current-user="eventCtrl.currentUser"
+            ></comment-list>
+        </div>
+    </div>
+</div>

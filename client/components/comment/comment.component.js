@@ -7,10 +7,11 @@
             controller: CommentController,
             bindings: {
                 comment: '=',
-                user: '=',
+                // user: '=',
                 deleteComment: '=',
                 likeOrUnlike: '=',
-                isLiked: '='
+                isLiked: '=',
+                currentUser: '='
             }
         });
 
@@ -19,7 +20,7 @@
 
         vm.canDeleteComment = function() {
             // var isOwner = vm.post.owner._id === vm.user._id;
-            var isCreator = vm.comment.creator._id === vm.user._id;
+            var isCreator = vm.comment.creator._id === vm.currentUser._id;
 
             if (isCreator) {
                 return true;

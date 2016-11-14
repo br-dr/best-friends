@@ -1,6 +1,8 @@
 <div>
     <div class="panel panel-success">
         <div class="panel-body">
+            <p class="post-content">{{$ctrl.comment.content}}</p>
+            <hr>
             <span class="pull-left">
                 <a ui-sref="app.user({id: $ctrl.comment.creator._id})">
                     {{$ctrl.comment.creator.name}}
@@ -14,9 +16,6 @@
                     ng-if="$ctrl.canDeleteComment()"
                 ></i>
             </span>
-            <hr>
-                <p class="post-content">{{$ctrl.comment.content}}</p>
-            <hr>
             <span class="pull-right">
                 {{$ctrl.comment.createdAt | date:'dd/MM/yyyy @ h:mma'}}
             </span>

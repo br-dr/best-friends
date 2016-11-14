@@ -8,7 +8,8 @@
             bindings: {
                 comments: '=',
                 event: '=',
-                creator: '='
+                // user: '=',
+                currentUser: '='
             }
         });
 
@@ -22,7 +23,6 @@
             commentInput: {
                 commentContent: ''
             },
-            comments: [],
             cancelCommentInput: cancelCommentInput,
             addComment: addComment,
             deleteComment: deleteComment,
@@ -87,7 +87,7 @@
         }
 
         function likeOrUnlike(comment) {
-            var index = comment.likedBy.indexOf(vm.creator._id);
+            var index = comment.likedBy.indexOf(vm.currentUser._id);
 
             if (index === -1) {
                 likeComment(comment);
@@ -97,7 +97,7 @@
         }
 
         function isLiked(comment) {
-            var index = comment.likedBy.indexOf(vm.creator._id) || -1;
+            var index = comment.likedBy.indexOf(vm.currentUser._id);
 
             return index !== -1;
         }
