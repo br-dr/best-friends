@@ -144,7 +144,8 @@
                     templateUrl: '/components/event/event.html',
                     controller: 'EventController as eventCtrl',
                     resolve: {
-                        event: resolveEventById
+                        event: resolveEventById,
+                        comments: resolveEventComments
                     }
                 });
         });
@@ -207,4 +208,8 @@
         return EventService.getUpcomingEvents();
     }
 
+    resolveEventComments.$inject = ['CommentService', '$stateParams'];
+    function resolveEventComments(CommentService, $stateParams) {
+        return CommentService.getEventComments($stateParams.id);
+    }
 })();

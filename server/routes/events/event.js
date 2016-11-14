@@ -2,15 +2,18 @@
 
 const express = require('express');
 const Event = require('./../../event');
+const Comment = require('./../../comment');
 
 const router = express.Router();
 
 module.exports = router
     .param('id', resolveEvent)
     .get('/:id', getEvent)
+    .get('/:id/comments', getComments)
     .post('/:id/accept', acceptEvent)
     .post('/:id/decline', declineEvent)
     .post('/:id/invite', inviteEvent)
+    .post('/:id/add-comment', addComment)
     .post('/:id/undo/:type', undo);
 
 function resolveEvent(req, res, next, id) {
@@ -28,6 +31,40 @@ function resolveEvent(req, res, next, id) {
 
 function getEvent(req, res) {
     res.json(req.event);
+}
+
+function getComments(req, res) {
+    Comment.find({ event: req.event._id })
+        .populate('event')
+        .populate('creator')
+        .then((comments) => {
+            return res.json(comments);
+        })
+        .catch((err) => {
+            return res.sendstatus(403);
+        });
+}
+
+function addComment(req, res) {
+    var newComment = new Comment();
+
+    newComment.content = req.body.commentContent;
+    newComment.creator = req.user._id;
+    newComment.event = req.event._id;
+    newComment.likedBy = [];
+
+    newComment.save()
+        .then((comment) => {
+            var path = [{ path: 'event' }, { path: 'creator' }];
+
+            return Comment.populate(comment, path);
+        })
+        .then((populatedComment) => {
+            return res.json(populatedComment);
+        })
+        .catch((err) => {
+            res.status(400).json(err);
+        });
 }
 
 

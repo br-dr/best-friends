@@ -5,16 +5,22 @@
         .controller('EventController', EventController);
 
     EventController.$inject = [
-        'event'
+        'event',
+        'currentUser',
+        'comments'
     ];
 
     function EventController(
-        event
+        event,
+        currentUser,
+        comments
     ) {
 
         var vm = this;
         angular.extend(vm, {
-            event: event
+            event: event,
+            currentUser: currentUser,
+            comments: comments
         });
     }
 })();
