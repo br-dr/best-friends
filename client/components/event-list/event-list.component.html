@@ -1,0 +1,21 @@
+<div class="container-fluid">
+    <div class="row" ng-repeat="event in $ctrl.events | orderBy:'time'" ng-hide="$ctrl.hideEvent(event)">
+        <div class="col-md-6">
+            <a ui-sref="app.events.event({id: event._id})">
+                <p>{{event.title}}</p>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <p>{{event.time | date:'MMM d, h:mm a' : 'utc+2' }}</p>
+        </div>
+        <div class="col-md-3">
+            <event-buttons
+                event="event" 
+                type="{{$ctrl.type}}"
+                current-user="$ctrl.currentUser"
+                on-decide="$ctrl.onDecide({event: event, type: type})"
+            >
+            </event-buttons>
+        </div>
+    </div>
+</div>

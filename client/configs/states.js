@@ -6,6 +6,39 @@
         .config(function($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise('/');
 
+            var appEventsUpcoming = {
+                url: '/events/upcoming',
+                templateUrl: '/components/events/upcoming-events.html',
+                controller: 'UpcomingEventsController as upcomingEventsCtrl',
+                resolve: {
+                    upcomingEvents: resolveUpcomingEvents
+                }
+            };
+
+            $stateProvider.state('app.events.upcoming', appEventsUpcoming);
+
+            var appEventsDeclined = {
+                url: '/events/declined',
+                templateUrl: '/components/events/declined-events.html',
+                controller: 'DeclinedEventsController as declinedEventsCtrl',
+                resolve: {
+                    declinedEvents: resolveDeclinedEvents
+                }
+            };
+
+            $stateProvider.state('app.events.declined', appEventsDeclined);
+
+            var appEventsArchive = {
+                url: '/events/archive',
+                templateUrl: '/components/events/archived-events.html',
+                controller: 'ArchivedEventsController as archivedEventsCtrl',
+                resolve: {
+                    archivedEvents: resolveArchivedEvents
+                }
+            };
+
+            $stateProvider.state('app.events.archive', appEventsArchive);
+
             $stateProvider
                 .state('app', {
                     templateUrl: '/components/app/app.html',
@@ -82,8 +115,39 @@
                         followers: resolveFollowers,
                         user: resolveUserById
                     }
+                })
+                .state('app.events', {
+                    url: '/events',
+                    templateUrl: '/components/events/events.html',
+                    controller: 'EventsController as eventsCtrl'
+                })
+                .state('app.events.new', {
+                    url: '/events/new',
+                    templateUrl: '/components/events/new-event.html',
+                    controller: 'NewEventController as newEventCtrl',
+                })
+                .state('app.events.invites', {
+                    url: '/events/invites',
+                    templateUrl: '/components/events/invites-events.html',
+                    controller: 'InvitesEventsController as invitesEventsCtrl',
+                    resolve: {
+                        invitesEvents: resolveInvitesEvents
+                    }
+                })
+                .state('app.events.search-events', {
+                    url: '/events/search-events',
+                    templateUrl: '/components/events/search-events.html',
+                    controller: 'SearchEventsController as searchEventsCtrl',
+                })
+                .state('app.events.event', {
+                    url: '/event/:id',
+                    templateUrl: '/components/event/event.html',
+                    controller: 'EventController as eventCtrl',
+                    resolve: {
+                        event: resolveEventById,
+                        comments: resolveEventComments
+                    }
                 });
-
         });
 
     resolveUserById.$inject = ['$stateParams', 'UserService'];
@@ -117,5 +181,35 @@
     resolvePosts.$inject = ['PostService'];
     function resolvePosts(PostService) {
         return PostService.getPosts();
+    }
+
+    resolveEventById.$inject = ['$stateParams', 'EventService'];
+    function resolveEventById($stateParams, EventService) {
+        return EventService.getEventById($stateParams.id);
+    }
+
+    resolveInvitesEvents.$inject = ['EventService'];
+    function resolveInvitesEvents(EventService) {
+        return EventService.getInvitesEvents();
+    }
+
+    resolveDeclinedEvents.$inject = ['EventService'];
+    function resolveDeclinedEvents(EventService) {
+        return EventService.getDeclinedEvents();
+    }
+
+    resolveArchivedEvents.$inject = ['EventService'];
+    function resolveArchivedEvents(EventService) {
+        return EventService.getArchivedEvents();
+    }
+
+    resolveUpcomingEvents.$inject = ['EventService'];
+    function resolveUpcomingEvents(EventService) {
+        return EventService.getUpcomingEvents();
+    }
+
+    resolveEventComments.$inject = ['CommentService', '$stateParams'];
+    function resolveEventComments(CommentService, $stateParams) {
+        return CommentService.getEventComments($stateParams.id);
     }
 })();

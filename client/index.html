@@ -7,7 +7,9 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   <link rel="stylesheet" href="//unpkg.com/angular-toastr/dist/angular-toastr.css" />
-   <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
+  <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.19.4/select.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
   <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body ng-app="app">
@@ -22,16 +24,22 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.1.4/ui-bootstrap-tpls.js"></script>
     <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
     <script src="//code.highcharts.com/highcharts.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angucomplete-alt/2.5.0/angucomplete-alt.min.js"></script>
     <script src="/index.js"></script>
     <script src="/configs/states.js"></script>
     <script src="/components/profile/profile.controller.js"></script>
     <script src="/components/user/user.controller.js"></script>
     <script src="/components/search-users/search-users.controller.js"></script>
     <script src="/components/post/post.component.js"></script>
+    <script src="/components/event/event.controller.js"></script>
     <script src="/components/posts-list/posts-list.component.js"></script>
+    <script src="/components/comment/comment.component.js"></script>
+    <script src="/components/comment-list/comment-list.component.js"></script>
     <script src="/services/user.service.js"></script>
     <script src="/services/post.service.js"></script>
     <script src="/services/visit.service.js"></script>
+    <script src="/services/event.service.js"></script>
+    <script src="/services/comment.service.js"></script>
     <script src="/components/follow-count/follow-count.component.js"></script>
     <script src="/components/following-list/following-list.controller.js"></script>
     <script src="/components/followers-list/followers-list.controller.js"></script>
@@ -39,5 +47,14 @@
     <script src="/components/user-list/user-list.component.js"></script>
     <script src="/components/app/navigation.controller.js"></script>
     <script src="/components/visit-stats/visit-stats.controller.js"></script>
+    <script src="/components/events/events.controller.js"></script>
+    <script src="/components/events/new-event.controller.js"></script>
+    <script src="/components/events/search-events.controller.js"></script>
+    <script src="/components/event-list/event-list.component.js"></script>
+    <script src="/components/events/invites-events.controller.js"></script>
+    <script src="/components/events/declined-events.controller.js"></script>
+    <script src="/components/events/archived-events.controller.js"></script>
+    <script src="/components/events/upcoming-events.controller.js"></script>
+    <script src="/components/event-buttons/event-buttons.component.js"></script>
 </body>
 </html>

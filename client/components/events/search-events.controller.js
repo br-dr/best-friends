@@ -1,15 +1,15 @@
 (function() {
     'use strict';
     angular.module('app')
-        .controller('SearchUsersController', SearchUsersController);
+        .controller('SearchEventsController', SearchEventsController);
 
-    SearchUsersController.$inject = [
+    SearchEventsController.$inject = [
         '$http',
         'UserService',
         'currentUser'
     ];
 
-    function SearchUsersController(
+    function SearchEventsController(
         $http,
         UserService,
         currentUser
@@ -20,18 +20,18 @@
             input: {
                 searchText: ''
             },
-            foundUsers: [],
+            foundEvents: [],
             currentUser: currentUser,
-            searchUsers: searchUsers
+            searchEvents: searchEvents
         });
 
-        function searchUsers() {
-            $http.get('/api/users', {params: vm.input})
-                .success(function(response) {
-                    vm.foundUsers = response;
+        function searchEvents() {
+            $http.get('/api/events', {params: vm.input})
+                .then(function(response) {
                     vm.errorMessage = false;
+                    return angular.copy(response.data, vm.foundEvents);
                 })
-                .error(function() {
+                .catch(function() {
                     vm.errorMessage = true;
                 });
         }

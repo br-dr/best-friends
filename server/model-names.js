@@ -3,5 +3,7 @@
 module.exports = {
     USER: 'User',
     POST: 'Post',
-    VISIT: 'Visit'
+    VISIT: 'Visit',
+    EVENT: 'Event',
+    EVENT_COMMENT: 'Comment'
 };

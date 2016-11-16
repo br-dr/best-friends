@@ -1,16 +1,17 @@
 'use strict';
 
-var express = require('express');
-var session = require('express-session');
-var passport = require('passport');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var mongoose = require('mongoose');
-var MongoStore = require('connect-mongo')(session);
-var path = require('path');
-var passportConfig = require('./passport-config');
+const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
+const path = require('path');
+const passportConfig = require('./passport-config');
+const routes = require('./routes');
 
-var app = express();
+const app = express();
 
 app.use(express.static(path.join(__dirname, '..', 'client')));
 app.use(cookieParser());
@@ -29,5 +30,7 @@ app.use(passport.session());
 passport.use(passportConfig.Strategy);
 passport.serializeUser(passportConfig.serializeUser);
 passport.deserializeUser(passportConfig.deserializeUser);
+
+app.use(routes);
 
 module.exports = app;

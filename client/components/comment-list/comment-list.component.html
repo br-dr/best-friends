@@ -1,0 +1,29 @@
+<div>
+    <h2>Comments:
+        <button class="btn btn-success" ng-click="$ctrl.shouldShowCommentForm = true">+ Add new comment</button>
+    </h2>
+    <div class="add-post-form" ng-show="$ctrl.shouldShowCommentForm">
+        <form>
+            <fieldset>
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" ng-model="$ctrl.commentInput.commentContent" required></textarea>
+                </div>
+                <div class="text-right form-group">
+                    <button type="submit" class="btn btn-success" ng-click="$ctrl.addComment()">Add</button>
+                    <button class="btn btn-danger" ng-click="$ctrl.cancelcommentInput()">Cancel</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div ng-repeat="comment in $ctrl.comments | orderBy: '-createdAt'">
+        <comment
+            comment="comment"
+            delete-comment="$ctrl.deleteComment"
+            like-or-unlike="$ctrl.likeOrUnlike"
+            is-liked="$ctrl.isLiked(comment)"
+            current-user="$ctrl.currentUser"
+        ></comment>
+            <!--user="$ctrl.creator"-->
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h3 class="text-center">Event name to search</h3>
+            <form ng-submit="searchEventsCtrl.searchEvents()">
+                <div class="form-group">
+                    <div>
+                        <input 
+                            type="text"
+                            placeholder="event name"
+                            class="form-control"
+                            ng-model="searchEventsCtrl.input.searchText"
+                        />
+                    </div>
+                </div>
+
+                <div class="text-center form-group">
+                    <button type="submit" class="btn btn-success btn-lg btn-block">
+                        <span class="glyphicon glyphicon-search"></span>
+                        Search
+                    </button>
+                </div>
+
+                <div class="text-center form-group" ng-show="searchEventsCtrl.errorMessage">
+                    <div class="alert alert-danger" role="alert">Error has occurred</div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<event-list 
+    events="searchEventsCtrl.foundEvents" 
+    current-user="searchEventsCtrl.currentUser"
+></event-list>

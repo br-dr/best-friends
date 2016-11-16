@@ -20,7 +20,6 @@
         angular.extend(vm, {
             shouldShowPostForm: false,
             postInput: {
-                postTitle: '',
                 postContent: ''
             },
             cancelPostInput: cancelPostInput,

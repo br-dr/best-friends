@@ -15,28 +15,28 @@
             });
 
             function getCurrentUser() {
-                return $http.get('/profile')
+                return $http.get('/api/profile')
                     .then(function(response) {
                         return response.data;
                     });
             }
 
             function followUser(user, currentUser) {
-                return $http.post('/follow', user)
+                return $http.post('/api/user/' + user._id + '/follow')
                     .then(function(response) {
                         return angular.copy(response.data, currentUser);
                     });
             }
 
             function unFollowUser(user, currentUser) {
-                return $http.post('/unfollow', user)
+                return $http.post('/api/user/' + user._id + '/unfollow')
                     .then(function(response) {
                         return angular.copy(response.data, currentUser);
                     });
             }
 
             function getUserById(id) {
-                return $http.get('/user/' + id)
+                return $http.get('/api/user/' + id)
                     .then(function(response) {
                         return response.data;
                     });

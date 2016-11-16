@@ -1,0 +1,51 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li>
+                    <a ui-sref="app.events.new">
+                        Create new
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.events.invites">
+                        Invites
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.events.upcoming">
+                        Upcoming
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.events.declined">
+                        Declined
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.events.search-events">
+                        Search
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.events.archive">
+                        Archive
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-offset-1 col-sm-6 col-md-9">
+            <div ui-view></div>
+            <div class="undo-container">
+                <button 
+                    class="btn btn-warning" 
+                    ng-show="eventsCtrl.isCancelShown"
+                    ng-disabled="eventsCtrl.isCancelDisabled"
+                    ng-click="eventsCtrl.cancel()"
+                >
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
