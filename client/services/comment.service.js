@@ -17,7 +17,8 @@
         };
 
         function addComment(id, commentInput) {
-            return $http.post('/api/events/' + id + '/add-comment/', commentInput);
+            var url = '/api/events/' + id + '/add-comment/';
+            return $http.post(url, commentInput);
         }
 
         function deleteComment(id) {
