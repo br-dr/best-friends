@@ -31,8 +31,10 @@
             shouldShowInput: false,
             changeAvatar: changeAvatar,
             cancelUrlInput: cancelUrlInput,
-            changeAvatarByKeypress: changeAvatarByKeypress
+            changeAvatarByKeypress: changeAvatarByKeypress,
+
         });
+
 
         function changeAvatar() {
             $http.post('/api/profile/change-avatar', vm.input)

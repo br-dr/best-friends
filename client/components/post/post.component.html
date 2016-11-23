@@ -1,34 +1,40 @@
-<div>
-    <div class="panel panel-info">
-        <div class="panel-body">
-            <span class="pull-left">
-                <a ui-sref="app.user({id: $ctrl.post.creator._id})">
-                    {{$ctrl.post.creator.name}}
-                </a>
-            </span>
-            <span class="pull-right">
-                <i
-                    class="fa fa-ban"
-                    aria-hidden="true"
-                    ng-click="$ctrl.deletePost($ctrl.post._id)"
-                    ng-if="$ctrl.canDeletePost()"
-                ></i>
-            </span>
-            <hr>
-                <p class="post-content">{{$ctrl.post.content}}</p>
-            <hr>
-            <span class="pull-right">
-                {{$ctrl.post.createdAt | date:'dd/MM/yyyy @ h:mma'}}
-            </span>
-            <div class="pull-left">
-                <i
-                    ng-class="{unliked: !$ctrl.isLiked, liked: $ctrl.isLiked}"
-                    class="fa fa-heart"
-                    ng-click="$ctrl.likeOrUnlike($ctrl.post)"
-                    aria-hidden="true"
-                ></i>
-                <span class="label label-success">{{$ctrl.post.likedBy.length}}</span>
-            </div>
+<!--style="margin: 0; padding:0;white-space: pre"-->
+<md-card layout="column" md-colors="{background: 'primary-100-0.20'}">
+    <md-card-content>
+        <div class="post-content">
+            {{$ctrl.post.content}}
         </div>
-    </div>
-</div>
+    </md-card-content>
+    <md-card-actions class="post-buttons" layout="row" layout-align="end center">
+        <span style="font-size: 11px">{{$ctrl.post.creator.name}} {{$ctrl.post.createdAt | date:'@ h:mma'}}</span>
+        <md-button 
+            class="md-icon-button" 
+            aria-label="Favorite"
+            ng-class="{unliked: !$ctrl.isLiked, liked: $ctrl.isLiked}"
+            ng-click="$ctrl.likeOrUnlike($ctrl.post)"
+        >
+            <ng-md-icon 
+                icon="favorite" 
+                size="20"
+            ></ng-md-icon>
+        </md-button>
+
+        <span style="font-size: 11px">{{$ctrl.post.likedBy.length}} likes</span>
+
+        <md-button 
+            class="md-icon-button delete-post" 
+            aria-label="Delete"
+            ng-click="$ctrl.deletePost($ctrl.post._id)"
+            ng-if="$ctrl.canDeletePost()"
+        >
+        <md-tooltip md-delay="400" md-direction="top">
+                Delete post
+        </md-tooltip>
+            <ng-md-icon 
+                icon="delete_forever" 
+                size="16"
+            ></ng-md-icon>
+        </md-button>
+
+    </md-card-actions>
+</md-card>
