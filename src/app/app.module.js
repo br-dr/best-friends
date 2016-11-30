@@ -10,16 +10,18 @@ import ngAria from 'angular-aria';
 import ngMdIcons from 'angular-material-icons';
 
 
-import { CommonModule } from './common/common.module';
-import { UserModule } from './user/user.module';
+import { CommonModule } from '../common/common.module';
+import { UserModule } from '../user/user.module';
+import { ProfileModule } from '../profile/profile.module';
 
 import { appRoutes } from './app.routes';
-import { AppComponent } from './app/app.component';
+import { AppComponent } from './app.component';
 
 export const AppModule = angular
     .module('app', [
         CommonModule,
         UserModule,
+        ProfileModule,
 
         uiRouter,
         ngAnimate,

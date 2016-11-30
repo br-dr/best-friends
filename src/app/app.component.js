@@ -1,4 +1,4 @@
-import template from 'raw!./app.component.html';
+import template from './app.component.html';
 
 export const AppComponent = {
     template,
