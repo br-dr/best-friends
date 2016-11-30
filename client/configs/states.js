@@ -147,7 +147,23 @@
                         event: resolveEventById,
                         comments: resolveEventComments
                     }
+                })
+                .state('app.conversations', {
+                    url: '/conversations',
+                    templateUrl: '/components/conversations/conversations.html',
+                    controller: 'ConversationsController as conversationsCtrl',
+                    resolve: {
+                        conversations: resolveUserConversations,
+                    }
                 });
+                // .state('app.conversations.conversation', {
+                //     url: '/conversation/:id',
+                //     templateUrl: '/conversations/conversation/conversation.html',
+                //     controller: 'ConversationController as conversationCtrl',
+                //     resolve: {
+                //         conversation: resolveConversationtById,
+                //     }
+                // });
         });
 
     resolveUserById.$inject = ['$stateParams', 'UserService'];
@@ -211,5 +227,10 @@
     resolveEventComments.$inject = ['CommentService', '$stateParams'];
     function resolveEventComments(CommentService, $stateParams) {
         return CommentService.getEventComments($stateParams.id);
+    }
+
+    resolveUserConversations.$inject = ['ConversationService'];
+    function resolveUserConversations(ConversationService) {
+        return ConversationService.getUserConversations();
     }
 })();

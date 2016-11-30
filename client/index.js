@@ -6,7 +6,6 @@
         'ngAnimate',
         'toastr',
         'ngSanitize',
-        'ui.bootstrap',
         'angular-loading-bar',
         'angucomplete-alt',
         'ngAria',

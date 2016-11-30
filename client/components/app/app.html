@@ -1,6 +1,6 @@
         <!--md-is-locked-open="$mdMedia('gt-md')"-->
         <!--md-theme="{{navbarCtrl.theme}}" md-theme-watch="true"-->
-<div layout="row" ng-controller="NavbarController as navbarCtrl" >
+<md-content layout="row" ng-controller="NavbarController as navbarCtrl" >
     <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2 md-sidenav-list" md-component-id="left">
         <md-toolbar class="md-theme-indigo">
             <h2 class="md-toolbar-tools">Menu</h2>
@@ -59,13 +59,13 @@
             <md-divider></md-divider>
             <md-subheader>other</md-subheader>
             <md-item class="menu-item">
-                    <a ng-click="navbarCtrl.toggleSidenav()" >
+                    <a ng-click="navbarCtrl.toggleSidenav()" ui-sref="app.conversations">
                         <md-item-content layout="row" layout-align="start center">
                             <div class="inset">
                                 <ng-md-icon icon="chat_bubble" md-colors="{fill:'accent'}"></ng-md-icon>
                             </div>
                             <div class="inset">
-                                Messages
+                                Conversations
                             </div>
                         <md-item-content>
                     </a>
@@ -100,7 +100,7 @@
         <div ui-view></div>
         <!--<md-content layout="column" flex ui-view></md-content>-->
     </div>
-</div>
+</md-content>
 
 
 

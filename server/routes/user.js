@@ -5,6 +5,7 @@ const router = express.Router();
 const User = require('./../user');
 const Visit = require('./../visit');
 const Post = require('./../post');
+const Conversation = require('./../conversation');
 
 module.exports = router
     .param('id', resolveTartgetUser)
@@ -16,6 +17,7 @@ module.exports = router
     .post('/:id/follow', followUser)
     .post('/:id/unfollow', unfollowUser)
     .post('/:id/add-post', addPost);
+    // .post('/:id/add-conversation', addConversation);
 
 function resolveTartgetUser(req, res, next, id) {
     User.findById(id)
@@ -84,6 +86,63 @@ function addPost(req, res) {
         });
     }
 }
+
+function addConversation(req, res) {
+    var newConversation = new Conversation();
+
+    newConversation.content = req.body.conversationContent;
+    newConversation.creator = req.user._id;
+    newConversation.coversationParticipants = [];
+    newConversation.coversationParticipants.push(req.user._id);
+
+    newConversation.save()
+        .then((conversation) => {
+            var path = [{path: 'creator'}, {path: 'conversationParticipants'}];
+
+            return Conversation.populate(conversation, path);
+        })
+        .then((populatedConversation) => {
+            return res.json(populatedConversation);
+        })
+        .catch((err) => {
+            res.status(400).json(err);
+        });
+}
+    // newPost.owner = req.targetUser._id;
+    // newPost.likedBy = [];
+
+
+
+    // checkOwner(req.targetUser, req.user._id)
+    //     .then(() => {
+    //         return newPost.save();
+    //     })
+    //     .then((post) => {
+    //         var path = [{ path: 'owner' }, { path: 'creator' }];
+
+    //         return Post.populate(post, path);
+    //     })
+    //     .then((populatedPost) => {
+    //         return res.json(populatedPost);
+    //     })
+    //     .catch((err) => {
+    //         res.status(400).json(err);
+    //     });
+
+    // function checkOwner(owner, creatorId) {
+    //     return new Promise((resolve, reject) => {
+    //         if (owner._id.equals(creatorId)) {
+    //             return resolve();
+    //         }
+
+    //         if (owner.following.indexOf(creatorId) !== -1) {
+    //             return resolve();
+    //         }
+
+    //         return reject();
+    //     });
+    // }
+
 
 function getPosts(req, res) {
     Post.find({ owner: req.targetUser._id })

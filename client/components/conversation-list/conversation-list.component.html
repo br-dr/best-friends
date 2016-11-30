@@ -1,0 +1,15 @@
+<div layout="column">
+    <div layout="row">
+        <md-button class="md-raised md-accent" ng-click="$ctrl.showDialog($event)">Add new conversation</md-button>
+    </div>
+    <div ng-repeat="conversation in $ctrl.conversations | orderBy: '-createdAt'">
+        <conversation 
+            conversation="conversation"
+            current-user="$ctrl.currentuser"
+        ></conversation>
+    </div>
+</div>
+            <!--delete-post="$ctrl.deletePost" 
+            user="$ctrl.creator" 
+            like-or-unlike="$ctrl.likeOrUnlike"
+            is-liked="$ctrl.isLiked(post)"-->

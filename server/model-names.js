@@ -5,5 +5,6 @@ module.exports = {
     POST: 'Post',
     VISIT: 'Visit',
     EVENT: 'Event',
-    EVENT_COMMENT: 'Comment'
+    EVENT_COMMENT: 'Comment',
+    CONVERSATION: 'Conversation'
 };

@@ -13,7 +13,7 @@ const routes = require('./routes');
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, '..', 'client')));
+app.use(express.static(path.join(__dirname, '..', 'client'))); //or public
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

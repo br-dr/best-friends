@@ -7,9 +7,9 @@ export function appRoutes($stateProvider, $urlRouterProvider) {
         .state('app', {
             url: '/',
             template: '<app></app>',
-            // resolve: {
-                // currentUser: resolveCurrentUser
-            // }
+            resolve: {
+                currentUser: resolveCurrentUser
+            }
         });
 
     function resolveCurrentUser(UserService, $state) {

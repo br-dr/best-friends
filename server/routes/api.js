@@ -7,6 +7,7 @@ const users = require('./users');
 const posts = require('./posts');
 const events = require('./events');
 const comments = require('./comments');
+const conversations = require('./conversations');
 
 
 const router = express.Router();
@@ -19,6 +20,7 @@ module.exports = router
     .use('/posts', posts)
     .use('/events', events)
     .use('/comments', comments)
+    .use('/conversations', conversations)
     .all('*', (req, res) => {
         res.sendStatus(404);
     });
