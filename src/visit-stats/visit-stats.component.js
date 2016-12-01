@@ -2,15 +2,17 @@ import * as angular from 'angular';
 import Highcharts from 'highcharts';
 
 import template from './visit-stats.component.html';
-import { VisitService } from './visit.service';
 
 
 export const VisitStatsComponent = {
     template,
     controller: class VisitStatsComponent {
-        constructor() {
+        constructor(VisitService) {
+            'ngInject';
+
 
             Object.assign(this, {
+                VisitService,
                 areVisitsShown: false,
                 period: localStorage.getItem('period') || 'day',
                 visits: [],
@@ -24,7 +26,7 @@ export const VisitStatsComponent = {
         getVisits(period) {
             this.period = period;
             localStorage.setItem('period', this.period);
-            return VisitService.getVisitsByPeriod(
+            return this.VisitService.getVisitsByPeriod(
                 period
             )
                 .then((response) => {
