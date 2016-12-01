@@ -8,11 +8,13 @@ import 'angucomplete-alt';
 import ngMaterial from 'angular-material';
 import ngAria from 'angular-aria';
 import ngMdIcons from 'angular-material-icons';
+import Highcharts from 'highcharts';
 
 
 import { CommonModule } from '../common/common.module';
 import { UserModule } from '../user/user.module';
 import { ProfileModule } from '../profile/profile.module';
+import { VisitStatsModule } from '../visit-stats/visit-stats.module';
 
 import { appRoutes } from './app.routes';
 import { AppComponent } from './app.component';
@@ -22,6 +24,7 @@ export const AppModule = angular
         CommonModule,
         UserModule,
         ProfileModule,
+        VisitStatsModule,
 
         uiRouter,
         ngAnimate,
@@ -31,6 +34,7 @@ export const AppModule = angular
         ngMaterial,
         ngAria,
         ngMdIcons,
+        Highcharts,
         'angucomplete-alt'
     ])
     .config(appRoutes)
