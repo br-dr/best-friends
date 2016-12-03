@@ -37,13 +37,14 @@ function addConversation(req, res) {
     var newConversation = new Conversation();
 
     newConversation.creator = req.user._id;
-    newConversation.content = req.body.conversationContent;
+    newConversation.title = req.body.title;
     newConversation.conversationParticipants = [];
     newConversation.conversationParticipants.push(req.user._id);
 
     newConversation.save()
         .then((conversation) => {
-            return res.sendStatus(200);
+            // return res.sendStatus(200);\
+            return res.json(conversation);
         })
         .catch((err) => {
             res.send(500).json(err);

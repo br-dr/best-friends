@@ -43,7 +43,7 @@
 
                 angular.extend(dialogVm, {
                     conversationInput: {
-                        conversationContent: ''
+                        title: ''
                     },
                     closeDialog: closeConversationDialog,
                     addConversation: addConversation

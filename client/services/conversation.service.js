@@ -13,6 +13,7 @@
             // unlikePost: unlikePost,
             addConversation: addConversation,
             getUserConversations: getUserConversations,
+            getConversationById: getConversationById
         };
 
         function addConversation(conversationInput) {
@@ -21,6 +22,13 @@
 
         function getUserConversations() {
             return $http.get('/api/conversations/')
+                .then(function(response) {
+                    return response.data;
+                });
+        }
+
+        function getConversationById(id) {
+            return $http.get('/api/conversations/' + id)
                 .then(function(response) {
                     return response.data;
                 });

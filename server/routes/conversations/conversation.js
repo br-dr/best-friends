@@ -4,12 +4,14 @@ const express = require('express');
 const router = express.Router();
 
 const Conversation = require('./../../conversation');
+const Message = require('./../../message');
 
 router
-    .param('id', resolveConversation);
-    // .post('/:id/like-post', likePost)
-    // .post('/:id/unlike-post', unlikePost)
-    // .delete('/:id', deletePost);
+    .param('id', resolveConversation)
+    .get('/:id', getConversation)
+    .get('/:id/messages', getMessages)
+    .post('/:id/add-message', addMessage)
+
 
 module.exports = router;
 
@@ -26,48 +28,39 @@ function resolveConversation(req, res, next, id) {
         });
 }
 
+function getMessages(req, res) {
+    Message.find({ conversation: req.conversation._id })
+        .populate('conversation')
+        .populate('poster')
+        .then((messages) => {
+            return res.json(messages);
+        })
+        .catch((err) => {
+            return res.sendstatus(403);
+        });
+}
 
-// function likePost(req, res) {
-//     req.post.likedBy.push(req.user._id);
+function getConversation(req, res) {
+    res.json(req.conversation);
+}
 
-//     req.post.save()
-//         .then((post) => {
-//             return res.json(post);
-//         })
-//         .catch((err) => {
-//             res.sendStatus(403);
-//         });
-// }
+function addMessage(req, res) {
+    var newMessage = new Message();
 
-// function unlikePost(req, res) {
-//     const index = req.post.likedBy.indexOf(req.user._id);
+    newMessage.content = req.body.content;
+    newMessage.poster = req.user._id;
+    newMessage.conversation = req.conversation._id;
 
-//     if (index > -1) {
-//         req.post.likedBy.splice(index, 1);
-//     }
+    newMessage.save()
+        .then((message) => {
+            var path = [{ path: 'conversation' }, { path: 'poster' }];
 
-//     req.post.save()
-//         .then((post) => {
-//             return res.json(post);
-//         })
-//         .catch((err) => {
-//             res.sendStatus(403);
-//         });
-// }
-
-// function deletePost(req, res) {
-//     var isOwner = req.post.owner.equals(req.user._id);
-//     var isCreator = req.post.creator.equals(req.user._id);
-
-//     if (!(isOwner || isCreator)) {
-//         return res.sendStatus(403);
-//     }
-
-//     req.post.remove((err) => {
-//         if (err) {
-//             return res.sendStatus(400);
-//         }
-
-//         res.sendStatus(200);
-//     });
-// }
+            return Message.populate(message, path);
+        })
+        .then((populatedMessage) => {
+            return res.json(populatedMessage);
+        })
+        .catch((err) => {
+            res.status(400).json(err);
+        });
+}

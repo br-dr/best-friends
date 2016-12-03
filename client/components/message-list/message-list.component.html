@@ -1,0 +1,16 @@
+<md-content class="md-whiteframe-z1">
+        <button class="md-raised md-accent md-button md-ink-ripple" ng-click="$ctrl.showMessageDialog()">Fast reply</button>
+
+        <div layout="row">
+            <md-list>
+                <md-list-item ng-repeat="message in $ctrl.messages | orderBy: '-createdAt'">
+                    <message
+                        message="message"
+                        current-user="$ctrl.currentUser"
+                    ></message>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-list>
+        </div>
+    
+</md-content>

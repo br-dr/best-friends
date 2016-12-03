@@ -1,0 +1,9 @@
+<div class="md-list-item-text" layout="column">
+    <div class="message-content" layout="row">
+        <p>{{$ctrl.message.content}}</p>
+    </div>
+    <div layout="row" >
+        <span flex></span>
+        <p>&nbsp;{{$ctrl.message.poster.name}} {{$ctrl.message.createdAt | date:'@ h:mma'}}</p>
+    </div>
+</div>

@@ -5,18 +5,18 @@ var modelNames = require('./model-names');
 
 var Schema = mongoose.Schema;
 
-var conversationSchema = new Schema({
-    title: String,
-    creator: {
+var messageSchema = new Schema({
+    content: String,
+    poster: {
         type: Schema.Types.ObjectId,
         ref: modelNames.USER
     },
-    conversationParticipants: [{
+    conversation: {
         type: Schema.Types.ObjectId,
-        ref: modelNames.USER
-    }],
+        ref: modelNames.CONVERSATION
+    },
 }, {
     timestamps: true
 });
 
-module.exports = mongoose.model(modelNames.CONVERSATION, conversationSchema);
+module.exports = mongoose.model(modelNames.MESSAGE, messageSchema);

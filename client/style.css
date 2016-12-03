@@ -192,3 +192,9 @@
 [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
+
+.message-content {
+    font-size: 16px;
+    white-space: pre-line;
+}
+

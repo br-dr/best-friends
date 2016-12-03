@@ -6,5 +6,6 @@ module.exports = {
     VISIT: 'Visit',
     EVENT: 'Event',
     EVENT_COMMENT: 'Comment',
-    CONVERSATION: 'Conversation'
+    CONVERSATION: 'Conversation',
+    MESSAGE: 'Message'
 };
