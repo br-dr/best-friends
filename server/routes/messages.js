@@ -1,12 +1,10 @@
-'use strict';
-
 const express = require('express');
 const router = express.Router();
 
 const Message = require('./../message');
 
 router
-    .param('id', resolveMessage)
+    .param('id', resolveMessage);
     // .delete('/:id', deleteMessage);
 
 module.exports = router;

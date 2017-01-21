@@ -1,6 +1,4 @@
 (function() {
-    'use strict';
-
     angular.module('app')
         .component('eventButtons', {
             templateUrl: '/components/event-buttons/' +

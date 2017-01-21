@@ -1,5 +1,3 @@
-'use strict';
-
 var GoogleStrategy = require('passport-google-oauth2').Strategy;
 
 var port = require('./port');

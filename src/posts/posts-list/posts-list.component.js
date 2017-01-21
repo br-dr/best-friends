@@ -24,7 +24,8 @@
 //                 controller: DialogController,
 //                 // controllerAs: 'dialogCtrl',
 //                 controllerAs: '$ctrl',
-//                 templateUrl: '/posts/posts-list/new-post-dialog.component.html',
+//                 templateUrl: '/posts/posts-list/' +
+//'new-post-dialog.component.html',
 //                 clickOutsideToClose: true,
 //             });
 

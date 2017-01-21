@@ -1,6 +1,4 @@
 (function() {
-    'use strict';
-
     angular.module('app')
         .component('message', {
             templateUrl: '/components/message/message.component.html',

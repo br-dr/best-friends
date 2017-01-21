@@ -1,6 +1,5 @@
-'use strict';
-
 const express = require('express');
+
 const profile = require('./profile');
 const user = require('./user');
 const users = require('./users');
@@ -9,8 +8,6 @@ const events = require('./events');
 const comments = require('./comments');
 const conversations = require('./conversations');
 const messages = require('./messages');
-
-
 
 const router = express.Router();
 

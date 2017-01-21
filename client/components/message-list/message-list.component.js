@@ -1,6 +1,4 @@
 (function() {
-    'use strict';
-
     angular.module('app')
         .component('messageList', {
             templateUrl: '/components/message-list/message-list.component.html',
@@ -31,7 +29,8 @@
             $mdDialog.show({
                 controller: MessageDialogController,
                 controllerAs: 'messageDialogCtrl',
-                templateUrl: '/components/message-list/new-message-dialog.tmpl.html',
+                templateUrl: '/components/message-list/' +
+                    'new-message-dialog.tmpl.html',
                 clickOutsideToClose: true,
             });
 
@@ -51,7 +50,9 @@
                 }
 
                 function addMessage() {
-                    MessageService.addMessage(vm.conversation._id, dialogVm.messageInput)
+                    var input = dialogVm.messageInput;
+
+                    MessageService.addMessage(vm.conversation._id, input)
                         .then(function(response) {
                             vm.messages.push(response.data);
                         }).catch(function() {

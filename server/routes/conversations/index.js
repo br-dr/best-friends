@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const Conversation = require('./../../conversation');
 const conversation = require('./conversation');

@@ -1,9 +1,8 @@
 (function() {
-    'use strict';
-
     angular.module('app')
         .component('conversationList', {
-            templateUrl: '/components/conversation-list/conversation-list.component.html',
+            templateUrl: '/components/conversation-list/' +
+                'conversation-list.component.html',
             controller: ConversationListController,
             bindings: {
                 conversations: '=',
@@ -34,7 +33,8 @@
             $mdDialog.show({
                 controller: ConversationDialogController,
                 controllerAs: 'conversationDialogCtrl',
-                templateUrl: '/components/conversation-list/new-conversation-dialog.tmpl.html',
+                templateUrl: '/components/conversation-list/' +
+                    'new-conversation-dialog.tmpl.html',
                 clickOutsideToClose: true,
             });
 
@@ -54,7 +54,8 @@
                 }
 
                 function addConversation() {
-                    ConversationService.addConversation(dialogVm.conversationInput)
+                    var input = dialogVm.conversationInput;
+                    ConversationService.addConversation(input)
                         .then(function(response) {
                             vm.conversations.push(response.data);
                         })

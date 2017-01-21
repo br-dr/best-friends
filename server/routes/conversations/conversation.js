@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const router = express.Router();
 
@@ -10,7 +8,7 @@ router
     .param('id', resolveConversation)
     .get('/:id', getConversation)
     .get('/:id/messages', getMessages)
-    .post('/:id/add-message', addMessage)
+    .post('/:id/add-message', addMessage);
 
 
 module.exports = router;

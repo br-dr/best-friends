@@ -1,6 +1,4 @@
 (function() {
-    'use strict';
-
     angular.module('app')
         .component('postsList', {
             templateUrl: '/components/posts-list/posts-list.component.html',
@@ -12,9 +10,19 @@
             }
         });
 
-    PostsListController.$inject = ['PostService', 'toastr', '$mdDialog', '$mdMedia'];
+    PostsListController.$inject = [
+        'PostService',
+        'toastr',
+        '$mdDialog',
+        '$mdMedia'
+    ];
 
-    function PostsListController(PostService, toastr, $mdDialog, $mdMedia) {
+    function PostsListController(
+        PostService,
+        toastr,
+        $mdDialog,
+        $mdMedia
+    ) {
         var vm = this;
 
         angular.extend(vm, {
