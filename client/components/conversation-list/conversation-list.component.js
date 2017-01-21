@@ -45,7 +45,7 @@
                     conversationInput: {
                         title: ''
                     },
-                    closeDialog: closeConversationDialog,
+                    closeConversationDialog: closeConversationDialog,
                     addConversation: addConversation
                 });
 
@@ -67,58 +67,5 @@
                 }
             }
         }
-
-        // function deletePost(id) {
-        //     PostService.deletePost(id)
-        //         .then(function(response) {
-        //             var indexToRemove = -1;
-
-        //             for (var i = 0; i < vm.posts.length; i++) {
-        //                 if (vm.posts[i]._id === id) {
-        //                     indexToRemove = i;
-        //                 }
-        //             }
-
-        //             if (indexToRemove >= 0) {
-        //                 vm.posts.splice(indexToRemove, 1);
-        //             }
-        //         });
-        // }
-
-        // function likePost(post) {
-        //     PostService.likePost(post._id)
-        //         .then(function(response) {
-        //             return angular.copy(response.data, post);
-        //         })
-        //         .catch(function() {
-        //             toastr.error('Server error', 'Can\'t like post');
-        //         });
-        // }
-
-        // function unlikePost(post) {
-        //     PostService.unlikePost(post._id)
-        //         .then(function(response) {
-        //             return angular.copy(response.data, post);
-        //         })
-        //         .catch(function() {
-        //             toastr.error('Server error', 'Can\'t unlike post');
-        //         });
-        // }
-
-        // function likeOrUnlike(post) {
-        //     var index = post.likedBy.indexOf(vm.creator._id);
-
-        //     if (index === -1) {
-        //         likePost(post);
-        //     } else {
-        //         unlikePost(post);
-        //     }
-        // }
-
-        // function isLiked(post) {
-        //     var index = post.likedBy.indexOf(vm.creator._id);
-
-        //     return index !== -1;
-        // }
     }
 })();

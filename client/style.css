@@ -1,9 +1,10 @@
+
 .navbar {
-	margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 .jumbotron {
-	margin: 0px;
+    margin: 0px;
 }
 
 .login-form-background {
@@ -196,5 +197,10 @@
 .message-content {
     font-size: 16px;
     white-space: pre-line;
+}
+
+.menu-item a:hover {
+    text-decoration: none;
+    color: white
 }
 
