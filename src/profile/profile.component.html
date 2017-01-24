@@ -1,0 +1,73 @@
+<div layout="row" layout-xs="column" layout-sm="column" ng-cloak>
+    <div flex class="profile-page-content">
+            <div class="user-page-avatar-item">
+                <img 
+                    ng-src="{{$ctrl.currentUser.avatar || '/images/avatar.jpeg'}}" 
+                    class="img-circle user-page-avatar" 
+                    alt="Avatar" 
+                    width="300" 
+                    height="300" 
+                />
+            </div>
+            <p 
+                class="text-muted" 
+                ng-hide="$ctrl.shouldShowInput" 
+                ng-click="$ctrl.shouldShowInput = true"
+            >
+                Change avatar
+            </p>
+
+
+            <div 
+                class="form-inline" 
+                ng-show="$ctrl.shouldShowInput" 
+                ng-class="{'has-error': $ctrl.errorUrl}"
+            >
+                <input 
+                    class="form-control" 
+                    ng-model="$ctrl.input.url" 
+                    placeholder="Enter avatar url" 
+                    ng-change="$ctrl.errorUrl = false"
+                    ng-keypress="$ctrl.changeAvatarByKeypress($event)" 
+                />
+                <button 
+                    class="btn btn-success" 
+                    ng-click="$ctrl.changeAvatar()"
+                >
+                    Save
+                </button>
+                <button 
+                    class="btn btn-default" 
+                    ng-click="$ctrl.cancelUrlInput()"
+                >
+                    Cancel
+                </button>
+            </div>
+            <h2 class="well">{{$ctrl.currentUser.name}}</h2>
+            <follow-count 
+                class="well well-sm block" 
+                followers="$ctrl.followers.length" 
+                following="$ctrl.currentUser.following.length"
+                user-id="$ctrl.currentUser._id"
+            ></follow-count>
+            <p class="well well-sm">Birth Date:</p>
+            <p class="well well-sm">Location:</p>
+    </div>
+
+    <div flex class="profile-page-content">
+
+            <posts-list
+                ng-cloak
+                posts="$ctrl.posts"
+                owner="$ctrl.currentUser"
+                creator="$ctrl.currentUser"
+            />
+    </div>
+    
+    <div flex class="profile-page-content">
+            <h2>Column</h2>
+            <div class="well well-sm">
+               <p>hello</p>
+            </div>
+    </div>
+</div>

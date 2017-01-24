@@ -1,6 +1,4 @@
 (function() {
-    'use strict';
-
     angular.module('app')
         .service('UserService', ['$http', function($http) {
             var vm = this;

@@ -1,6 +1,4 @@
 (function() {
-    'use strict';
-
     angular.module('app')
         .component('userList', {
             templateUrl: '/components/user-list/user-list.component.html',

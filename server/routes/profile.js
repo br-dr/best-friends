@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const validUrl = require('valid-url');
 const User = require('./../user');

@@ -1,7 +1,6 @@
-<div class="container">
-    <div class="row">
+<div layout="row" layout-xs="column" layout-sm="column" ng-cloak>
 
-        <div class="col-md-4">
+        <div flex class="profile-page-content">
             <div class="user-page-avatar-item">
                 <img 
                     ng-src="{{userCtrl.user.avatar || '/images/avatar.jpeg'}}" 
@@ -22,7 +21,7 @@
             <p class="well well-sm">Location:</p>
         </div>
 
-        <div class="col-md-6">
+        <div flex class="profile-page-content">
              <posts-list
                 posts="userCtrl.posts" 
                 owner="userCtrl.user"
@@ -31,7 +30,7 @@
              </posts-list>
         </div>
 
-        <div class="col-md-2">
+        <div flex class="profile-page-content">
             <h2>Column</h2>
             <div class="well well-sm">
                 <p>Column Content</p>
@@ -47,13 +46,4 @@
             </div>
         </div>
 
-    </div>
 </div>
-
-<footer>
-    <div class="jumbotron text-center">
-        <a class="up-arrow" href="#">
-            <span class="glyphicon glyphicon-chevron-up"></span>
-        </a>
-    </div>
-</footer>

@@ -1,33 +1,122 @@
-<nav class="navbar navbar-default" role="navigation" ng-controller="NavbarController as navbarCtrl">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button 
-                type="button" 
-                class="navbar-toggle" 
-                ng-click="navbarCtrl.isNavCollapsed = !navbarCtrl.isNavCollapsed"
-            >
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">BeFriends</a>
-        </div>
-        <div 
-            class="collapse navbar-collapse" 
-            uib-collapse="navbarCtrl.isNavCollapsed"
-            ng-click="!navbarCtrl.isNavCollapsed && (navbarCtrl.isNavCollapsed = !navbarCtrl.isNavCollapsed)"
-        >
-            <ul class="nav navbar-nav">
-                <li><a ui-sref="app.profile"> Profile</a></li>
-                <li><a ui-sref="app.search-users">Search Users</a></li>
-                <li><a ui-sref="app.visit-stats">Visit stats</a></li>
-                <li><a ui-sref="app.events.upcoming">Events</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/logout"> LogOut</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+        <!--md-is-locked-open="$mdMedia('gt-md')"-->
+        <!--md-theme="{{navbarCtrl.theme}}" md-theme-watch="true"-->
+<md-content layout="row" ng-controller="NavbarController as navbarCtrl" >
+    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2 md-sidenav-list" md-component-id="left">
+        <md-toolbar class="md-theme-indigo">
+            <h2 class="md-toolbar-tools">Menu</h2>
+        </md-toolbar>
+        <md-list class="menu-list">
+            <md-item class="menu-item">
+                <a ng-click="navbarCtrl.toggleSidenav()" ui-sref="app.profile">
+                    <md-item-content layout="row" layout-align="start center">
+                        <div class="inset" >
+                            <span >
+                                <ng-md-icon icon="person" md-colors="{fill:'accent'}"></ng-md-icon>
+                            </span>
+                        </div>
+                        <div class="inset" >
+                            Profile
+                        </div>
+                    </md-item-content>
+                </a>
+            </md-item>
+            <md-item class="menu-item">
+                <a ng-click="navbarCtrl.toggleSidenav()" ui-sref="app.visit-stats">
+                    <md-item-content layout="row" layout-align="start center">
+                        <div class="inset">
+                            <ng-md-icon icon="visibility" md-colors="{fill:'accent'}"></ng-md-icon>
+                        </div>
+                        <div class="inset">
+                            Profile visits
+                        </div>
+                    </md-item-content>
+                </a>
+            </md-item>
+            <md-item class="menu-item">
+                <a ng-click="navbarCtrl.toggleSidenav()" ui-sref="app.search-users">
+                    <md-item-content layout="row" layout-align="start center">
+                        <div class="inset">
+                            <ng-md-icon icon="search" md-colors="{fill:'accent'}"></ng-md-icon>
+                        </div>
+                        <div class="inset">
+                            Search users
+                        </div>
+                    </md-item-content>
+                </a>
+            </md-item>
+            <md-item class="menu-item">
+                <a ng-click="navbarCtrl.toggleSidenav()" ui-sref="app.events.upcoming">
+                    <md-item-content layout="row" layout-align="start center">
+                        <div class="inset">
+                            <ng-md-icon icon="event_note" md-colors="{fill:'accent'}"></ng-md-icon>
+                        </div>
+                        <div class="inset">
+                            Events
+                        </div>
+                    </md-item-content>
+                </a>
+            </md-item>
+            <md-divider></md-divider>
+            <md-subheader>other</md-subheader>
+            <md-item class="menu-item">
+                    <a ng-click="navbarCtrl.toggleSidenav()" ui-sref="app.conversations">
+                        <md-item-content layout="row" layout-align="start center">
+                            <div class="inset">
+                                <ng-md-icon icon="chat_bubble" md-colors="{fill:'accent'}"></ng-md-icon>
+                            </div>
+                            <div class="inset">
+                                Conversations
+                            </div>
+                        <md-item-content>
+                    </a>
+            </md-item>
+        </md-list>
+    </md-sidenav>
 
-<div ui-view></div>
+    <div layout="column" flex role="main">
+        <md-toolbar layout="row">
+            <div class="md-toolbar-tools">
+                <md-button ng-click="navbarCtrl.toggleSidenav()" aria-label="Menu">
+                    <md-icon md-font-library="material-icons">menu</md-icon>
+                    <!--<ng-md-icon icon="menu"></ng-md-icon>-->
+                </md-button>
+                <h3>
+                    Be friends!
+                </h3>
+                <!--<md-button class="md-raised md-default" ng-click="navbarCtrl.changeTheme()">
+                    Toggle theme
+                </md-button>-->
+                <span flex></span>
+
+                <a href="/logout" >
+                    <md-tooltip>
+                        Log Out
+                     </md-tooltip>
+                    <i class="material-icons">exit_to_app</i>
+                </a>
+            </div>
+        </md-toolbar>
+
+        <div ui-view></div>
+        <!--<md-content layout="column" flex ui-view></md-content>-->
+    </div>
+</md-content>
+
+
+
+
+    <!--<div class="md-toolbar-tools">
+          <md-icon md-font-library="material-icons">menu</md-icon>
+      <span>Be Friends</span>
+
+       fill up the space between left and right area 
+      <span flex></span>
+      <md-button>
+        Right Bar Button
+      </md-button>
+
+      <md-button>
+        Right Bar Button
+          
+      </md-button>
+    </div>-->

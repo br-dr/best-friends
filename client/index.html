@@ -3,13 +3,15 @@
 <head>
   <title>Befriends</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.1/angular-material.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   <link rel="stylesheet" href="//unpkg.com/angular-toastr/dist/angular-toastr.css" />
   <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.19.4/select.css" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
+  <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body ng-app="app">
@@ -20,8 +22,10 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script> 
     <script src="//unpkg.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.1.4/ui-bootstrap-tpls.js"></script>
     <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
     <script src="//code.highcharts.com/highcharts.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angucomplete-alt/2.5.0/angucomplete-alt.min.js"></script>
@@ -33,6 +37,12 @@
     <script src="/components/post/post.component.js"></script>
     <script src="/components/event/event.controller.js"></script>
     <script src="/components/posts-list/posts-list.component.js"></script>
+    <script src="/components/conversation-list/conversation-list.component.js"></script>
+    <script src="/components/conversations/conversations.controller.js"></script>
+    <script src="/components/conversation/conversation.controller.js"></script>
+    <script src="/components/message/message.component.js"></script>
+    <script src="/components/message-list/message-list.component.js"></script>
+    
     <script src="/components/comment/comment.component.js"></script>
     <script src="/components/comment-list/comment-list.component.js"></script>
     <script src="/services/user.service.js"></script>
@@ -40,6 +50,10 @@
     <script src="/services/visit.service.js"></script>
     <script src="/services/event.service.js"></script>
     <script src="/services/comment.service.js"></script>
+    <script src="/services/conversation.service.js"></script>
+    <script src="/services/message.service.js"></script>
+    
+    
     <script src="/components/follow-count/follow-count.component.js"></script>
     <script src="/components/following-list/following-list.controller.js"></script>
     <script src="/components/followers-list/followers-list.controller.js"></script>
@@ -56,5 +70,6 @@
     <script src="/components/events/archived-events.controller.js"></script>
     <script src="/components/events/upcoming-events.controller.js"></script>
     <script src="/components/event-buttons/event-buttons.component.js"></script>
+    
 </body>
 </html>

@@ -1,0 +1,13 @@
+<div class="container">
+    <h4>Choose period to check visit stats</h4>
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default" ng-click="$ctrl.getVisits('day')" ng-class="{active: $ctrl.period === 'day'}">Day</button>
+        <button type="button" class="btn btn-default" ng-click="$ctrl.getVisits('week')" ng-class="{active: $ctrl.period === 'week'}">Week</button>
+        <button type="button" class="btn btn-default" ng-click="$ctrl.getVisits('month')" ng-class="{active: $ctrl.period === 'month'}">Month</button>
+    </div>
+    <div 
+        id="chart-container" 
+        style="min-width: 80%; height: 400px; margin: 0 auto"
+        ng-show="$ctrl.areVisitsShown"
+    >Placeholder for chart</div>
+</div>

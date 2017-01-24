@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const Event = require('./../../event');
 const event = require('./event');

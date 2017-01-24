@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
@@ -13,6 +11,7 @@ const routes = require('./routes');
 
 const app = express();
 
+// app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.static(path.join(__dirname, '..', 'client')));
 app.use(cookieParser());
 app.use(bodyParser.json());

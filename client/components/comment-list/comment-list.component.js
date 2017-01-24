@@ -1,6 +1,4 @@
 (function() {
-    'use strict';
-
     angular.module('app')
         .component('commentList', {
             templateUrl: '/components/comment-list/comment-list.component.html',

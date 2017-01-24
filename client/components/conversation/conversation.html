@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Created by: {{conversationCtrl.conversation.creator}}</h3>
+            <h3>Title: {{conversationCtrl.conversation.title}}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <message-list 
+                messages="conversationCtrl.messages" 
+                conversation="conversationCtrl.conversation" 
+                current-user="conversationCtrl.currentUser"
+            ></message-list>
+        </div>
+    </div>
+</div>

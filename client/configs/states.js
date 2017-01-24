@@ -1,6 +1,4 @@
 (function() {
-    'use strict';
-
     angular
         .module('app')
         .config(function($stateProvider, $urlRouterProvider) {
@@ -147,6 +145,23 @@
                         event: resolveEventById,
                         comments: resolveEventComments
                     }
+                })
+                .state('app.conversations', {
+                    url: '/conversations',
+                    templateUrl: '/components/conversations/conversations.html',
+                    controller: 'ConversationsController as conversationsCtrl',
+                    resolve: {
+                        conversations: resolveUserConversations,
+                    }
+                })
+                .state('app.conversation', {
+                    url: '/conversation/:id',
+                    templateUrl: '/components/conversation/conversation.html',
+                    controller: 'ConversationController as conversationCtrl',
+                    resolve: {
+                        conversation: resolveConversationById,
+                        messages: resolveMessages
+                    }
                 });
         });
 
@@ -211,5 +226,20 @@
     resolveEventComments.$inject = ['CommentService', '$stateParams'];
     function resolveEventComments(CommentService, $stateParams) {
         return CommentService.getEventComments($stateParams.id);
+    }
+
+    resolveUserConversations.$inject = ['ConversationService'];
+    function resolveUserConversations(ConversationService) {
+        return ConversationService.getUserConversations();
+    }
+
+    resolveMessages.$inject = ['MessageService', '$stateParams'];
+    function resolveMessages(MessageService, $stateParams) {
+        return MessageService.getMessages($stateParams.id);
+    }
+
+    resolveConversationById.$inject = ['$stateParams', 'ConversationService'];
+    function resolveConversationById($stateParams, ConversationService) {
+        return ConversationService.getConversationById($stateParams.id);
     }
 })();

@@ -1,6 +1,4 @@
 (function() {
-    'use strict';
-
     angular.module('app')
         .component('postsList', {
             templateUrl: '/components/posts-list/posts-list.component.html',
@@ -12,40 +10,67 @@
             }
         });
 
-    PostsListController.$inject = ['PostService', 'toastr'];
+    PostsListController.$inject = [
+        'PostService',
+        'toastr',
+        '$mdDialog',
+        '$mdMedia'
+    ];
 
-    function PostsListController(PostService, toastr) {
+    function PostsListController(
+        PostService,
+        toastr,
+        $mdDialog,
+        $mdMedia
+    ) {
         var vm = this;
 
         angular.extend(vm, {
-            shouldShowPostForm: false,
-            postInput: {
-                postContent: ''
-            },
-            cancelPostInput: cancelPostInput,
-            addPost: addPost,
             deletePost: deletePost,
             likeOrUnlike: likeOrUnlike,
-            isLiked: isLiked
+            isLiked: isLiked,
+            showDialog: showDialog
         });
 
-        function cancelPostInput() {
-            vm.shouldShowPostForm = false;
-            vm.postInput.postContent = '';
-            vm.postInput.postTitle = '';
-        }
+        function showDialog($event) {
+            $mdDialog.show({
+                controller: DialogController,
+                controllerAs: 'dialogCtrl',
+                templateUrl: '/components/posts-list/new-post-dialog.tmpl.html',
+                clickOutsideToClose: true,
+                // parent: angular.element(document.body),
+                // bindToController: true
+            });
 
-        function addPost() {
-            PostService.addPost(vm.owner._id, vm.postInput)
-                .then(function(response) {
-                    vm.posts.push(response.data);
-                    vm.cancelPostInput();
-                }).catch(function() {
-                    toastr.error(
-                        'This user is not following you...',
-                        'You can\'t post here!'
-                    );
+            function DialogController($mdDialog) {
+                var dialogVm = this;
+
+                angular.extend(dialogVm, {
+                    postInput: {
+                        postContent: ''
+                    },
+                    closeDialog: closeDialog,
+                    addPost: addPost
                 });
+
+                function closeDialog() {
+                    $mdDialog.hide();
+                }
+
+                function addPost() {
+                    PostService.addPost(vm.owner._id, dialogVm.postInput)
+                        .then(function(response) {
+                            vm.posts.push(response.data);
+                        })
+                        .catch(function() {
+                            toastr.error(
+                                'This user is not following you...',
+                                'You can\'t post here!'
+                            );
+                        });
+                    closeDialog();
+                }
+            }
         }
 
         function deletePost(id) {

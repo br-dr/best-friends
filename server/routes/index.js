@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 const express = require('express');
 
@@ -14,5 +12,6 @@ module.exports = express.Router()
     })
     .use('/api', api)
     .all('*', (req, res) => {
+        // res.sendfile(path.join(__dirname, '..', '..', 'public/index.html'));
         res.sendfile(path.join(__dirname, '..', '..', 'client/index.html'));
     });

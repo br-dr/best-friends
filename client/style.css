@@ -1,9 +1,10 @@
+
 .navbar {
-	margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 .jumbotron {
-	margin: 0px;
+    margin: 0px;
 }
 
 .login-form-background {
@@ -60,11 +61,21 @@
 }
 
 .liked {
-    color: #14b814;
+    fill: #5C6BC0;
     cursor: pointer;
 }
 
 .unliked {
+    fill: #8C9EFF;
+    cursor: pointer;
+}
+
+.likedcomment {
+    color: #14b814;
+    cursor: pointer;
+}
+
+.unlikedcomment {
     color: #577557;
     cursor: pointer;
 }
@@ -153,5 +164,43 @@
   }
 
 .post-content {
-    word-wrap: break-word
+    white-space: pre-line;
 }
+
+.profile-page-content {
+    margin-left: 13px;
+    margin-top: 13px
+}
+
+.delete-post {
+    fill: #9E9E9E
+}
+
+.post-buttons {
+    height: 30px;
+    margin: 0;
+    padding: 0
+}
+
+.menu-item :hover{
+    background-color: #9FA8DA
+}
+
+.menu-list{
+    padding: 0px
+}
+
+[ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.message-content {
+    font-size: 16px;
+    white-space: pre-line;
+}
+
+.menu-item a:hover {
+    text-decoration: none;
+    color: white
+}
+

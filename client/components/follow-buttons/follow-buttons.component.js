@@ -1,6 +1,4 @@
 (function() {
-    'use strict';
-
     angular.module('app')
         .component('followButtons', {
             templateUrl: '/components/follow-buttons/' +

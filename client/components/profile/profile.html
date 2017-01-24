@@ -1,6 +1,5 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-4">
+<div layout="row" layout-xs="column" layout-sm="column" ng-cloak>
+    <div flex class="profile-page-content">
             <div class="user-page-avatar-item">
                 <img 
                     ng-src="{{profileCtrl.currentUser.avatar || '/images/avatar.jpeg'}}" 
@@ -10,7 +9,6 @@
                     height="300" 
                 />
             </div>
-            
             <p 
                 class="text-muted" 
                 ng-hide="profileCtrl.shouldShowInput" 
@@ -18,6 +16,7 @@
             >
                 Change avatar
             </p>
+
 
             <div 
                 class="form-inline" 
@@ -44,7 +43,6 @@
                     Cancel
                 </button>
             </div>
-
             <h2 class="well">{{profileCtrl.currentUser.name}}</h2>
             <follow-count 
                 class="well well-sm block" 
@@ -54,30 +52,31 @@
             ></follow-count>
             <p class="well well-sm">Birth Date:</p>
             <p class="well well-sm">Location:</p>
-        </div>
+    </div>
 
-        <div class="col-md-5">
-            <posts-list 
+    <div flex class="profile-page-content">
+
+            <posts-list
+                ng-cloak
                 posts="profileCtrl.posts"
                 owner="profileCtrl.currentUser"
                 creator="profileCtrl.currentUser"
             />
-        </div>
-
-        <div class="col-md-3">
+    </div>
+    
+    <div flex class="profile-page-content">
             <h2>Column</h2>
             <div class="well well-sm">
                <p>hello</p>
             </div>
-        </div>
-
     </div>
 </div>
 
-<footer>
-    <div class="jumbotron text-center">
-        <a class="up-arrow" href="#">
-            <span class="glyphicon glyphicon-chevron-up"></span>
-        </a>
-    </div>
-</footer>
+
+    <!--<footer>
+        <div class="jumbotron text-center">
+            <a class="up-arrow" href="#">
+                <span class="glyphicon glyphicon-chevron-up"></span>
+            </a>
+        </div>
+    </footer>-->
